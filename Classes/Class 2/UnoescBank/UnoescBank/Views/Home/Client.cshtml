@@ -1,28 +1,26 @@
-﻿@model ICollection<EFTest.Models.Student>
+﻿@model ICollection<UnoescBank.Models.Client>
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Tittle"] = "Client";
 }
 
 <div class="text-center">
-    <h1 class="display-4">@Model.Count students</h1>
-    
+    <h1 class="display-4">@Model.Count clients</h1>
+
     <table class="table table-responsive table-hover table-stripped">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Last Name</th>
             </tr>
         </thead>
 
         <tbody>
-            @foreach(var s in Model)
+            @foreach (var c in Model)
             {
                 <tr>
-                    <td>@s.ID</td>
-                    <td>@s.FirstMidName</td>
-                    <td>@s.LastName</td>
+                    <td>@c.ClientId</td>
+                    <td>@c.ClientName</td>
                 </tr>
             }
         </tbody>

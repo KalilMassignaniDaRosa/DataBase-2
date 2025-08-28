@@ -10,7 +10,9 @@ builder.Services.AddControllersWithViews();
 // Adicionando o contexto
 builder.Services.AddDbContext<SchoolContext>(options =>
                 options.UseSqlServer(
-                    builder.Configuration.GetConnectionString("DefaultConnection")));
+                    builder.Configuration.GetConnectionString("DefaultConnection")
+                    )
+                );
 
 var app = builder.Build();
 

@@ -1,0 +1,39 @@
+﻿@model ICollection<UnoescBank.Models.Account>
+
+@{
+    ViewData["Title"] = "Account";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Model.Count accounts</h1>
+
+    <table class="table table-responsive table-hover table-stripped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Number</th>
+                <th>Owner(s)</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <td>@a.AccountId</td>
+                    <td>@a.AccountNumber</td>
+                    <td>
+                        @if (a.ClientAccounts != null && a.ClientAccounts.Count > 0)
+                        {
+                            @string.Join(", ", a.ClientAccounts.Select(ca => ca.Client!.ClientName))
+                        }
+                        else
+                        {
+                            <span class="text-muted">No owner</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

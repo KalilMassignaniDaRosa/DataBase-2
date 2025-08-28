@@ -3,20 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 2\\UnoescBank\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5A483903-02AC-44CE-ADC7-3027CB0464F6}|UnoescBank\\UnoescBank.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 2\\unoescbank\\unoescbank\\models\\clientaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A483903-02AC-44CE-ADC7-3027CB0464F6}|UnoescBank\\UnoescBank.csproj|solutionrelative:unoescbank\\models\\clientaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5A483903-02AC-44CE-ADC7-3027CB0464F6}|UnoescBank\\UnoescBank.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 2\\unoescbank\\unoescbank\\views\\home\\account.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5A483903-02AC-44CE-ADC7-3027CB0464F6}|UnoescBank\\UnoescBank.csproj|solutionrelative:unoescbank\\views\\home\\account.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5A483903-02AC-44CE-ADC7-3027CB0464F6}|UnoescBank\\UnoescBank.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 2\\unoescbank\\unoescbank\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A483903-02AC-44CE-ADC7-3027CB0464F6}|UnoescBank\\UnoescBank.csproj|solutionrelative:unoescbank\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A483903-02AC-44CE-ADC7-3027CB0464F6}|UnoescBank\\UnoescBank.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 2\\unoescbank\\unoescbank\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A483903-02AC-44CE-ADC7-3027CB0464F6}|UnoescBank\\UnoescBank.csproj|solutionrelative:unoescbank\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A483903-02AC-44CE-ADC7-3027CB0464F6}|UnoescBank\\UnoescBank.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 2\\unoescbank\\unoescbank\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{5A483903-02AC-44CE-ADC7-3027CB0464F6}|UnoescBank\\UnoescBank.csproj|solutionrelative:unoescbank\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{5A483903-02AC-44CE-ADC7-3027CB0464F6}|UnoescBank\\UnoescBank.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 2\\unoescbank\\unoescbank\\views\\home\\client.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5A483903-02AC-44CE-ADC7-3027CB0464F6}|UnoescBank\\UnoescBank.csproj|solutionrelative:unoescbank\\views\\home\\client.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,58 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ClientAccount.cs",
-              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 2\\UnoescBank\\UnoescBank\\Models\\ClientAccount.cs",
-              "RelativeDocumentMoniker": "UnoescBank\\Models\\ClientAccount.cs",
-              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 2\\UnoescBank\\UnoescBank\\Models\\ClientAccount.cs",
-              "RelativeToolTip": "UnoescBank\\Models\\ClientAccount.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-16T00:57:49.115Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ErrorViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 2\\UnoescBank\\UnoescBank\\Models\\ErrorViewModel.cs",
-              "RelativeDocumentMoniker": "UnoescBank\\Models\\ErrorViewModel.cs",
-              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 2\\UnoescBank\\UnoescBank\\Models\\ErrorViewModel.cs",
-              "RelativeToolTip": "UnoescBank\\Models\\ErrorViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-16T00:57:48.457Z",
+              "Title": "Client.cshtml",
+              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 2\\UnoescBank\\UnoescBank\\Views\\Home\\Client.cshtml",
+              "RelativeDocumentMoniker": "UnoescBank\\Views\\Home\\Client.cshtml",
+              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 2\\UnoescBank\\UnoescBank\\Views\\Home\\Client.cshtml",
+              "RelativeToolTip": "UnoescBank\\Views\\Home\\Client.cshtml",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAYwBsAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-28T22:58:21.531Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Client.cs",
-              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 2\\UnoescBank\\UnoescBank\\Models\\Client.cs",
-              "RelativeDocumentMoniker": "UnoescBank\\Models\\Client.cs",
-              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 2\\UnoescBank\\UnoescBank\\Models\\Client.cs",
-              "RelativeToolTip": "UnoescBank\\Models\\Client.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-16T00:57:42.988Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 2\\UnoescBank\\UnoescBank\\appsettings.json",
-              "RelativeDocumentMoniker": "UnoescBank\\appsettings.json",
-              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 2\\UnoescBank\\UnoescBank\\appsettings.json",
-              "RelativeToolTip": "UnoescBank\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-08-16T00:51:09.573Z",
+              "DocumentIndex": 0,
+              "Title": "Account.cshtml",
+              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 2\\UnoescBank\\UnoescBank\\Views\\Home\\Account.cshtml",
+              "RelativeDocumentMoniker": "UnoescBank\\Views\\Home\\Account.cshtml",
+              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 2\\UnoescBank\\UnoescBank\\Views\\Home\\Account.cshtml",
+              "RelativeToolTip": "UnoescBank\\Views\\Home\\Account.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-28T22:58:20.735Z",
               "EditorCaption": ""
             }
           ]

@@ -7,8 +7,6 @@ namespace UnoescBank.Models
         [Key]
         public int AccountId { get; set; }
         public int AccountNumber { get; set; }
-        public int ClientId { get; set; }
-
         public List<ClientAccount>? ClientAccounts { get; set; }
     }
 }
