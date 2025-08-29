@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UnoescBank")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+17fc32d21e977121160b05e7c2edd2a0e5fdd96e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5cb75ff749be32ee122804a165b6dfdb0c2571d3")]
 [assembly: System.Reflection.AssemblyProductAttribute("UnoescBank")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UnoescBank")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
