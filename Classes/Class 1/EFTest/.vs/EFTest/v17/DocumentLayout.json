@@ -51,8 +51,7 @@
               "RelativeToolTip": "EFTest\\Models\\Student.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-22T23:34:20.391Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-22T23:34:20.391Z"
             },
             {
               "$type": "Document",
@@ -64,8 +63,7 @@
               "RelativeToolTip": "EFTest\\Controllers\\HomeController.cs",
               "ViewState": "AgIAABMAAAAAAAAAAAAQwBsAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-22T23:27:11.75Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-22T23:27:11.75Z"
             },
             {
               "$type": "Document",
@@ -77,8 +75,7 @@
               "RelativeToolTip": "EFTest\\Views\\Home\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-08-22T23:17:21.443Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-22T23:17:21.443Z"
             }
           ]
         }

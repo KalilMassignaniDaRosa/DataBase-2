@@ -225,3 +225,4 @@ C:\Users\Kalil\Documents\Banco de Dados\DataBase-2\Classes\Class 2\UnoescBank\Un
 C:\Users\Kalil\Documents\Banco de Dados\DataBase-2\Classes\Class 2\UnoescBank\UnoescBank\obj\Debug\net9.0\UnoescBank.pdb
 C:\Users\Kalil\Documents\Banco de Dados\DataBase-2\Classes\Class 2\UnoescBank\UnoescBank\obj\Debug\net9.0\UnoescBank.genruntimeconfig.cache
 C:\Users\Kalil\Documents\Banco de Dados\DataBase-2\Classes\Class 2\UnoescBank\UnoescBank\obj\Debug\net9.0\ref\UnoescBank.dll
+C:\Users\Kalil\Documents\Banco de Dados\DataBase-2\Classes\Class 2\UnoescBank\UnoescBank\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
