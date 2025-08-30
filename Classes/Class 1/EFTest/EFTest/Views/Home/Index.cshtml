@@ -6,6 +6,8 @@
 
 <div class="text-center">
     <h1 class="display-4">@Model.Count students</h1>
+
+    <a asp-controller="Home" asp-action="Create">New</a>
     
     <table class="table table-responsive table-hover table-stripped">
         <thead>
@@ -13,6 +15,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Last Name</th>
+                <th>Delete</th>
             </tr>
         </thead>
 
@@ -23,6 +26,14 @@
                     <td>@s.ID</td>
                     <td>@s.FirstMidName</td>
                     <td>@s.LastName</td>
+                    <td>
+                        <form asp-controller="Home" asp-action="Delete" method="post">
+                            <input type="hidden" name="id" value="@s.ID" />
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                Delete
+                            </button> 
+                        </form>
+                    </td>
                 </tr>
             }
         </tbody>

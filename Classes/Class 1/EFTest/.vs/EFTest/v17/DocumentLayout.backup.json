@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C8E60A08-9781-49F9-8A15-C310153C527E}|EFTest\\EFTest.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 1\\eftest\\eftest\\repository\\istudentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C8E60A08-9781-49F9-8A15-C310153C527E}|EFTest\\EFTest.csproj|solutionrelative:eftest\\repository\\istudentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C8E60A08-9781-49F9-8A15-C310153C527E}|EFTest\\EFTest.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 1\\eftest\\eftest\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C8E60A08-9781-49F9-8A15-C310153C527E}|EFTest\\EFTest.csproj|solutionrelative:eftest\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C8E60A08-9781-49F9-8A15-C310153C527E}|EFTest\\EFTest.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 1\\eftest\\eftest\\repository\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C8E60A08-9781-49F9-8A15-C310153C527E}|EFTest\\EFTest.csproj|solutionrelative:eftest\\repository\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C8E60A08-9781-49F9-8A15-C310153C527E}|EFTest\\EFTest.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 1\\eftest\\eftest\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C8E60A08-9781-49F9-8A15-C310153C527E}|EFTest\\EFTest.csproj|solutionrelative:eftest\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C8E60A08-9781-49F9-8A15-C310153C527E}|EFTest\\EFTest.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 1\\eftest\\eftest\\views\\home\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C8E60A08-9781-49F9-8A15-C310153C527E}|EFTest\\EFTest.csproj|solutionrelative:eftest\\views\\home\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C8E60A08-9781-49F9-8A15-C310153C527E}|EFTest\\EFTest.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 1\\eftest\\eftest\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -26,58 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "EFTest\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "EFTest\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAxwBkAAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-29T23:32:05.047Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Program.cs",
-              "RelativeDocumentMoniker": "EFTest\\Program.cs",
-              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Program.cs",
-              "RelativeToolTip": "EFTest\\Program.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAUwBsAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-29T23:29:09.223Z",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "EFTest\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "EFTest\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAABUAAAAAAAAAAAAmwBoAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-30T00:34:39.245Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "StudentRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Repository\\StudentRepository.cs",
-              "RelativeDocumentMoniker": "EFTest\\Repository\\StudentRepository.cs",
-              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Repository\\StudentRepository.cs",
-              "RelativeToolTip": "EFTest\\Repository\\StudentRepository.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAkwAcAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-29T22:51:07.905Z",
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Views\\Home\\Create.cshtml",
+              "RelativeDocumentMoniker": "EFTest\\Views\\Home\\Create.cshtml",
+              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Views\\Home\\Create.cshtml",
+              "RelativeToolTip": "EFTest\\Views\\Home\\Create.cshtml",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-30T00:09:25.832Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "IStudentRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Repository\\IStudentRepository.cs",
-              "RelativeDocumentMoniker": "EFTest\\Repository\\IStudentRepository.cs",
-              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Repository\\IStudentRepository.cs",
-              "RelativeToolTip": "EFTest\\Repository\\IStudentRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAuAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "EFTest\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "EFTest\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAA0wDAAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-29T22:44:23.249Z",
+              "WhenOpened": "2025-08-29T23:32:05.047Z",
               "EditorCaption": ""
             }
           ]

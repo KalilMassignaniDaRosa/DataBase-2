@@ -26,6 +26,7 @@ namespace EFTest.Controllers
             return View(await _studentRepository.GetAll());
         }
 
+        [HttpPost]
         public async Task<IActionResult> Create(Student student)
         {
             if (ModelState.IsValid)
@@ -34,6 +35,24 @@ namespace EFTest.Controllers
                 return RedirectToAction("Index");
             }
             return View(student);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var student = await _studentRepository.GetById(id)!;
+            if (student == null)
+            {
+                return NotFound();
+            }
+            await _studentRepository.Delete(student);
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()
