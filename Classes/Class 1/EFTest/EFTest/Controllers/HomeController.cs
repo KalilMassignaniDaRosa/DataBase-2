@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using EFTest.Data;
 using EFTest.Models;
+using EFTest.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EFTest.Controllers
@@ -9,20 +10,30 @@ namespace EFTest.Controllers
     { 
         // permite fazer logs
         private readonly ILogger<HomeController> _logger;
-        private readonly SchoolContext _context;
+        private readonly IStudentRepository _studentRepository;
 
         public HomeController(
             ILogger<HomeController> logger,
-            SchoolContext context
+            IStudentRepository studentRepository
         )
         {
             _logger = logger;
-            _context = context;
+            _studentRepository = studentRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_context.Students.ToList());
+            return View(await _studentRepository.GetAll());
+        }
+
+        public async Task<IActionResult> Create(Student student)
+        {
+            if (ModelState.IsValid)
+            {
+                await _studentRepository.Create(student);
+                return RedirectToAction("Index");
+            }
+            return View(student);
         }
 
         public IActionResult Privacy()

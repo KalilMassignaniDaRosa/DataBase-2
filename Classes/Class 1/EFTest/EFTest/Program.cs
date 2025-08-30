@@ -1,4 +1,5 @@
 using EFTest.Data;
+using EFTest.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 
@@ -13,6 +14,9 @@ builder.Services.AddDbContext<SchoolContext>(options =>
                     builder.Configuration.GetConnectionString("DefaultConnection")
                     )
                 );
+
+// cria uma instancia da classe toda vez que usar a interface
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
 var app = builder.Build();
 
