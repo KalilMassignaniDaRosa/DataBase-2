@@ -43,6 +43,23 @@ namespace EFTest.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Update()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(Student student)
+        {
+            if (ModelState.IsValid)
+            {
+                await _studentRepository.Update(student);
+                return RedirectToAction("Index");
+            }
+            return View(student);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
