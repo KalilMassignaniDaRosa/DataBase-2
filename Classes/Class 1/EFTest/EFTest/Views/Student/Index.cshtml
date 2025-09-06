@@ -1,0 +1,112 @@
+﻿@model ICollection<EFTest.Models.Student>
+
+@{
+    ViewData["Title"] = "Students";
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="fw-bold text-primary">
+            <i class="fa-solid fa-users"></i> @Model.Count Students
+        </h1>
+
+        <a asp-controller="Student" asp-action="Create" class="btn btn-success">
+            <i class="fa-solid fa-user-plus"></i> New Student
+        </a>
+    </div>
+
+    <div class="card shadow-lg rounded-3">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-center" style="width:5%;"><i class="fa-solid fa-id-card"></i> Id</th>
+                        <th style="width:22%;"><i class="fa-solid fa-user"></i> Name</th>
+                        <th style="width:22%;"><i class="fa-solid fa-user-tag"></i> Last Name</th>
+                        <th class="text-center" style="width:15%;"><i class="fa-solid fa-calendar-days"></i> Enrollment Date</th>
+                        <th class="text-center" style="width:12.5%;"><i class="fa-solid fa-book"></i> Courses</th>
+                        <th class="text-center" style="width:12.5%;"><i class="fa-solid fa-pen-to-square"></i> Update</th>
+                        <th class="text-center" style="width:12.5%;"><i class="fa-solid fa-trash"></i> Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var s in Model)
+                    {
+                        <tr class="align-middle">
+                            <td class="text-center align-middle">@s.ID</td>
+                            <td class="align-middle">@s.FirstMidName</td>
+                            <td class="align-middle">@s.LastName</td>
+                            <td class="text-center align-middle">@s.EnrollmentDate.ToString("dd/MM/yyyy")</td>
+
+                            <td class="text-center align-middle">
+                                @if (s.StudentCourses != null && s.StudentCourses.Any())
+                                {
+                                    <button class="btn btn-info btn-sm text-white px-2 py-1"
+                                            data-bs-toggle="modal" data-bs-target="#coursesModal-@s.ID">
+
+                                        <i class="fa-solid fa-book"></i> @s.StudentCourses.Count() Courses
+                                    </button>
+
+                                    <div class="modal fade" id="coursesModal-@s.ID" tabindex="-1" aria-labelledby="coursesModalLabel-@s.ID" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable">
+                                            <div class="modal-content">
+
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="coursesModalLabel-@s.ID">
+                                                        @s.FirstMidName @s.LastName - Courses
+                                                    </h5>
+
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <ul class="list-group list-group-flush">
+                                                        @foreach (var sc in s.StudentCourses)
+                                                        {
+                                                            <li class="list-group-item d-flex align-items-center">
+                                                                <i class="fa-solid fa-book me-2"></i> @sc.Course!.Name
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No courses</span>
+                                }
+                            </td>
+
+                            <td class="text-center align-middle">
+                                <form asp-controller="Student" asp-action="Update" method="get" class="d-inline">
+                                    <input type="hidden" name="id" value="@s.ID" />
+
+                                    <button type="submit" class="btn btn-warning btn-sm px-2 py-1">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                </form>
+                            </td>
+
+                            <td class="text-center align-middle">
+                                <form asp-controller="Student" asp-action="Delete" method="post" class="d-inline"
+                                      onsubmit="return confirm('Are you sure you want to delete this student?');">
+                                    <input type="hidden" name="id" value="@s.ID" />
+
+                                    <button type="submit" class="btn btn-danger btn-sm px-2 py-1">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -15,8 +15,9 @@ builder.Services.AddDbContext<SchoolContext>(options =>
                     )
                 );
 
-// cria uma instancia da classe toda vez que usar a interface
+// Cria uma instancia da classe toda vez que usar a interface
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 
 var app = builder.Build();
 

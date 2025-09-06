@@ -1,71 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{C8E60A08-9781-49F9-8A15-C310153C527E}|EFTest\\EFTest.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 1\\eftest\\eftest\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C8E60A08-9781-49F9-8A15-C310153C527E}|EFTest\\EFTest.csproj|solutionrelative:eftest\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C8E60A08-9781-49F9-8A15-C310153C527E}|EFTest\\EFTest.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 1\\eftest\\eftest\\views\\home\\update.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C8E60A08-9781-49F9-8A15-C310153C527E}|EFTest\\EFTest.csproj|solutionrelative:eftest\\views\\home\\update.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C8E60A08-9781-49F9-8A15-C310153C527E}|EFTest\\EFTest.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 1\\eftest\\eftest\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C8E60A08-9781-49F9-8A15-C310153C527E}|EFTest\\EFTest.csproj|solutionrelative:eftest\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 1,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Update.cshtml",
-              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Views\\Home\\Update.cshtml",
-              "RelativeDocumentMoniker": "EFTest\\Views\\Home\\Update.cshtml",
-              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Views\\Home\\Update.cshtml",
-              "RelativeToolTip": "EFTest\\Views\\Home\\Update.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-08-30T00:45:55.22Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "EFTest\\Views\\Home\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "EFTest\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAABIAAAAAAAAAAAAUwBwAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-08-30T00:34:39.245Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "EFTest\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\EFTest\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "EFTest\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAEwEEAAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-29T23:32:05.047Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }

@@ -20,6 +20,22 @@ namespace EFTest.Data
             // Se nao seria Students
             modelBuilder.Entity<Student>().ToTable("Student");
             modelBuilder.Entity<Course>().ToTable("Course");
+
+            // Chave composta
+            modelBuilder.Entity<StudentCourses>()
+                .HasKey(sc => new { sc.StudentID, sc.CourseID });
+
+            // Fk para Student
+            modelBuilder.Entity<StudentCourses>()
+                .HasOne(sc => sc.Student)
+                .WithMany(s => s.StudentCourses)
+                .HasForeignKey(sc => sc.StudentID);
+
+            // Fk para Course
+            modelBuilder.Entity<StudentCourses>()
+                .HasOne(sc => sc.Course)
+                .WithMany(c => c.StudentCourses)
+                .HasForeignKey(sc => sc.CourseID);
         }
     }
 }

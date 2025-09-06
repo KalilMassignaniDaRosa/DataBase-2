@@ -1,0 +1,106 @@
+﻿@model ICollection<EFTest.Models.Course>
+
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="fw-bold text-primary">
+            <i class="fa-solid fa-book"></i> @Model.Count Courses
+        </h1>
+
+        <a asp-controller="Course" asp-action="Create" class="btn btn-success">
+            <i class="fa-solid fa-plus"></i> New Course
+        </a>
+    </div>
+
+    <div class="card shadow-lg rounded-3">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-center" style="width:5%;"><i class="fa-solid fa-id-card"></i> Id</th>
+                        <th><i class="fa-solid fa-book-open"></i> Name</th>
+                        <th class="text-center" style="width:15%;"><i class="fa-solid fa-users"></i> Students</th>
+                        <th class="text-center" style="width:15%;"><i class="fa-solid fa-pen-to-square"></i> Update</th>
+                        <th class="text-center" style="width:15%;"><i class="fa-solid fa-trash"></i> Delete</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var c in Model)
+                    {
+                        <tr class="align-middle">
+                            <td class="text-center">@c.ID</td>
+                            <td>@c.Name</td>
+
+                            <td class="text-center">
+                                @if (c.StudentCourses != null && c.StudentCourses.Any())
+                                {
+                                    <button class="btn btn-info btn-sm text-white px-2 py-1"
+                                            data-bs-toggle="modal" data-bs-target="#studentsModal-@c.ID">
+                                        <i class="fa-solid fa-users"></i> @c.StudentCourses.Count() Students
+                                    </button>
+
+                                    <div class="modal fade" id="studentsModal-@c.ID" tabindex="-1" aria-labelledby="studentsModalLabel-@c.ID" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable">
+                                            <div class="modal-content">
+
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="studentsModalLabel-@c.ID">
+                                                        Students in @c.Name
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <ul class="list-group list-group-flush">
+                                                        @foreach (var sc in c.StudentCourses)
+                                                        {
+                                                            <li class="list-group-item d-flex align-items-center">
+                                                                <i class="fa-solid fa-user me-2"></i>
+                                                                @sc.Student!.FirstMidName @sc.Student.LastName
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No students</span>
+                                }
+                            </td>
+
+                            <td class="text-center">
+                                <form asp-controller="Course" asp-action="Update" method="get" class="d-inline">
+                                    <input type="hidden" name="id" value="@c.ID" />
+                                    <button type="submit" class="btn btn-warning btn-sm px-2 py-1">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                </form>
+                            </td>
+
+                            <td class="text-center">
+                                <form asp-controller="Course" asp-action="Delete" method="post" class="d-inline"
+                                      onsubmit="return confirm('Are you sure you want to delete this course?');">
+                                    <input type="hidden" name="id" value="@c.ID" />
+                                    <button type="submit" class="btn btn-danger btn-sm px-2 py-1">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

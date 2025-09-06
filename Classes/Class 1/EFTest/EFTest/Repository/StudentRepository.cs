@@ -13,6 +13,7 @@ namespace EFTest.Repository
             _context = context;
         }
 
+        #region Basic Operations
         public async Task Create(Student student)
         {
             await _context.Students.AddAsync(student);
@@ -32,6 +33,40 @@ namespace EFTest.Repository
             await _context.SaveChangesAsync();
         }
 
+        public async Task AddCourseToStudent(int studentId, int courseId)
+        {
+            // Verifica se a existe
+            var exists = await _context.StudentCourses
+                .AnyAsync(sc => sc.StudentID == studentId && sc.CourseID == courseId);
+
+            if (!exists)
+            {
+                var studentCourse = new StudentCourses
+                {
+                    StudentID = studentId,
+                    CourseID = courseId
+                };
+
+                await _context.StudentCourses.AddAsync(studentCourse);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task RemoveCourseFromStudent(int studentId, int courseId)
+        {
+            var sc = await _context.StudentCourses
+                .FirstOrDefaultAsync(sc => sc.StudentID == studentId && sc.CourseID == courseId);
+
+            if (sc != null)
+            {
+                _context.StudentCourses.Remove(sc);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        #endregion
+
+        #region Getters
         public async Task<List<Student>> GetAll()
         {
             var data = await _context.Students.ToListAsync();
@@ -39,13 +74,13 @@ namespace EFTest.Repository
         }
 
         // Task permite fazer uma função assincrona
-        public async Task<Student>? GetById(int id)
+        public async Task<Student> GetById(int id)
         {
             var student = await _context.Students.
                 Where(s => s.ID == id)
                 .FirstOrDefaultAsync();
 
-            return student;
+            return student!;
         }
 
         public async Task<List<Student>> GetByName(string name)
@@ -57,5 +92,26 @@ namespace EFTest.Repository
 
             return students;
         }
+
+        public async Task<List<Student>> GetAllWithCourses()
+        {
+            var students = await _context.Students
+                .Include(s => s.StudentCourses!)
+                .ThenInclude(sc => sc.Course)
+                .ToListAsync();
+
+            return students;
+        }
+
+        public async Task<Student> GetByIdWithCourses(int id)
+        {
+            var student = await _context.Students
+                .Include(s => s.StudentCourses!)
+                .ThenInclude(sc => sc.Course)
+                .FirstOrDefaultAsync(s => s.ID == id);
+
+            return student!;
+        }
+        #endregion
     }
 }
