@@ -1,6 +1,8 @@
 ﻿using EFTest.Data;
 using EFTest.Models;
-using EFTest.Repository;
+using EFTest.Repository.Courses;
+using EFTest.Repository.Students;
+using EFTest.Repository.StudentsCourses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -12,17 +14,17 @@ namespace EFTest.Controllers
         // Permite salvar logs
         private readonly ILogger<StudentController> _logger;
         private readonly IStudentRepository _studentRepository;
-        private readonly ICourseRepository _courseRepository;
+        private readonly IStudentCourseRepository _scRepository;
 
         public StudentController(
             ILogger<StudentController> logger,
             IStudentRepository studentRepository,
-            ICourseRepository courseRepository
+            IStudentCourseRepository studentCoursesRepository
         )
         {
             _logger = logger;
             _studentRepository = studentRepository;
-            _courseRepository = courseRepository;
+            _scRepository = studentCoursesRepository;
         }
 
         #region Index
@@ -38,7 +40,7 @@ namespace EFTest.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var courses = await _courseRepository.GetAll();
+            var courses = await _scRepository.GetAllCourses();
             // Passando por ViewBag
             ViewBag.Courses = courses.OrderBy(c => c.Name).ToList(); 
 
@@ -55,14 +57,14 @@ namespace EFTest.Controllers
                 // Associa os cursos selecionados
                 foreach (var courseId in SelectedCourseIds)
                 {
-                    await _studentRepository.AddCourseToStudent(student.ID, courseId);
+                    await _scRepository.AddCourseToStudent(student.ID, courseId);
                 }
 
                 return RedirectToAction("Index");
             }
 
             // Recarrega os cursos se houver erro
-            ViewBag.Courses = await _courseRepository.GetAll();
+            ViewBag.Courses = await _scRepository.GetAllCourses();
             return View(student);
         }
         #endregion
@@ -80,7 +82,7 @@ namespace EFTest.Controllers
             if (student == null)
                 return NotFound();
 
-            ViewBag.Courses = await _courseRepository.GetAll();
+            ViewBag.Courses = await _scRepository.GetAllCourses();
 
             return View(student);
         }
@@ -97,7 +99,7 @@ namespace EFTest.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Courses = await _courseRepository.GetAll();
+                ViewBag.Courses = await _scRepository.GetAllCourses();
                 return View(student);
             }
 
@@ -111,13 +113,13 @@ namespace EFTest.Controllers
             // Remove cursos desmarcados
             foreach (var courseId in currentCourseIds.Except(SelectedCourseIds))
             {
-                await _studentRepository.RemoveCourseFromStudent(student.ID, courseId);
+                await _scRepository.RemoveCourseFromStudent(student.ID, courseId);
             }
 
             // Adiciona novos cursos selecionados
             foreach (var courseId in SelectedCourseIds.Except(currentCourseIds))
             {
-                await _studentRepository.AddCourseToStudent(student.ID, courseId);
+                await _scRepository.AddCourseToStudent(student.ID, courseId);
             }
 
             return RedirectToAction("Index");

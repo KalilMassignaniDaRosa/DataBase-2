@@ -2,13 +2,13 @@
 using EFTest.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace EFTest.Repository
+namespace EFTest.Repository.Courses
 {
-    public class ModuleRepository : IModuleRepository
+    public class CourseRepository : ICourseRepository
     {
         private readonly SchoolContext _context;
 
-        public ModuleRepository(SchoolContext context)
+        public CourseRepository(SchoolContext context)
         {
             _context = context;
         }
@@ -37,9 +37,11 @@ namespace EFTest.Repository
         public async Task<List<Course>> GetAll()
         {
             var data = await _context.Courses.ToListAsync();
+
             return data;
         }
-        public async Task<Course> GetById(int id)
+
+        public async Task<Course?> GetById(int id)
         {
             var course = await _context.Courses.
                 Where(c => c.ID == id)
@@ -51,8 +53,7 @@ namespace EFTest.Repository
         public async Task<List<Course>> GetByName(string name)
         {
             var courses = await _context.Courses.
-               Where(s => s.Name!.ToLower().
-               Contains(name.ToLower()))
+               Where(s => s.Name!.Contains(name, StringComparison.CurrentCultureIgnoreCase))
                .ToListAsync();
 
             return courses;

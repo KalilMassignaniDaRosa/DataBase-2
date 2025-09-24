@@ -2,13 +2,13 @@
 using EFTest.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace EFTest.Repository
+namespace EFTest.Repository.Modules
 {
-    public class CourseRepository : ICourseRepository
-    {
+    public class ModuleRepository : IModuleRepository
+    {/*
         private readonly SchoolContext _context;
 
-        public CourseRepository(SchoolContext context)
+        public ModuleRepository(SchoolContext context)
         {
             _context = context;
         }
@@ -77,5 +77,6 @@ namespace EFTest.Repository
             return courses;
         }
         #endregion
+        */
     }
 }

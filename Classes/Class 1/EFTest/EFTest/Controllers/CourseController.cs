@@ -1,5 +1,5 @@
 ﻿using EFTest.Models;
-using EFTest.Repository;
+using EFTest.Repository.Courses;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

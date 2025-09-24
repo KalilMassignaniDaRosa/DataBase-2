@@ -1,5 +1,7 @@
 using EFTest.Data;
-using EFTest.Repository;
+using EFTest.Repository.Courses;
+using EFTest.Repository.Students;
+using EFTest.Repository.StudentsCourses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 
@@ -18,6 +20,7 @@ builder.Services.AddDbContext<SchoolContext>(options =>
 // Cria uma instancia da classe toda vez que usar a interface
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<IStudentCourseRepository, StudentCourseRepository>();
 
 var app = builder.Build();
 

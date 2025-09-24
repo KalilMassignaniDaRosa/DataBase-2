@@ -2,16 +2,13 @@
 using EFTest.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace EFTest.Repository
+namespace EFTest.Repository.Students
 {
     public class StudentRepository : IStudentRepository
     {
         private readonly SchoolContext _context;
 
-        public StudentRepository(SchoolContext context)
-        {
-            _context = context;
-        }
+        public StudentRepository(SchoolContext context) => _context = context;
 
         #region Basic Operations
         public async Task Create(Student student)
@@ -67,12 +64,6 @@ namespace EFTest.Repository
         #endregion
 
         #region Getters
-        public async Task<List<Student>> GetAll()
-        {
-            var data = await _context.Students.ToListAsync();
-            return data;
-        }
-
         // Task permite fazer uma função assincrona
         public async Task<Student> GetById(int id)
         {
@@ -83,11 +74,19 @@ namespace EFTest.Repository
             return student!;
         }
 
-        public async Task<List<Student>> GetByName(string name)
+        public async Task<List<Student>> GetAll()
         {
-            var students = await _context.Students.
-               Where(s => s.FirstMidName!.ToLower().
-               Contains(name.ToLower()))
+            var data = await _context.Students.ToListAsync();
+
+            return data;
+        }  
+
+        public async Task<List<Student>> GetByStudentName(string sName)
+        {
+            var students = await _context.Students
+               .Where(s => s.FirstMidName != null &&
+               // Sugestao da IDE
+               s.FirstMidName.Contains(sName, StringComparison.CurrentCultureIgnoreCase))
                .ToListAsync();
 
             return students;
@@ -96,7 +95,9 @@ namespace EFTest.Repository
         public async Task<List<Student>> GetAllWithCourses()
         {
             var students = await _context.Students
+                // Carrega a collection StudenCourses
                 .Include(s => s.StudentCourses!)
+                // Para cada um pega o Course
                 .ThenInclude(sc => sc.Course)
                 .ToListAsync();
 
