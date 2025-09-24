@@ -9,12 +9,15 @@ namespace EFTest.Models
     {
         public int StudentID { get; set; }
         // Property Navigations
+        // Carrega os dados quando for mexer na matricula
         [ForeignKey(nameof(StudentID))]
         public Student? Student { get; set; }
 
         public int CourseID { get; set; }
         [ForeignKey(nameof(CourseID))]
         public Course? Course { get; set; }
+        public DateTime SignDate { get; set; }
+        public DateTime? CancelDate { get; set; }
 
     }
 }

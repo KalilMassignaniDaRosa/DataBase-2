@@ -40,7 +40,9 @@
                         <i class="fa-solid fa-calendar-days"></i> Enrollment Date
                     </label>
 
-                    <input asp-for="EnrollmentDate" class="form-control" type="date" />
+                    <input asp-for="EnrollmentDate" class="form-control" type="date"
+                           min="1900-01-01"
+                           max="@(DateTime.Today.ToString("yyyy-MM-dd"))" />
                     <span asp-validation-for="EnrollmentDate" class="text-danger"></span>
                 </div>
 

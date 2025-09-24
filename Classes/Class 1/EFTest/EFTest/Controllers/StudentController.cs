@@ -69,9 +69,14 @@ namespace EFTest.Controllers
 
         #region Update
         [HttpGet]
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> Update(int? id)
         {
-            var student = await _studentRepository.GetByIdWithCourses(id);
+            // Caso o id seja null
+            if (!id.HasValue)
+                // Cod 400
+                return BadRequest();
+
+            var student = await _studentRepository.GetByIdWithCourses((int)id);
             if (student == null)
                 return NotFound();
 
@@ -81,8 +86,15 @@ namespace EFTest.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(Student student, int[] SelectedCourseIds)
+        public async Task<IActionResult> Update(int? routeId,Student student, int[] SelectedCourseIds)
         {
+            // Previnindo divergencia do id da rota e do student
+            if (!routeId.HasValue)
+                return BadRequest();
+            
+            if(routeId.Value != student.ID)
+                return BadRequest();
+
             if (!ModelState.IsValid)
             {
                 ViewBag.Courses = await _courseRepository.GetAll();

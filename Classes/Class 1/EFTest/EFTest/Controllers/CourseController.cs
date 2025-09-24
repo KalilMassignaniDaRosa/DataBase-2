@@ -48,9 +48,12 @@ namespace EFTest.Controllers
 
         #region Update
         [HttpGet]
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> Update(int? id)
         {
-            var course = await _courseRepository.GetById(id)!;
+            if (!id.HasValue)
+                return BadRequest();
+
+            var course = await _courseRepository.GetById((int)id!)!;
             if (course == null) 
                 return NotFound();
 
@@ -58,8 +61,14 @@ namespace EFTest.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(Course course)
+        public async Task<IActionResult> Update(int? routeId, Course course)
         {
+            if (!routeId.HasValue)
+                return BadRequest();
+
+            if (routeId.Value != course.ID)
+                return BadRequest();
+
             if (ModelState.IsValid)
             {
                 await _courseRepository.Update(course);
