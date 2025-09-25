@@ -14,23 +14,32 @@ namespace EFTest.Controllers
         // Permite salvar logs
         private readonly ILogger<StudentController> _logger;
         private readonly IStudentRepository _studentRepository;
+        private readonly ICourseRepository _courseRepository;
         private readonly IStudentCourseRepository _scRepository;
 
         public StudentController(
             ILogger<StudentController> logger,
             IStudentRepository studentRepository,
+            ICourseRepository courseRepository,
             IStudentCourseRepository studentCoursesRepository
         )
         {
             _logger = logger;
             _studentRepository = studentRepository;
+            _courseRepository = courseRepository;
             _scRepository = studentCoursesRepository;
         }
 
         #region Index
         public async Task<IActionResult> Index()
         {
-            var students = await _studentRepository.GetAllWithCourses();
+            var students = await _studentRepository.GetAll();
+
+            // Pega cursos do estudante
+            foreach (var s in students)
+            {
+                s.StudentCourses = await _scRepository.GetByStudent(s.ID);
+            }
 
             return View(students);
         }
@@ -40,9 +49,10 @@ namespace EFTest.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var courses = await _scRepository.GetAllCourses();
+            var courses = await _courseRepository.GetAll();
             // Passando por ViewBag
-            ViewBag.Courses = courses.OrderBy(c => c.Name).ToList(); 
+            ViewBag.Courses = courses.OrderBy(c => c.Name).ToList();
+
 
             return View();
         }
@@ -64,7 +74,9 @@ namespace EFTest.Controllers
             }
 
             // Recarrega os cursos se houver erro
-            ViewBag.Courses = await _scRepository.GetAllCourses();
+            var courses = await _courseRepository.GetAll();
+            ViewBag.Courses = courses.OrderBy(c => c.Name).ToList();
+
             return View(student);
         }
         #endregion
@@ -75,20 +87,23 @@ namespace EFTest.Controllers
         {
             // Caso o id seja null
             if (!id.HasValue)
-                // Cod 400
-                return BadRequest();
+                return BadRequest(); // Cod 400
 
-            var student = await _studentRepository.GetByIdWithCourses((int)id);
+            var student = await _studentRepository.GetById(id.Value);
             if (student == null)
-                return NotFound();
+                return NotFound(); // Cod 404
 
-            ViewBag.Courses = await _scRepository.GetAllCourses();
+            // Carrega so os ativos
+            student.StudentCourses = await _scRepository.GetByStudent(student.ID);
+
+            var courses = await _courseRepository.GetAll();
+            ViewBag.Courses = courses.OrderBy(c => c.Name).ToList();
 
             return View(student);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(int? routeId,Student student, int[] SelectedCourseIds)
+        public async Task<IActionResult> Update(int? routeId,Student student, int[]? SelectedCourseIds)
         {
             // Previnindo divergencia do id da rota e do student
             if (!routeId.HasValue)
@@ -99,16 +114,24 @@ namespace EFTest.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Courses = await _scRepository.GetAllCourses();
+                var courses = await _courseRepository.GetAll();
+                ViewBag.Courses = courses.OrderBy(c => c.Name).ToList();
+
                 return View(student);
             }
 
             // Atualiza dados
             await _studentRepository.Update(student);
 
+            // Garante que nao seja null
+            SelectedCourseIds ??= Array.Empty<int>();
+
             // Obtem cursos atuais do estudante
-            var studentWithCourses = await _studentRepository.GetByIdWithCourses(student.ID);
-            var currentCourseIds = studentWithCourses.StudentCourses!.Select(sc => sc.CourseID).ToList();
+            var currentStudentCourses = await _scRepository.GetByStudent(student.ID);
+            var currentCourseIds = currentStudentCourses
+                                    .Where(sc => sc.CancelDate == null)
+                                    .Select(sc => sc.CourseID)
+                                    .ToList();
 
             // Remove cursos desmarcados
             foreach (var courseId in currentCourseIds.Except(SelectedCourseIds))
@@ -135,6 +158,7 @@ namespace EFTest.Controllers
                 return NotFound();
             
             await _studentRepository.Delete(student);
+
             return RedirectToAction("Index");
         }
         #endregion

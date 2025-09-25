@@ -39,39 +39,33 @@
                             <td class="text-center align-middle">@s.EnrollmentDate.ToString("dd/MM/yyyy")</td>
 
                             <td class="text-center align-middle">
-                                @if (s.StudentCourses != null && s.StudentCourses.Any())
+                                @if (s.StudentCourses != null && s.StudentCourses.Any(sc => sc.CancelDate == null))
                                 {
+                                    var activeCourses = s.StudentCourses.Where(sc => sc.CancelDate == null).Count();
+
                                     <button class="btn btn-info btn-sm text-white px-2 py-1"
                                             data-bs-toggle="modal" data-bs-target="#coursesModal-@s.ID">
-
-                                        <i class="fa-solid fa-book"></i> @s.StudentCourses.Count() Courses
+                                        <i class="fa-solid fa-book"></i> @activeCourses Courses
                                     </button>
 
-                                    <div class="modal fade" id="coursesModal-@s.ID" tabindex="-1" aria-labelledby="coursesModalLabel-@s.ID" aria-hidden="true">
+                                    <div class="modal fade" id="coursesModal-@s.ID" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-scrollable">
                                             <div class="modal-content">
-
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="coursesModalLabel-@s.ID">
-                                                        @s.FirstMidName @s.LastName - Courses
-                                                    </h5>
-
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <h5 class="modal-title">@s.FirstMidName @s.LastName - Courses</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
-
                                                 <div class="modal-body">
                                                     <ul class="list-group list-group-flush">
-                                                        @foreach (var sc in s.StudentCourses)
+                                                        @foreach (var sc in s.StudentCourses.Where(sc => sc.CancelDate == null))
                                                         {
-                                                            <li class="list-group-item d-flex align-items-center">
+                                                            <li class="list-group-item">
                                                                 <i class="fa-solid fa-book me-2"></i> @sc.Course!.Name
+                                                                <br />
+                                                                <small class="text-muted">Start: @sc.SignDate.ToString("dd/MM/yyyy")</small>
                                                             </li>
                                                         }
                                                     </ul>
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -82,6 +76,7 @@
                                     <span class="text-muted">No courses</span>
                                 }
                             </td>
+
 
                             <td class="text-center align-middle">
                                 <form asp-controller="Student" asp-action="Update" method="get" class="d-inline">

@@ -1,5 +1,6 @@
 ﻿using EFTest.Models;
 using EFTest.Repository.Courses;
+using EFTest.Repository.StudentsCourses;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -9,20 +10,28 @@ namespace EFTest.Controllers
     {
         private readonly ILogger<CourseController> _logger;
         private readonly ICourseRepository _courseRepository;
+        private readonly IStudentCourseRepository _scRepository;
 
         public CourseController(
             ILogger<CourseController> logger, 
-            ICourseRepository courseRepository
+            ICourseRepository courseRepository,
+            IStudentCourseRepository studentCoursesRepository
         )
         {
             _logger = logger;
             _courseRepository = courseRepository;
+            _scRepository = studentCoursesRepository; 
         }
 
         #region Index
         public async Task<IActionResult> Index()
         {
-            var courses = await _courseRepository.GetAllWithStudents();
+            var courses = await _courseRepository.GetAll();
+            foreach (var course in courses)
+            {
+                course.StudentCourses = await _scRepository.GetByCourse(course.ID);
+            }
+
             return View(courses);
         }
         #endregion

@@ -10,10 +10,8 @@ namespace EFTest.Repository.Students
 
         public Task<Student>? GetById(int id);
         public Task<List<Student>> GetAll();
+
         public Task<List<Student>> GetByStudentName(string sName);
 
-        // Idealmente nao ficariam aqui, mas esta por conveniencia
-        public Task<List<Student>> GetAllWithCourses();
-        public Task<Student> GetByIdWithCourses(int id);
     }
 }

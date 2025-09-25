@@ -10,9 +10,14 @@ namespace EFTest.Repository.StudentsCourses
 
         public Task<StudentCourses?> GetByIds(int studentId, int courseId);
         public Task<List<StudentCourses>> GetAll();
+
         public Task<List<StudentCourses>> GetByStudent(int studentId);
+        public Task<List<StudentCourses>> GetByStudentWithCanceled(int studentId);
+
+        public Task<Student?> GetStudentWithCourses(int studentId);
+
         public Task<List<StudentCourses>> GetByCourse(int courseId);
-        public Task<List<Course>> GetAllCourses();
+        public Task<Course?> GetCourseWithStudents(int courseId);
 
         public Task AddCourseToStudent(int studentId, int courseId);
         public Task RemoveCourseFromStudent(int studentId, int courseId);

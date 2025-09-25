@@ -19,8 +19,14 @@ namespace EFTest.Repository.Students
 
         public async Task Update(Student student)
         {
-            _context.Students.Update(student);
-            await _context.SaveChangesAsync();
+            var existingStudent = await _context.Students
+                .FirstOrDefaultAsync(s => s.ID == student.ID);
+
+            if (existingStudent != null)
+            {
+                _context.Entry(existingStudent).CurrentValues.SetValues(student);
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task Delete(Student student)
@@ -29,41 +35,9 @@ namespace EFTest.Repository.Students
             _context.Students.Remove(student);
             await _context.SaveChangesAsync();
         }
-
-        public async Task AddCourseToStudent(int studentId, int courseId)
-        {
-            // Verifica se a existe
-            var exists = await _context.StudentCourses
-                .AnyAsync(sc => sc.StudentID == studentId && sc.CourseID == courseId);
-
-            if (!exists)
-            {
-                var studentCourse = new StudentCourses
-                {
-                    StudentID = studentId,
-                    CourseID = courseId
-                };
-
-                await _context.StudentCourses.AddAsync(studentCourse);
-                await _context.SaveChangesAsync();
-            }
-        }
-
-        public async Task RemoveCourseFromStudent(int studentId, int courseId)
-        {
-            var sc = await _context.StudentCourses
-                .FirstOrDefaultAsync(sc => sc.StudentID == studentId && sc.CourseID == courseId);
-
-            if (sc != null)
-            {
-                _context.StudentCourses.Remove(sc);
-                await _context.SaveChangesAsync();
-            }
-        }
-
         #endregion
 
-        #region Getters
+        #region Queries
         // Task permite fazer uma função assincrona
         public async Task<Student> GetById(int id)
         {
@@ -90,28 +64,6 @@ namespace EFTest.Repository.Students
                .ToListAsync();
 
             return students;
-        }
-
-        public async Task<List<Student>> GetAllWithCourses()
-        {
-            var students = await _context.Students
-                // Carrega a collection StudenCourses
-                .Include(s => s.StudentCourses!)
-                // Para cada um pega o Course
-                .ThenInclude(sc => sc.Course)
-                .ToListAsync();
-
-            return students;
-        }
-
-        public async Task<Student> GetByIdWithCourses(int id)
-        {
-            var student = await _context.Students
-                .Include(s => s.StudentCourses!)
-                .ThenInclude(sc => sc.Course)
-                .FirstOrDefaultAsync(s => s.ID == id);
-
-            return student!;
         }
         #endregion
     }

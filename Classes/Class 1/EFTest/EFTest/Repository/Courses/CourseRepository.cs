@@ -33,14 +33,7 @@ namespace EFTest.Repository.Courses
         }
         #endregion
 
-        #region Getters
-        public async Task<List<Course>> GetAll()
-        {
-            var data = await _context.Courses.ToListAsync();
-
-            return data;
-        }
-
+        #region Queries
         public async Task<Course?> GetById(int id)
         {
             var course = await _context.Courses.
@@ -49,31 +42,19 @@ namespace EFTest.Repository.Courses
 
             return course!;
         }
-        
+
+        public async Task<List<Course>> GetAll()
+        {
+            var data = await _context.Courses.OrderBy(c => c.Name).ToListAsync();
+
+            return data;
+        }
+
         public async Task<List<Course>> GetByName(string name)
         {
             var courses = await _context.Courses.
                Where(s => s.Name!.Contains(name, StringComparison.CurrentCultureIgnoreCase))
                .ToListAsync();
-
-            return courses;
-        }
-
-        public async Task<List<Course>> GetAllWithStudents()
-        {
-            var courses = await _context.Courses
-                .Include(c => c.StudentCourses!)
-                .ThenInclude(sc => sc.Student)
-                .ToListAsync();
-
-            // Ordena os alunos de cada curso
-            foreach (var course in courses)
-            {
-                course.StudentCourses = course.StudentCourses!
-                    .OrderBy(sc => sc.Student!.FirstMidName)
-                    .ThenBy(sc => sc.Student!.LastName)
-                    .ToList();
-            }
 
             return courses;
         }

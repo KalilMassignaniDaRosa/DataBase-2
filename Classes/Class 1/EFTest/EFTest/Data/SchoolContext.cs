@@ -3,11 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EFTest.Data
 {
-    public class SchoolContext : DbContext
+    // Construtor primario
+    // Declara contrutor e paramentros junto com a classe
+    public class SchoolContext(DbContextOptions<SchoolContext> options) : DbContext(options)
     {
-        public SchoolContext(DbContextOptions<SchoolContext> options) : base(options)
-        {
-        }
 
         // Tabela Students com permissao de leitura e escrita
         public DbSet<Student> Students { get; set; }
