@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EFTest.Models.Courses;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EFTest.Models
+namespace EFTest.Models.Students
 {
     [PrimaryKey(nameof(StudentID), nameof(CourseID))]
-    public class StudentCourses
+    public class StudentCourse
     {
         public int StudentID { get; set; }
         // Property Navigations
@@ -19,5 +20,16 @@ namespace EFTest.Models
         public DateTime SignDate { get; set; }
         public DateTime? CancelDate { get; set; }
 
+        public DateTime GetEstimatedEndDate()
+        {
+            int semesters = 0;
+            if (Course != null)
+                semesters = Course.NumberOfSemesters;
+
+            int totalMonths = semesters * 6;
+            DateTime estimatedEndDate = SignDate.AddMonths(totalMonths);
+
+            return estimatedEndDate;
+        }
     }
 }

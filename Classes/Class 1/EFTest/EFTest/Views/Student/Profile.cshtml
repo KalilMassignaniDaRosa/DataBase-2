@@ -1,0 +1,70 @@
+﻿@using EFTest.Models.Courses
+@using EFTest.Models.Students
+@model Student
+
+@{
+    ViewData["Title"] = $"{Model.FirstMidName} Profile";
+
+    // Cursos do aluno
+    var studentCourses = Model.StudentCourses?.OrderBy(sc => sc.CourseID).ToList() ?? new List<StudentCourse>();
+
+    // Id do curso selecionado
+    int? selectedCourseId = ViewBag.SelectedCourseId as int?;
+
+    // Curso selecionado
+    var selectedCourse = selectedCourseId.HasValue 
+        ? studentCourses.FirstOrDefault(sc => sc.CourseID == selectedCourseId.Value)?.Course 
+        : null;
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary"><i class="fa-solid fa-user"></i> @Model.FirstMidName @Model.LastName Profile</h2>
+        <span class="badge bg-secondary">ID: @Model.ID</span>
+    </div>
+
+    <form method="get" asp-action="Profile" asp-controller="Student">
+        <input type="hidden" name="id" value="@Model.ID" />
+        <div class="mb-4">
+            <label class="form-label fw-bold"><i class="fa-solid fa-book"></i> Select Course</label>
+            <select name="SelectedCourseId" class="form-select" onchange="this.form.submit()">
+                <option value="">-- Select a course --</option>
+                @foreach (var sc in studentCourses)
+                {
+                    var selected = selectedCourseId.HasValue && sc.CourseID == selectedCourseId.Value ? "selected" : "";
+                    @:<option value="@sc.CourseID" @selected>@sc.Course?.Name</option>
+                }
+            </select>
+        </div>
+    </form>
+
+    @if (selectedCourse != null)
+    {
+        <h4 class="mt-4">Modules in @selectedCourse.Name</h4>
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Module</th>
+                    <th>Sign Date</th>
+                    <th>Status</th>
+                    <th>Grade</th>
+                    <th>Frequency</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var sm in Model.StudentModules!
+                                .Where(sm => sm.Module!.CourseModules!.Any(cm => cm.CourseID == selectedCourseId.Value))
+                                .OrderBy(sm => sm.Module!.ID))
+                {
+                    <tr>
+                        <td>@sm.Module!.Name</td>
+                        <td>@sm.SignDate.ToShortDateString()</td>
+                        <td>@sm.Status</td>
+                        <td>@(sm.Grade?.ToString("F1") ?? "-")</td>
+                        <td>@(sm.Frequency?.ToString("F1") ?? "-")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

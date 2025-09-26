@@ -1,4 +1,5 @@
-﻿@model EFTest.Models.Course
+﻿@using EFTest.Models.Courses
+@model Course
 
 @{
     ViewData["Title"] = "Update";
@@ -18,6 +19,7 @@
 
                 <input type="hidden" asp-for="ID" />
 
+                <!-- Name -->
                 <div class="form-group mb-3">
                     <label asp-for="Name" class="form-label fw-bold">
                         <i class="fa-solid fa-book-open"></i> Course Name

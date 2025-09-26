@@ -1,8 +1,9 @@
 ﻿using EFTest.Data;
 using EFTest.Models;
-using EFTest.Repository.Courses;
-using EFTest.Repository.Students;
-using EFTest.Repository.StudentsCourses;
+using EFTest.Models.Students;
+using EFTest.Repository.CoursesRepository;
+using EFTest.Repository.StudentsRepository;
+using EFTest.Repository.StudentsCoursesRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -16,18 +17,21 @@ namespace EFTest.Controllers
         private readonly IStudentRepository _studentRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly IStudentCourseRepository _scRepository;
+        private readonly SchoolContext _context;
 
         public StudentController(
             ILogger<StudentController> logger,
             IStudentRepository studentRepository,
             ICourseRepository courseRepository,
-            IStudentCourseRepository studentCoursesRepository
+            IStudentCourseRepository studentCoursesRepository,
+            SchoolContext context
         )
         {
             _logger = logger;
             _studentRepository = studentRepository;
             _courseRepository = courseRepository;
             _scRepository = studentCoursesRepository;
+            _context = context;
         }
 
         #region Index
@@ -38,7 +42,7 @@ namespace EFTest.Controllers
             // Pega cursos do estudante
             foreach (var s in students)
             {
-                s.StudentCourses = await _scRepository.GetByStudent(s.ID);
+                s.StudentCourses = await _scRepository.GetByStudentId(s.ID);
             }
 
             return View(students);
@@ -94,7 +98,7 @@ namespace EFTest.Controllers
                 return NotFound(); // Cod 404
 
             // Carrega so os ativos
-            student.StudentCourses = await _scRepository.GetByStudent(student.ID);
+            student.StudentCourses = await _scRepository.GetByStudentId(student.ID);
 
             var courses = await _courseRepository.GetAll();
             ViewBag.Courses = courses.OrderBy(c => c.Name).ToList();
@@ -127,7 +131,7 @@ namespace EFTest.Controllers
             SelectedCourseIds ??= Array.Empty<int>();
 
             // Obtem cursos atuais do estudante
-            var currentStudentCourses = await _scRepository.GetByStudent(student.ID);
+            var currentStudentCourses = await _scRepository.GetByStudentId(student.ID);
             var currentCourseIds = currentStudentCourses
                                     .Where(sc => sc.CancelDate == null)
                                     .Select(sc => sc.CourseID)
@@ -164,6 +168,33 @@ namespace EFTest.Controllers
         #endregion
 
         #region Others
+        [HttpGet]
+        public async Task<IActionResult> Profile(int id, int? SelectedCourseId)
+        {
+            var student = await _studentRepository.GetById(id);
+            if (student == null) return NotFound();
+
+            // Inclui cursos e modulos
+            await _context.Entry(student)
+                          .Collection(s => s.StudentCourses)
+                          .Query()
+                          .Include(sc => sc.Course)
+                          .LoadAsync();
+
+            await _context.Entry(student)
+                          .Collection(s => s.StudentModules)
+                          .Query()
+                          .Include(sm => sm.Module)
+                          .ThenInclude(m => m.CourseModules)
+                          .LoadAsync();
+
+            // Curso selecionado
+            int selectedCourseId = SelectedCourseId ?? student.StudentCourses.FirstOrDefault()?.CourseID ?? 0;
+            ViewBag.SelectedCourseId = selectedCourseId;
+
+            return View(student);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -1,6 +1,6 @@
-﻿using EFTest.Models;
+﻿using EFTest.Models.Courses;
 
-namespace EFTest.Repository.Courses
+namespace EFTest.Repository.CoursesRepository
 {
     public interface ICourseRepository
     {

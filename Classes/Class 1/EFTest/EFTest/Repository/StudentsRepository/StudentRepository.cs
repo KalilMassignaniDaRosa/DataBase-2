@@ -1,8 +1,8 @@
 ﻿using EFTest.Data;
-using EFTest.Models;
+using EFTest.Models.Students;
 using Microsoft.EntityFrameworkCore;
 
-namespace EFTest.Repository.Students
+namespace EFTest.Repository.StudentsRepository
 {
     public class StudentRepository : IStudentRepository
     {
@@ -13,7 +13,7 @@ namespace EFTest.Repository.Students
         #region Basic Operations
         public async Task Create(Student student)
         {
-            await _context.Students.AddAsync(student);
+            object value = await _context.Students.AddAsync(student);
             await _context.SaveChangesAsync();
         }
 
@@ -55,7 +55,7 @@ namespace EFTest.Repository.Students
             return data;
         }  
 
-        public async Task<List<Student>> GetByStudentName(string sName)
+        public async Task<List<Student>> GetByName(string sName)
         {
             var students = await _context.Students
                .Where(s => s.FirstMidName != null &&

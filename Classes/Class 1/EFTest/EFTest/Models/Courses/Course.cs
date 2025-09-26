@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EFTest.Models.Students;
+using System.ComponentModel.DataAnnotations;
 
-namespace EFTest.Models
+namespace EFTest.Models.Courses
 {
     public class Course
     {
@@ -10,8 +11,8 @@ namespace EFTest.Models
         public string? Name { get; set; }
         public DateTime CreationDate { get; set; } = DateTime.UtcNow;
         public int NumberOfSemesters { get; set; }
-        public double? AverageGrade { get; set; }
-        public double? AverageFrequency { get; set; }
-        public List<StudentCourses>? StudentCourses { get; set; }
+
+        public List<StudentCourse>? StudentCourses { get; set; }
+        public List<CourseModule>? CourseModules { get; set; }
     }
 }

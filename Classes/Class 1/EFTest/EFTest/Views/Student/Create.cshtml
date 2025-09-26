@@ -1,8 +1,10 @@
-﻿@model EFTest.Models.Student
+﻿@using EFTest.Models.Courses
+@using EFTest.Models.Students
+@model Student
 
 @{
     ViewData["Title"] = "Create";
-    var courses = ViewBag.Courses as List<EFTest.Models.Course>;
+    var courses = ViewBag.Courses as List<Course>;
 }
 
 <div class="container mt-5">

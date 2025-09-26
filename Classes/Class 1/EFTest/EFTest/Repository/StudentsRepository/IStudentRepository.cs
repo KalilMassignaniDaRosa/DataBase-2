@@ -1,6 +1,6 @@
-﻿using EFTest.Models;
+﻿using EFTest.Models.Students;
 
-namespace EFTest.Repository.Students
+namespace EFTest.Repository.StudentsRepository
 {
     public interface IStudentRepository
     {
@@ -8,10 +8,8 @@ namespace EFTest.Repository.Students
         public Task Update(Student student);
         public Task Delete(Student student);
 
-        public Task<Student>? GetById(int id);
+        public Task<Student?> GetById(int id);
         public Task<List<Student>> GetAll();
-
-        public Task<List<Student>> GetByStudentName(string sName);
-
+        public Task<List<Student>> GetByName(string sName);
     }
 }

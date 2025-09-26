@@ -1,8 +1,8 @@
 ﻿using EFTest.Data;
-using EFTest.Models;
+using EFTest.Models.Courses;
 using Microsoft.EntityFrameworkCore;
 
-namespace EFTest.Repository.Courses
+namespace EFTest.Repository.CoursesRepository
 {
     public class CourseRepository : ICourseRepository
     {
@@ -40,7 +40,7 @@ namespace EFTest.Repository.Courses
                 Where(c => c.ID == id)
                 .FirstOrDefaultAsync();
 
-            return course!;
+            return course;
         }
 
         public async Task<List<Course>> GetAll()

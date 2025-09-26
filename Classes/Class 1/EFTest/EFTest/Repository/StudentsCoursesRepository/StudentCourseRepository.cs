@@ -1,8 +1,9 @@
 ﻿using EFTest.Data;
-using EFTest.Models;
+using EFTest.Models.Courses;
+using EFTest.Models.Students;
 using Microsoft.EntityFrameworkCore;
 
-namespace EFTest.Repository.StudentsCourses
+namespace EFTest.Repository.StudentsCoursesRepository
 {
     public class StudentCourseRepository : IStudentCourseRepository
     {
@@ -11,13 +12,13 @@ namespace EFTest.Repository.StudentsCourses
         public StudentCourseRepository(SchoolContext context) => _context = context;
 
         #region Basic Operations
-        public async Task Create(StudentCourses studentCourse)
+        public async Task Create(StudentCourse studentCourse)
         {
             await _context!.StudentCourses.AddAsync(studentCourse);
             await _context.SaveChangesAsync();
         }
 
-        public async Task Delete(StudentCourses studentCourse)
+        public async Task Delete(StudentCourse studentCourse)
         {
             _context!.StudentCourses.Remove(studentCourse);
             await _context.SaveChangesAsync();
@@ -25,7 +26,7 @@ namespace EFTest.Repository.StudentsCourses
         #endregion
 
         #region Queries
-        public async Task<StudentCourses?> GetByIds(int studentId, int courseId)
+        public async Task<StudentCourse?> GetByIds(int studentId, int courseId)
         {
             var studentCourse = await _context!.StudentCourses
                 .Include(sc => sc.Student)
@@ -37,7 +38,7 @@ namespace EFTest.Repository.StudentsCourses
             return studentCourse;
         }
 
-        public async Task<List<StudentCourses>> GetAll()
+        public async Task<List<StudentCourse>> GetAll()
         {
             var studentCourses = await _context!.StudentCourses
                 .Include(sc => sc.Student)
@@ -47,7 +48,7 @@ namespace EFTest.Repository.StudentsCourses
             return studentCourses;
         }
 
-        public async Task<List<StudentCourses>> GetByStudent(int studentId)
+        public async Task<List<StudentCourse>> GetByStudentId(int studentId)
         {
             var studentCourses = await _context!.StudentCourses
                 .Include(sc => sc.Student)
@@ -59,28 +60,7 @@ namespace EFTest.Repository.StudentsCourses
             return studentCourses;
         }
 
-        public async Task<List<StudentCourses>> GetByStudentWithCanceled(int studentId)
-        {
-            var studentCourses = await _context!.StudentCourses
-                .Include(sc => sc.Student)
-                .Include(sc => sc.Course)
-                .Where(sc => sc.StudentID == studentId)
-                .ToListAsync();
-
-            return studentCourses;
-        }
-
-        public async Task<Student?> GetStudentWithCourses(int studentId)
-        {
-            var student =  await _context!.Students
-                .Include(s => s.StudentCourses!)
-                .ThenInclude(sc => sc.Course)
-                .FirstOrDefaultAsync(s => s.ID == studentId);
-
-            return student;
-        }
-
-        public async Task<List<StudentCourses>> GetByCourse(int courseId)
+        public async Task<List<StudentCourse>> GetByCourseId(int courseId)
         {
             var studentCourses = await _context!.StudentCourses
                 .Include(sc => sc.Student)
@@ -91,7 +71,28 @@ namespace EFTest.Repository.StudentsCourses
             return studentCourses;
         }
 
-        public async Task<Course?> GetCourseWithStudents(int courseId)
+        public async Task<List<StudentCourse>> GetByStudentIdWithCanceled(int studentId)
+        {
+            var studentCourses = await _context!.StudentCourses
+                .Include(sc => sc.Student)
+                .Include(sc => sc.Course)
+                .Where(sc => sc.StudentID == studentId)
+                .ToListAsync();
+
+            return studentCourses;
+        }
+
+        public async Task<Student?> GetStudentByIdWithCourses(int studentId)
+        {
+            var student =  await _context!.Students
+                .Include(s => s.StudentCourses!)
+                .ThenInclude(sc => sc.Course)
+                .FirstOrDefaultAsync(s => s.ID == studentId);
+
+            return student;
+        }
+
+        public async Task<Course?> GetCourseByIdWithStudents(int courseId)
         {
             var course = await _context!.Courses
                 .Include(c => c.StudentCourses!)
@@ -100,7 +101,6 @@ namespace EFTest.Repository.StudentsCourses
 
             return course;
         }
-
         #endregion
 
         #region Enrollments (Add/Remove)
@@ -123,7 +123,7 @@ namespace EFTest.Repository.StudentsCourses
             }
             else
             {
-                var sc = new StudentCourses
+                var sc = new StudentCourse
                 {
                     StudentID = studentId,
                     CourseID = courseId,

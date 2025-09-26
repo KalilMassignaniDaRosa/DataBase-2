@@ -1,5 +1,60 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model EFTest.Models.Modules.Module
+
 @{
+    ViewData["Title"] = "Update Module";
 }
+
+<div class="container mt-5">
+    <div class="card shadow-lg rounded-3">
+        <div class="card-header bg-warning text-white">
+            <h4 class="mb-0">
+                <i class="fa-solid fa-pen-to-square"></i> Update Module
+            </h4>
+        </div>
+
+        <div class="card-body">
+            <form asp-controller="Module" asp-action="Update" asp-route-routeId="@Model.ID" method="post">
+                <input type="hidden" asp-for="ID" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <!-- Name -->
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="form-label fw-bold">
+                        <i class="fa-solid fa-layer-group"></i> Module Name
+                    </label>
+                    <input asp-for="Name" class="form-control" placeholder="Enter module name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <!-- Workload Hours -->
+                <div class="form-group mb-3">
+                    <label asp-for="WorkloadHours" class="form-label fw-bold">
+                        <i class="fa-solid fa-clock"></i> Workload Hours
+                    </label>
+                    <input asp-for="WorkloadHours" class="form-control" type="number" min="0" placeholder="Enter workload hours" />
+                    <span asp-validation-for="WorkloadHours" class="text-danger"></span>
+                </div>
+
+                <!-- Creation Date -->
+                <div class="form-group mb-4">
+                    <label asp-for="CreationDate" class="form-label fw-bold">
+                        <i class="fa-solid fa-calendar-days"></i> Creation Date
+                    </label>
+                    <input asp-for="CreationDate" class="form-control" type="date" />
+                    <span asp-validation-for="CreationDate" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-controller="Module" asp-action="Index" class="btn btn-secondary">
+                        <i class="fa-solid fa-arrow-left"></i> Back
+                    </a>
+
+                    <button type="submit" class="btn btn-warning">
+                        <i class="fa-solid fa-pen-to-square"></i> Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

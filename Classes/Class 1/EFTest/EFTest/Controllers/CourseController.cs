@@ -1,6 +1,7 @@
 ﻿using EFTest.Models;
-using EFTest.Repository.Courses;
-using EFTest.Repository.StudentsCourses;
+using EFTest.Models.Courses;
+using EFTest.Repository.CoursesRepository;
+using EFTest.Repository.StudentsCoursesRepository;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -29,7 +30,7 @@ namespace EFTest.Controllers
             var courses = await _courseRepository.GetAll();
             foreach (var course in courses)
             {
-                course.StudentCourses = await _scRepository.GetByCourse(course.ID);
+                course.StudentCourses = await _scRepository.GetByCourseId(course.ID);
             }
 
             return View(courses);

@@ -22,19 +22,13 @@ namespace EFTest.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("EFTest.Models.Course", b =>
+            modelBuilder.Entity("EFTest.Models.Courses.Course", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<double?>("AverageFrequency")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("AverageGrade")
-                        .HasColumnType("float");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
@@ -50,7 +44,65 @@ namespace EFTest.Migrations
                     b.ToTable("Course", (string)null);
                 });
 
-            modelBuilder.Entity("EFTest.Models.Student", b =>
+            modelBuilder.Entity("EFTest.Models.Courses.CourseModule", b =>
+                {
+                    b.Property<int>("CourseID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModuleID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DayOfWeek")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Semester")
+                        .HasColumnType("int");
+
+                    b.HasKey("CourseID", "ModuleID");
+
+                    b.HasIndex("ModuleID");
+
+                    b.ToTable("CourseModule", (string)null);
+                });
+
+            modelBuilder.Entity("EFTest.Models.Modules.Module", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("WorkloadHours")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Module", (string)null);
+                });
+
+            modelBuilder.Entity("EFTest.Models.Modules.ModulePrerequisite", b =>
+                {
+                    b.Property<int>("ModuleID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrerequisiteID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ModuleID", "PrerequisiteID");
+
+                    b.HasIndex("PrerequisiteID");
+
+                    b.ToTable("ModulePrerequisite", (string)null);
+                });
+
+            modelBuilder.Entity("EFTest.Models.Students.Student", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -72,7 +124,7 @@ namespace EFTest.Migrations
                     b.ToTable("Student", (string)null);
                 });
 
-            modelBuilder.Entity("EFTest.Models.StudentCourses", b =>
+            modelBuilder.Entity("EFTest.Models.Students.StudentCourse", b =>
                 {
                     b.Property<int>("StudentID")
                         .HasColumnType("int");
@@ -90,18 +142,86 @@ namespace EFTest.Migrations
 
                     b.HasIndex("CourseID");
 
-                    b.ToTable("StudentCourses");
+                    b.ToTable("StudentCourse", (string)null);
                 });
 
-            modelBuilder.Entity("EFTest.Models.StudentCourses", b =>
+            modelBuilder.Entity("EFTest.Models.Students.StudentModule", b =>
                 {
-                    b.HasOne("EFTest.Models.Course", "Course")
+                    b.Property<int>("StudentID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModuleID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CancelDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double?>("Frequency")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Grade")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("SignDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("StudentID", "ModuleID");
+
+                    b.HasIndex("ModuleID");
+
+                    b.ToTable("StudentModule", (string)null);
+                });
+
+            modelBuilder.Entity("EFTest.Models.Courses.CourseModule", b =>
+                {
+                    b.HasOne("EFTest.Models.Courses.Course", "Course")
+                        .WithMany("CourseModules")
+                        .HasForeignKey("CourseID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EFTest.Models.Modules.Module", "Module")
+                        .WithMany("CourseModules")
+                        .HasForeignKey("ModuleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Module");
+                });
+
+            modelBuilder.Entity("EFTest.Models.Modules.ModulePrerequisite", b =>
+                {
+                    b.HasOne("EFTest.Models.Modules.Module", "Module")
+                        .WithMany("Prerequisites")
+                        .HasForeignKey("ModuleID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("EFTest.Models.Modules.Module", "Prerequisite")
+                        .WithMany("IsPrerequisiteFor")
+                        .HasForeignKey("PrerequisiteID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Module");
+
+                    b.Navigation("Prerequisite");
+                });
+
+            modelBuilder.Entity("EFTest.Models.Students.StudentCourse", b =>
+                {
+                    b.HasOne("EFTest.Models.Courses.Course", "Course")
                         .WithMany("StudentCourses")
                         .HasForeignKey("CourseID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EFTest.Models.Student", "Student")
+                    b.HasOne("EFTest.Models.Students.Student", "Student")
                         .WithMany("StudentCourses")
                         .HasForeignKey("StudentID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -112,14 +232,48 @@ namespace EFTest.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("EFTest.Models.Course", b =>
+            modelBuilder.Entity("EFTest.Models.Students.StudentModule", b =>
                 {
+                    b.HasOne("EFTest.Models.Modules.Module", "Module")
+                        .WithMany("StudentModules")
+                        .HasForeignKey("ModuleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EFTest.Models.Students.Student", "Student")
+                        .WithMany("StudentModules")
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Module");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("EFTest.Models.Courses.Course", b =>
+                {
+                    b.Navigation("CourseModules");
+
                     b.Navigation("StudentCourses");
                 });
 
-            modelBuilder.Entity("EFTest.Models.Student", b =>
+            modelBuilder.Entity("EFTest.Models.Modules.Module", b =>
+                {
+                    b.Navigation("CourseModules");
+
+                    b.Navigation("IsPrerequisiteFor");
+
+                    b.Navigation("Prerequisites");
+
+                    b.Navigation("StudentModules");
+                });
+
+            modelBuilder.Entity("EFTest.Models.Students.Student", b =>
                 {
                     b.Navigation("StudentCourses");
+
+                    b.Navigation("StudentModules");
                 });
 #pragma warning restore 612, 618
         }

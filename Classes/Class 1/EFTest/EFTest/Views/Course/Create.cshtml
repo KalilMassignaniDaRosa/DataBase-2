@@ -1,4 +1,5 @@
-﻿@model EFTest.Models.Course
+﻿@using EFTest.Models.Courses
+@model Course
 
 @{
     ViewData["Title"] = "Create";
@@ -11,10 +12,12 @@
                 <i class="fa-solid fa-book"></i> Create Course
             </h4>
         </div>
+
         <div class="card-body">
             <form asp-controller="Course" asp-action="Create" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
+                <!-- Name -->
                 <div class="form-group mb-3">
                     <label asp-for="Name" class="form-label fw-bold">
                         <i class="fa-solid fa-book-open"></i> Course Name

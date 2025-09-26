@@ -1,4 +1,5 @@
-﻿@model ICollection<EFTest.Models.Student>
+﻿@using EFTest.Models.Students
+@model ICollection<Student>
 
 @{
     ViewData["Title"] = "Students";
@@ -21,23 +22,38 @@
                 <thead class="table-dark">
                     <tr>
                         <th class="text-center" style="width:5%;"><i class="fa-solid fa-id-card"></i> Id</th>
-                        <th style="width:22%;"><i class="fa-solid fa-user"></i> Name</th>
-                        <th style="width:22%;"><i class="fa-solid fa-user-tag"></i> Last Name</th>
-                        <th class="text-center" style="width:15%;"><i class="fa-solid fa-calendar-days"></i> Enrollment Date</th>
-                        <th class="text-center" style="width:12.5%;"><i class="fa-solid fa-book"></i> Courses</th>
-                        <th class="text-center" style="width:12.5%;"><i class="fa-solid fa-pen-to-square"></i> Update</th>
-                        <th class="text-center" style="width:12.5%;"><i class="fa-solid fa-trash"></i> Delete</th>
+                        <th style="width:18%;"><i class="fa-solid fa-user"></i> Name</th>
+                        <th style="width:18%;"><i class="fa-solid fa-user-tag"></i> Last Name</th>
+                        <th class="text-center" style="width:12%;"><i class="fa-solid fa-calendar-days"></i> Enroll Date</th>
+                        <th class="text-center" style="width:10%;"><i class="fa-solid fa-id-badge"></i> Profile</th>
+                        <th class="text-center" style="width:12%;"><i class="fa-solid fa-book"></i> Courses</th>
+                        <th class="text-center" style="width:12%;"><i class="fa-solid fa-pen-to-square"></i> Update</th>
+                        <th class="text-center" style="width:11%;"><i class="fa-solid fa-trash"></i> Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var s in Model)
                     {
                         <tr class="align-middle">
+                            <!-- Name-->
                             <td class="text-center align-middle">@s.ID</td>
                             <td class="align-middle">@s.FirstMidName</td>
                             <td class="align-middle">@s.LastName</td>
+
+                            <!-- Enrollment date -->
                             <td class="text-center align-middle">@s.EnrollmentDate.ToString("dd/MM/yyyy")</td>
 
+                            <!-- Profile -->
+                            <td class="text-center align-middle">
+                                <form asp-controller="Student" asp-action="Profile" method="get">
+                                    <input type="hidden" name="id" value="@s.ID" />
+                                    <button type="submit" class="btn btn-primary btn-sm px-2 py-1">
+                                        <i class="fa-solid fa-id-badge"></i> View Profile
+                                    </button>
+                                </form>
+                            </td>
+
+                            <!-- Courses -->
                             <td class="text-center align-middle">
                                 @if (s.StudentCourses != null && s.StudentCourses.Any(sc => sc.CancelDate == null))
                                 {
@@ -51,18 +67,24 @@
                                     <div class="modal fade" id="coursesModal-@s.ID" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-scrollable">
                                             <div class="modal-content">
+
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">@s.FirstMidName @s.LastName - Courses</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
+
                                                 <div class="modal-body">
                                                     <ul class="list-group list-group-flush">
                                                         @foreach (var sc in s.StudentCourses.Where(sc => sc.CancelDate == null))
                                                         {
-                                                            <li class="list-group-item">
-                                                                <i class="fa-solid fa-book me-2"></i> @sc.Course!.Name
-                                                                <br />
-                                                                <small class="text-muted">Start: @sc.SignDate.ToString("dd/MM/yyyy")</small>
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                <span>
+                                                                    <i class="fa-solid fa-book me-2"></i> @sc.Course!.Name
+                                                                </span>
+                                                                <small class="text-muted">
+                                                                    Start: @sc.SignDate.ToString("MM/yyyy") |
+                                                                    End: @(sc.GetEstimatedEndDate().ToString("MM/yyyy") ?? "N/A")
+                                                                </small>
                                                             </li>
                                                         }
                                                     </ul>
@@ -76,7 +98,6 @@
                                     <span class="text-muted">No courses</span>
                                 }
                             </td>
-
 
                             <td class="text-center align-middle">
                                 <form asp-controller="Student" asp-action="Update" method="get" class="d-inline">

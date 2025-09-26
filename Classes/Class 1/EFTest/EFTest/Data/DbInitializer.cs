@@ -1,4 +1,6 @@
-﻿using EFTest.Models;
+﻿using EFTest.Models.Courses;
+using EFTest.Models.Students;
+using EFTest.Models.Modules;
 using System.Diagnostics;
 
 namespace EFTest.Data
@@ -9,7 +11,8 @@ namespace EFTest.Data
         {
             context.Database.EnsureCreated();
 
-            // Procura estudantes
+            #region Student
+            // Procura estudante
             if (context.Students.Any())
             {
                 return;  
@@ -33,34 +36,80 @@ namespace EFTest.Data
             }
 
             context.SaveChanges();
+            #endregion
 
-            // Semeando cursos
+            #region Courses
             if (!context.Courses.Any())
             {
                 var courses = new Course[]
                 {
-                    new() { Name = "Computer Science", CreationDate = DateTime.Parse("2024-01-10") },
-                    new() { Name = "Mathematics", CreationDate = DateTime.Parse("2024-02-05") },
-                    new() { Name = "Physics", CreationDate = DateTime.Parse("2024-03-01") },
-                    new() { Name = "Chemistry", CreationDate = DateTime.Parse("2024-03-25") },
-                    new() { Name = "Biology", CreationDate = DateTime.Parse("2024-04-20") },
-                    new() { Name = "English Literature", CreationDate = DateTime.Parse("2024-05-15") },
-                    new() { Name = "History", CreationDate = DateTime.Parse("2024-06-10") },
-                    new() { Name = "Philosophy", CreationDate = DateTime.Parse("2024-07-05") }
+                    new() { Name = "Computer Science", CreationDate = DateTime.Parse("2024-01-10"), NumberOfSemesters = 8 },
+                    new() { Name = "Mathematics", CreationDate = DateTime.Parse("2024-02-05"), NumberOfSemesters = 6 },
+                    new() { Name = "Physics", CreationDate = DateTime.Parse("2024-03-01"), NumberOfSemesters = 6 },
+                    new() { Name = "Chemistry", CreationDate = DateTime.Parse("2024-03-25"), NumberOfSemesters = 6 },
+                    new() { Name = "Biology", CreationDate = DateTime.Parse("2024-04-20"), NumberOfSemesters = 6 },
+                    new() { Name = "English Literature", CreationDate = DateTime.Parse("2024-05-15"), NumberOfSemesters = 4 },
+                    new() { Name = "History", CreationDate = DateTime.Parse("2024-06-10"), NumberOfSemesters = 4 },
+                    new() { Name = "Philosophy", CreationDate = DateTime.Parse("2024-07-05"), NumberOfSemesters = 4 }
                 };
 
-                foreach (Course c in courses)
-                {
-                    context.Courses.Add(c);
-                }
-
+                context.Courses.AddRange(courses);
                 context.SaveChanges();
             }
+            #endregion
 
-            // Criando relaçoes Student-Course
+            #region Modules
+            if (!context.Modules.Any())
+            {
+                var modules = new Module[]
+                {
+                    // Ciencia da computacao
+                    new() { Name = "Introduction to Programming", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-01-01") },
+                    new() { Name = "Data Structures", WorkloadHours = 80, CreationDate = DateTime.Parse("2024-01-02") },
+                    new() { Name = "Algorithms", WorkloadHours = 80, CreationDate = DateTime.Parse("2024-01-03") },
+                    new() { Name = "Computer Architecture", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-01-04") },
+
+                    // Matematica
+                    new() { Name = "Calculus I", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-02-01") },
+                    new() { Name = "Linear Algebra", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-02-02") },
+                    new() { Name = "Discrete Mathematics", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-02-03") },
+
+                    // Fisica
+                    new() { Name = "Classical Mechanics", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-03-01") },
+                    new() { Name = "Electromagnetism", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-03-02") },
+
+                    // Quimica
+                    new() { Name = "Organic Chemistry", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-03-25") },
+                    new() { Name = "Inorganic Chemistry", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-03-26") },
+
+                    // Biologia
+                    new() { Name = "Cell Biology", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-04-01") },
+                    new() { Name = "Genetics", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-04-02") },
+
+                    // Literatura Inglesa
+                    new() { Name = "Shakespearean Literature", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-05-01") },
+                    new() { Name = "Modern Poetry", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-05-02") },
+
+                    // Historia
+                    new() { Name = "World History I", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-06-01") },
+                    new() { Name = "World History II", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-06-02") },
+
+                    // Filosofia
+                    new() { Name = "Ethics", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-07-01") },
+                    new() { Name = "Logic", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-07-02") }
+                };
+
+                context.Modules.AddRange(modules);
+                context.SaveChanges();
+            }
+            #endregion
+
+            #region Student-Course
             if (!context.StudentCourses.Any())
             {
-                var studentCourses = new StudentCourses[]
+                // Usado para acessar o indice
+                var allStudents = context.Students.ToArray(); 
+                var studentCourses = new StudentCourse[]
                 {
                     new() { StudentID = students[0].ID, CourseID = 1, SignDate = DateTime.Parse("2024-08-01") },
                     new() { StudentID = students[0].ID, CourseID = 2, SignDate = DateTime.Parse("2024-08-03") },
@@ -75,13 +124,56 @@ namespace EFTest.Data
                     new() { StudentID = students[4].ID, CourseID = 1, SignDate = DateTime.Parse("2024-08-20") }
                 };
 
-                foreach (var sc in studentCourses)
-                {
-                    context.StudentCourses.Add(sc);
-                }
-
+                context.StudentCourses.AddRange(studentCourses);
                 context.SaveChanges();
             }
+            #endregion
+
+            #region Course-Modules
+            if (!context.CourseModules.Any())
+            {
+                var courseModules = new CourseModule[]
+                {
+                    // Ciencia da computacao
+                    new() { CourseID = 1, ModuleID = 1, Semester = 1, DayOfWeek = DayOfWeek.Monday },
+                    new() { CourseID = 1, ModuleID = 2, Semester = 2, DayOfWeek = DayOfWeek.Tuesday },
+                    new() { CourseID = 1, ModuleID = 3, Semester = 2, DayOfWeek = DayOfWeek.Wednesday },
+                    new() { CourseID = 1, ModuleID = 7, Semester = 1, DayOfWeek = DayOfWeek.Thursday }, 
+
+                    // Matematica
+                    new() { CourseID = 2, ModuleID = 5, Semester = 1, DayOfWeek = DayOfWeek.Monday },
+                    new() { CourseID = 2, ModuleID = 6, Semester = 2, DayOfWeek = DayOfWeek.Tuesday },
+                    new() { CourseID = 2, ModuleID = 7, Semester = 1, DayOfWeek = DayOfWeek.Wednesday },
+
+                    // Fisica
+                    new() { CourseID = 3, ModuleID = 8, Semester = 1, DayOfWeek = DayOfWeek.Monday },
+                    new() { CourseID = 3, ModuleID = 9, Semester = 2, DayOfWeek = DayOfWeek.Tuesday },
+
+                    // Quimica
+                    new() { CourseID = 4, ModuleID = 10, Semester = 1, DayOfWeek = DayOfWeek.Monday },
+                    new() { CourseID = 4, ModuleID = 11, Semester = 2, DayOfWeek = DayOfWeek.Tuesday },
+
+                    // Biologia
+                    new() { CourseID = 5, ModuleID = 12, Semester = 1, DayOfWeek = DayOfWeek.Monday },
+                    new() { CourseID = 5, ModuleID = 13, Semester = 2, DayOfWeek = DayOfWeek.Tuesday },
+
+                    // Literatura Inglesa
+                    new() { CourseID = 6, ModuleID = 14, Semester = 1, DayOfWeek = DayOfWeek.Monday },
+                    new() { CourseID = 6, ModuleID = 15, Semester = 2, DayOfWeek = DayOfWeek.Tuesday },
+
+                    // Historia
+                    new() { CourseID = 7, ModuleID = 16, Semester = 1, DayOfWeek = DayOfWeek.Monday },
+                    new() { CourseID = 7, ModuleID = 17, Semester = 2, DayOfWeek = DayOfWeek.Tuesday },
+
+                    // Filosofia
+                    new() { CourseID = 8, ModuleID = 18, Semester = 1, DayOfWeek = DayOfWeek.Monday },
+                    new() { CourseID = 8, ModuleID = 19, Semester = 2, DayOfWeek = DayOfWeek.Tuesday }
+                };
+
+                context.CourseModules.AddRange(courseModules);
+                context.SaveChanges();
+            }
+            #endregion
         }
     }
 }

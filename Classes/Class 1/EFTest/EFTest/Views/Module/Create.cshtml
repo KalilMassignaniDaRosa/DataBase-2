@@ -1,5 +1,71 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using EFTest.Models.Modules
+@model Module
+
 @{
+    ViewData["Title"] = "Create Module";
+    // Para pre-requisitos
+    var existingModules = ViewBag.Modules as List<Module>; 
 }
+
+<div class="container mt-5">
+    <div class="card shadow-lg rounded-3">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">
+                <i class="fa-solid fa-layer-group"></i> Create Module
+            </h4>
+        </div>
+
+        <div class="card-body">
+            <form asp-controller="Module" asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <!-- Name -->
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="form-label fw-bold">
+                        <i class="fa-solid fa-layer-group"></i> Module Name
+                    </label>
+                    <input asp-for="Name" class="form-control" placeholder="Enter module name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <!-- Workload Hours -->
+                <div class="form-group mb-3">
+                    <label asp-for="WorkloadHours" class="form-label fw-bold">
+                        <i class="fa-solid fa-clock"></i> Workload Hours
+                    </label>
+                    <input asp-for="WorkloadHours" class="form-control" type="number" min="0" placeholder="Enter workload hours" />
+                    <span asp-validation-for="WorkloadHours" class="text-danger"></span>
+                </div>
+
+                <!-- Prerequisites -->
+                @if (existingModules != null && existingModules.Any())
+                {
+                    <div class="form-group mb-4">
+                        <label class="form-label fw-bold">
+                            <i class="fa-solid fa-book-reader"></i> Select Prerequisites
+                        </label>
+                        <div class="border rounded p-2" style="max-height: 150px; overflow-y: auto; background-color: #f8f9fa;">
+                            @foreach (var m in existingModules)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="SelectedPrerequisiteIds" value="@m.ID" id="module-@m.ID">
+                                    <label class="form-check-label" for="module-@m.ID">@m.Name</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+
+                <div class="d-flex justify-content-between">
+                    <a asp-controller="Module" asp-action="Index" class="btn btn-secondary">
+                        <i class="fa-solid fa-arrow-left"></i> Back
+                    </a>
+
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa-solid fa-save"></i> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

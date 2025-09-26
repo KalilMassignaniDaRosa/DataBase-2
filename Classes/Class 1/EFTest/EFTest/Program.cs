@@ -1,9 +1,11 @@
 using EFTest.Data;
-using EFTest.Repository.Courses;
-using EFTest.Repository.Students;
-using EFTest.Repository.StudentsCourses;
+using EFTest.Repository.CoursesRepository;
+using EFTest.Repository.StudentsRepository;
+using EFTest.Repository.StudentsCoursesRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using EFTest.Repository.CoursesModulesRepository;
+using EFTest.Repository.ModulesRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,8 @@ builder.Services.AddDbContext<SchoolContext>(options =>
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IStudentCourseRepository, StudentCourseRepository>();
+builder.Services.AddScoped<IModuleRepository, ModuleRepository>();
+builder.Services.AddScoped<ICourseModuleRepository, CourseModuleRepository>();
 
 var app = builder.Build();
 

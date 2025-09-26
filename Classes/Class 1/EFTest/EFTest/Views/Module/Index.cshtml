@@ -1,5 +1,150 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using EFTest.Models.Modules
+@using EFTest.Models.Courses
+@using EFTest.Models.Students
+@model ICollection<Module>
+
 @{
+    ViewData["Title"] = "Modules";
 }
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="fw-bold text-primary">
+            <i class="fa-solid fa-layer-group"></i> @Model.Count Modules
+        </h1>
+
+        <a asp-controller="Module" asp-action="Create" class="btn btn-success">
+            <i class="fa-solid fa-plus"></i> New Module
+        </a>
+    </div>
+
+    <div class="card shadow-lg rounded-3">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-center" style="width:5%;"><i class="fa-solid fa-id-card"></i> Id</th>
+                        <th><i class="fa-solid fa-layer-group"></i> Name</th>
+                        <th class="text-center" style="width:12%;"><i class="fa-solid fa-book"></i> Courses</th>
+                        <th class="text-center" style="width:15%;"><i class="fa-solid fa-users"></i> Students</th>
+                        <th class="text-center" style="width:15%;"><i class="fa-solid fa-pen-to-square"></i> Update</th>
+                        <th class="text-center" style="width:11%;"><i class="fa-solid fa-trash"></i> Delete</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var m in Model.OrderBy(m => m.ID))
+                    {
+                        <tr class="align-middle">
+                            <td class="text-center">@m.ID</td>
+                            <td>@m.Name</td>
+
+                            <!-- Courses -->
+                            <td class="text-center">
+                                @if (m.CourseModules != null && m.CourseModules.Any())
+                                {
+                                    <button class="btn btn-primary btn-sm px-2 py-1"
+                                            data-bs-toggle="modal" data-bs-target="#coursesModal-@m.ID">
+                                        <i class="fa-solid fa-book"></i> Courses
+                                    </button>
+
+                                    <div class="modal fade" id="coursesModal-@m.ID" tabindex="-1" aria-labelledby="coursesModalLabel-@m.ID" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="coursesModalLabel-@m.ID">@m.Name - Courses</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <ul class="list-group list-group-flush">
+                                                        @foreach (var cm in m.CourseModules.OrderBy(cm => cm.Course!.ID))
+                                                        {
+                                                            <li class="list-group-item">
+                                                                <i class="fa-solid fa-book me-2"></i> @cm.Course!.Name
+                                                                <small class="text-muted"> (Semester: @cm.Semester)</small>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No courses</span>
+                                }
+                            </td>
+
+                            <!-- Students -->
+                            <td class="text-center">
+                                @if (m.StudentModules != null && m.StudentModules.Any())
+                                {
+                                    <button class="btn btn-info btn-sm text-white px-2 py-1"
+                                            data-bs-toggle="modal" data-bs-target="#studentsModal-@m.ID">
+                                        <i class="fa-solid fa-users"></i> @m.StudentModules.Count() Students
+                                    </button>
+
+                                    <div class="modal fade" id="studentsModal-@m.ID" tabindex="-1" aria-labelledby="studentsModalLabel-@m.ID" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="studentsModalLabel-@m.ID">
+                                                        Students in @m.Name
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <ul class="list-group list-group-flush">
+                                                        @foreach (var sm in m.StudentModules.OrderBy(sm => sm.Student!.ID))
+                                                        {
+                                                            <li class="list-group-item d-flex align-items-center">
+                                                                <i class="fa-solid fa-user me-2"></i>
+                                                                @sm.Student.FirstMidName @sm.Student.LastName
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No students</span>
+                                }
+                            </td>
+
+                            <!-- Update -->
+                            <td class="text-center">
+                                <form asp-controller="Module" asp-action="Update" method="get" class="d-inline">
+                                    <input type="hidden" name="id" value="@m.ID" />
+                                    <button type="submit" class="btn btn-warning btn-sm px-2 py-1">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                </form>
+                            </td>
+
+                            <!-- Delete -->
+                            <td class="text-center">
+                                <form asp-controller="Module" asp-action="Delete" method="post" class="d-inline"
+                                      onsubmit="return confirm('Are you sure you want to delete this module?');">
+                                    <input type="hidden" name="id" value="@m.ID" />
+                                    <button type="submit" class="btn btn-danger btn-sm px-2 py-1">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
