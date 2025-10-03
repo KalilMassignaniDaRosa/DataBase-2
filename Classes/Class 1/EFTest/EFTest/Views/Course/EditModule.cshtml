@@ -1,0 +1,121 @@
+﻿@using EFTest.Models.Courses
+@using EFTest.Models.Modules
+@model CourseModule
+
+@{
+    ViewData["Title"] = $"Edit Module - {Model.Module?.Name} in {Model.Course?.Name}";
+    var occupiedDays = ViewBag.OccupiedDays as List<DayOfWeek> ?? new List<DayOfWeek>();
+    int selectedSemester = Model.Semester;
+    var existingModules = ViewBag.ExistingModules as List<Module> ?? new List<Module>();
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg rounded-3 border-warning">
+        <div class="card-header bg-warning text-dark">
+            <h4 class="mb-0">
+                <i class="fa-solid fa-pen-to-square"></i> Edit Module: @Model.Module?.Name
+            </h4>
+        </div>
+        <div class="card-body">
+
+            <form asp-controller="Course" asp-action="EditModule" method="post">
+                <input type="hidden" name="courseId" value="@Model.CourseID" />
+                <input type="hidden" name="moduleId" value="@Model.ModuleID" />
+
+                <!-- Semestre -->
+                <div class="form-group mb-3">
+                    <label class="form-label fw-bold">
+                        <i class="fa-solid fa-layer-group"></i> Semester
+                    </label>
+
+                    <select class="form-select" name="semester" required>
+                        @for (int i = 1; i <= Model.Course!.NumberOfSemesters; i++)
+                        {
+                            if (i == selectedSemester)
+                            {
+                                <option value="@i" selected>@i</option>
+                            }
+                            else
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <!-- Dia -->
+                <div class="form-group mb-3">
+                    <label class="form-label fw-bold">
+                        <i class="fa-solid fa-calendar-day"></i> Day of Week
+                    </label>
+
+                    <select class="form-select" name="dayOfWeek">
+                        <option value="">None</option>
+                        @foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
+                        {
+                            if (day == DayOfWeek.Saturday || day == DayOfWeek.Sunday)
+                            {
+                                continue;
+                            }
+
+                            if (day == Model.DayOfWeek)
+                            {
+                                <option value="@day" selected>@day</option>
+                            }
+                            else if (occupiedDays.Contains(day))
+                            {
+                                <option value="@day" disabled>@day</option>
+                            }
+                            else
+                            {
+                                <option value="@day">@day</option>
+                            }
+                        }
+                    </select>
+                    <div class="form-text">Already occupied days are disabled</div>
+                </div>
+
+                <!-- Prerequisito -->
+                <div class="form-group mb-3">
+                    <label class="form-label fw-bold">
+                        <i class="fa-solid fa-link"></i> Prerequisite (optional)
+                    </label>
+                    <select class="form-select" name="prerequisiteModuleId">
+                        @if (Model.Module?.Prerequisites == null || !Model.Module.Prerequisites.Any())
+                        {
+                            <option value="" selected>None</option>
+                        }
+                        else
+                        {
+                            <option value="">None</option>
+                        }
+
+                        @foreach (var pm in existingModules)
+                        {
+                            if (Model.Module?.Prerequisites?.Any(p => p.PrerequisiteID == pm.ID) == true)
+                            {
+                                <option value="@pm.ID" selected>@pm.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@pm.ID">@pm.Name</option>
+                            }
+                        }
+                    </select>
+                    <div class="form-text">Only modules already in this course appear here</div>
+                </div>
+
+                <!-- Botoes -->
+                <div class="d-flex justify-content-between">
+                    <a asp-controller="Course" asp-action="Overview" asp-route-id="@Model.CourseID" class="btn btn-secondary">
+                        <i class="fa-solid fa-arrow-left"></i> Back
+                    </a>
+
+                    <button type="submit" class="btn btn-warning text-dark">
+                        <i class="fa-solid fa-save"></i> Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

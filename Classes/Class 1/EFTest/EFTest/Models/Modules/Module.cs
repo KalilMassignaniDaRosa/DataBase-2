@@ -13,7 +13,7 @@ namespace EFTest.Models.Modules
         public int? WorkloadHours { get; set; }
         public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 
-        // N:N com course
+        // Relacionamentos
         public List<CourseModule>? CourseModules { get; set; }
         public List<StudentModule>? StudentModules { get; set; }
 

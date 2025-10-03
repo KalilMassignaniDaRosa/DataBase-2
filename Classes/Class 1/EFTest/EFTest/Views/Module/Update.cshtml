@@ -18,33 +18,27 @@
 
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-                <!-- Name -->
+                <!-- Nome -->
                 <div class="form-group mb-3">
                     <label asp-for="Name" class="form-label fw-bold">
                         <i class="fa-solid fa-layer-group"></i> Module Name
                     </label>
+
                     <input asp-for="Name" class="form-control" placeholder="Enter module name" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
 
-                <!-- Workload Hours -->
+                <!-- Horas -->
                 <div class="form-group mb-3">
                     <label asp-for="WorkloadHours" class="form-label fw-bold">
                         <i class="fa-solid fa-clock"></i> Workload Hours
                     </label>
+
                     <input asp-for="WorkloadHours" class="form-control" type="number" min="0" placeholder="Enter workload hours" />
                     <span asp-validation-for="WorkloadHours" class="text-danger"></span>
                 </div>
 
-                <!-- Creation Date -->
-                <div class="form-group mb-4">
-                    <label asp-for="CreationDate" class="form-label fw-bold">
-                        <i class="fa-solid fa-calendar-days"></i> Creation Date
-                    </label>
-                    <input asp-for="CreationDate" class="form-control" type="date" />
-                    <span asp-validation-for="CreationDate" class="text-danger"></span>
-                </div>
-
+                <!-- Botoes -->
                 <div class="d-flex justify-content-between">
                     <a asp-controller="Module" asp-action="Index" class="btn btn-secondary">
                         <i class="fa-solid fa-arrow-left"></i> Back

@@ -1,0 +1,141 @@
+﻿@using EFTest.Models.Courses
+@using EFTest.Models.Modules
+@model Course
+
+@{
+    ViewData["Title"] = "Add Module to Course";
+    // Se for nulo fica lista vazia
+    var modules = ViewBag.Modules as List<Module> ?? new List<Module>();
+    var occupiedDays = ViewBag.OccupiedDays as List<DayOfWeek> ?? new List<DayOfWeek>();
+    int selectedSemester = ViewBag.Semester ?? 1;
+
+    var existingPrereqModules = Model.CourseModules?
+                                    .Select(cm => cm.Module)
+                                    .Where(m => m != null)
+                                    .ToList()
+                                    ?? new List<Module>();
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg rounded-3">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">
+                <i class="fa-solid fa-bookmark"></i> Add Module to @Model.Name
+            </h4>
+        </div>
+        <div class="card-body">
+
+            <!-- Semestre -->
+            <form asp-controller="Course" asp-action="AddModuleToCourse" method="get" class="mb-3">
+                <input type="hidden" name="courseId" value="@Model.ID" />
+                <label class="form-label fw-bold">
+                    <i class="fa-solid fa-layer-group"></i> Semester
+                </label>
+
+                <select class="form-select" name="semester" onchange="this.form.submit()">
+                    @for (int i = 1; i <= Model.NumberOfSemesters; i++)
+                    {
+                        if (i == selectedSemester)
+                        {
+                            <option value="@i" selected>@i</option>
+                        }
+                        else
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    }
+                </select>
+            </form>
+
+            <!-- Materia -->
+            <form asp-controller="Course" asp-action="AddModuleToCourse" method="post">
+                <input type="hidden" name="courseId" value="@Model.ID" />
+                <input type="hidden" name="semester" value="@selectedSemester" />
+
+                <div class="form-group mb-4">
+                    <label class="form-label fw-bold">
+                        <i class="fa-solid fa-book"></i> Select Module
+                    </label>
+
+                    <div class="border rounded p-2" style="max-height: 250px; overflow-y: auto; background-color: #f8f9fa;">
+                        @if (!modules.Any())
+                        {
+                            <div class="text-muted">No available modules to add</div>
+                        }
+                        else
+                        {
+                            foreach (var m in modules)
+                            {
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="selectedModuleId" value="@m.ID" id="module-@m.ID" required />
+                                    <label class="form-check-label" for="module-@m.ID">
+                                        @m.Name
+                                        @if (m.Prerequisites?.Any() ?? false)
+                                        {
+                                            <span class="badge bg-warning text-dark ms-2">
+                                                (Requires: @string.Join(", ", m.Prerequisites.Select(p => p.Prerequisite!.Name)))
+                                            </span>
+                                        }
+                                    </label>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <!-- Prerequisito -->
+                <div class="form-group mb-3">
+                    <label class="form-label fw-bold">
+                        <i class="fa-solid fa-link"></i> Prerequisite (optional)
+                    </label>
+
+                    <select class="form-select" name="prerequisiteModuleId">
+                        <option value="">None</option>
+                        @foreach (var pm in ViewBag.ExistingModules as List<Module> ?? new List<Module>())
+                        {
+                            <option value="@pm.ID">@pm.Name</option>
+                        }
+                    </select>
+                    <div class="form-text">Only modules already in this course appear here</div>
+                </div>
+
+                <!-- Dia -->
+                <div class="form-group mb-3">
+                    <label class="form-label fw-bold">
+                        <i class="fa-solid fa-calendar-day"></i> Day of Week
+                    </label>
+                    <select class="form-select" name="dayOfWeek" required>
+                        <option value="">None</option>
+                        @foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
+                        {
+                            if (day == DayOfWeek.Saturday || day == DayOfWeek.Sunday)
+                            {
+                                continue;
+                            }
+
+                            if (occupiedDays.Contains(day))
+                            {
+                                <option value="@day" disabled>@day</option>
+                            }
+                            else
+                            {
+                                <option value="@day">@day</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <!-- Botoes -->
+                <div class="d-flex justify-content-between">
+                    <a asp-controller="Course" asp-action="Overview" asp-route-id="@Model.ID" class="btn btn-secondary">
+                        <i class="fa-solid fa-arrow-left"></i> Back
+                    </a>
+
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa-solid fa-save"></i> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

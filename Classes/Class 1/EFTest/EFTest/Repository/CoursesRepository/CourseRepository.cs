@@ -34,20 +34,40 @@ namespace EFTest.Repository.CoursesRepository
         #endregion
 
         #region Queries
-        public async Task<Course?> GetById(int id)
+        public async Task<Course?> GetById(int id,
+            bool includeModules = false, bool includeStudents = false)
         {
-            var course = await _context.Courses.
-                Where(c => c.ID == id)
-                .FirstOrDefaultAsync();
+            var query = _context.Courses.AsQueryable();
+
+            if (includeModules)
+                query = query.Include(c => c.CourseModules!)
+                             .ThenInclude(cm => cm.Module);
+
+            if (includeStudents)
+                query = query.Include(c => c.StudentCourses!)
+                             .ThenInclude(sc => sc.Student);
+
+            var course = await query.FirstOrDefaultAsync(c => c.ID == id);
 
             return course;
         }
 
-        public async Task<List<Course>> GetAll()
+        public async Task<List<Course>> GetAll(bool includeModules = false,
+            bool includeStudents = false)
         {
-            var data = await _context.Courses.OrderBy(c => c.Name).ToListAsync();
+            var query = _context.Courses.AsQueryable();
 
-            return data;
+            if (includeModules)
+                query = query.Include(c => c.CourseModules!)
+                             .ThenInclude(cm => cm.Module);
+
+            if (includeStudents)
+                query = query.Include(c => c.StudentCourses!)
+                             .ThenInclude(sc => sc.Student);
+
+            var courses = await query.OrderBy(c => c.Name).ToListAsync();
+
+            return courses;
         }
 
         public async Task<List<Course>> GetByName(string name)
@@ -57,6 +77,18 @@ namespace EFTest.Repository.CoursesRepository
                .ToListAsync();
 
             return courses;
+        }
+
+        public async Task<Course?> GetByIdWithModulesAndPrerequisites(int id)
+        {
+            var course = await _context.Courses
+                .Include(c => c.CourseModules)!
+                    .ThenInclude(cm => cm.Module)!
+                        .ThenInclude(m => m.Prerequisites)!
+                            .ThenInclude(p => p.Prerequisite)
+                .FirstOrDefaultAsync(c => c.ID == id);
+
+            return course;
         }
         #endregion
     }

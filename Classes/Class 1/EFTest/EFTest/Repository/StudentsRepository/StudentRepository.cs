@@ -31,14 +31,14 @@ namespace EFTest.Repository.StudentsRepository
 
         public async Task Delete(Student student)
         {
-            // remove não tem asyc
+            // Remove nao tem asyc
             _context.Students.Remove(student);
             await _context.SaveChangesAsync();
         }
         #endregion
 
         #region Queries
-        // Task permite fazer uma função assincrona
+        // Task permite fazer uma funcao assincrona
         public async Task<Student> GetById(int id)
         {
             var student = await _context.Students.

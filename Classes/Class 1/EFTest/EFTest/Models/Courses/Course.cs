@@ -12,6 +12,7 @@ namespace EFTest.Models.Courses
         public DateTime CreationDate { get; set; } = DateTime.UtcNow;
         public int NumberOfSemesters { get; set; }
 
+        // Relacionamentos
         public List<StudentCourse>? StudentCourses { get; set; }
         public List<CourseModule>? CourseModules { get; set; }
     }

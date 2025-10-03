@@ -48,14 +48,18 @@ namespace EFTest.Repository.StudentsCoursesRepository
             return studentCourses;
         }
 
-        public async Task<List<StudentCourse>> GetByStudentId(int studentId)
+        public async Task<List<StudentCourse>> GetByStudentId(int studentId, 
+            bool includeCanceled = false)
         {
-            var studentCourses = await _context!.StudentCourses
+            var query = _context.StudentCourses
                 .Include(sc => sc.Student)
                 .Include(sc => sc.Course)
-                // Apenas cursos ativos
-                .Where(sc => sc.StudentID == studentId && sc.CancelDate == null)
-                .ToListAsync();
+                .Where(sc => sc.StudentID == studentId);
+
+            if (!includeCanceled)
+                query = query.Where(sc => sc.CancelDate == null);
+
+            var studentCourses = await query.ToListAsync();
 
             return studentCourses;
         }
@@ -66,17 +70,6 @@ namespace EFTest.Repository.StudentsCoursesRepository
                 .Include(sc => sc.Student)
                 .Include(sc => sc.Course)
                 .Where(sc => sc.CourseID == courseId)
-                .ToListAsync();
-
-            return studentCourses;
-        }
-
-        public async Task<List<StudentCourse>> GetByStudentIdWithCanceled(int studentId)
-        {
-            var studentCourses = await _context!.StudentCourses
-                .Include(sc => sc.Student)
-                .Include(sc => sc.Course)
-                .Where(sc => sc.StudentID == studentId)
                 .ToListAsync();
 
             return studentCourses;
@@ -107,7 +100,8 @@ namespace EFTest.Repository.StudentsCoursesRepository
         public async Task AddCourseToStudent(int studentId, int courseId)
         {
             var exists = await _context!.StudentCourses
-                .FirstOrDefaultAsync(sc => sc.StudentID == studentId && sc.CourseID == courseId);
+                .FirstOrDefaultAsync(sc => sc.StudentID == studentId &&
+                                        sc.CourseID == courseId);
 
             if (exists != null)
             {
@@ -130,6 +124,7 @@ namespace EFTest.Repository.StudentsCoursesRepository
                     SignDate = DateTime.Now,
                     CancelDate = null
                 };
+
                 await _context.StudentCourses.AddAsync(sc);
                 await _context.SaveChangesAsync();
             }

@@ -77,6 +77,7 @@ namespace EFTest.Controllers
 
             var courses = await _courseRepository.GetAll();
             ViewBag.Courses = courses.OrderBy(c => c.Name).ToList();
+           
             return View(module);
         }
         #endregion
@@ -102,7 +103,7 @@ namespace EFTest.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(int? routeId, Module module, 
+        public async Task<IActionResult> Update(int? routeId, Module module,
             int[] SelectedCourseIds, int[] Semesters, DayOfWeek[] DaysOfWeek)
         {
             if (!routeId.HasValue)
@@ -114,15 +115,37 @@ namespace EFTest.Controllers
             if (ModelState.IsValid)
             {
                 await _moduleRepository.Update(module);
-                await _cmRepository.UpdateCourses(module.ID, SelectedCourseIds, Semesters, DaysOfWeek);
+
+                // Pega todas as associacoes da materia
+                var existingCourseModules = await _cmRepository.GetByModuleId(module.ID);
+
+                // Remove se nao for selecionado
+                foreach (var cm in existingCourseModules)
+                {
+                    if (!SelectedCourseIds.Contains(cm.CourseID))
+                    {
+                        await _cmRepository.RemoveModuleFromCourse(cm.CourseID, module.ID);
+                    }
+                }
+
+                // Adiciona selecionadas
+                for (int i = 0; i < SelectedCourseIds.Length; i++)
+                {
+                    await _cmRepository.AddModuleToCourse(
+                        module.ID, SelectedCourseIds[i], Semesters[i], DaysOfWeek[i]
+                    );
+                }
 
                 return RedirectToAction("Index");
             }
 
+            // Se der erro carrega os cursos
             var courses = await _courseRepository.GetAll();
             ViewBag.Courses = courses.OrderBy(c => c.Name).ToList();
+
             return View(module);
         }
+
         #endregion
 
         #region Delete
@@ -134,6 +157,7 @@ namespace EFTest.Controllers
                 return NotFound();
 
             await _moduleRepository.Delete(module);
+            
             return RedirectToAction("Index");
         }
         #endregion

@@ -104,6 +104,44 @@ namespace EFTest.Data
             }
             #endregion
 
+            #region Modules Prerequisites
+            if (!context.ModulePrerequisites.Any())
+            {
+                var prerequisites = new ModulePrerequisite[]
+                {
+                    // Ciencia da computacao
+                    new() { ModuleID = 2, PrerequisiteID = 1 },
+                    new() { ModuleID = 3, PrerequisiteID = 2 },
+                    new() { ModuleID = 4, PrerequisiteID = 3 },
+
+                    // Matematica
+                    new() { ModuleID = 6, PrerequisiteID = 5 },
+                    new() { ModuleID = 7, PrerequisiteID = 6 },
+
+                    // Fisica
+                    new() { ModuleID = 9, PrerequisiteID = 8 },
+
+                    // Quimica
+                    new() { ModuleID = 11, PrerequisiteID = 10 },
+
+                    // Biologia
+                    new() { ModuleID = 13, PrerequisiteID = 12 },
+
+                    // Literatura Inglesa
+                    new() { ModuleID = 15, PrerequisiteID = 14 },
+
+                    // Historia
+                    new() { ModuleID = 17, PrerequisiteID = 16 },
+
+                    // Filosofia
+                    new() { ModuleID = 19, PrerequisiteID = 18 },
+                };
+
+                context.ModulePrerequisites.AddRange(prerequisites);
+                context.SaveChanges();
+            }
+            #endregion
+
             #region Student-Course
             if (!context.StudentCourses.Any())
             {

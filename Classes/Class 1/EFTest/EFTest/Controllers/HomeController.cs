@@ -8,11 +8,14 @@ namespace EFTest.Controllers
 {
     public class HomeController : Controller
     {
+        #region Index
         public IActionResult Index()
         {
             return View();
         }
+        #endregion
 
+        #region Others
         public IActionResult Privacy()
         {
             return View();
@@ -23,6 +26,6 @@ namespace EFTest.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        
+        #endregion
     }
 }

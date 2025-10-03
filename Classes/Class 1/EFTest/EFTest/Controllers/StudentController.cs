@@ -7,6 +7,7 @@ using EFTest.Repository.StudentsCoursesRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EFTest.Controllers
 {
@@ -57,7 +58,6 @@ namespace EFTest.Controllers
             // Passando por ViewBag
             ViewBag.Courses = courses.OrderBy(c => c.Name).ToList();
 
-
             return View();
         }
 
@@ -68,7 +68,6 @@ namespace EFTest.Controllers
             {
                 await _studentRepository.Create(student);
 
-                // Associa os cursos selecionados
                 foreach (var courseId in SelectedCourseIds)
                 {
                     await _scRepository.AddCourseToStudent(student.ID, courseId);
@@ -77,7 +76,7 @@ namespace EFTest.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Recarrega os cursos se houver erro
+            // Recarrega cursos se houver erro
             var courses = await _courseRepository.GetAll();
             ViewBag.Courses = courses.OrderBy(c => c.Name).ToList();
 
@@ -107,13 +106,12 @@ namespace EFTest.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(int? routeId,Student student, int[]? SelectedCourseIds)
+        public async Task<IActionResult> Update(int? routeId, Student student, int[]? SelectedCourseIds)
         {
-            // Previnindo divergencia do id da rota e do student
             if (!routeId.HasValue)
                 return BadRequest();
-            
-            if(routeId.Value != student.ID)
+
+            if (routeId.Value != student.ID)
                 return BadRequest();
 
             if (!ModelState.IsValid)
@@ -124,13 +122,12 @@ namespace EFTest.Controllers
                 return View(student);
             }
 
-            // Atualiza dados
             await _studentRepository.Update(student);
 
-            // Garante que nao seja null
+            // Garante que SelectedCourseIds
             SelectedCourseIds ??= Array.Empty<int>();
 
-            // Obtem cursos atuais do estudante
+            // Obtem cursos atuais
             var currentStudentCourses = await _scRepository.GetByStudentId(student.ID);
             var currentCourseIds = currentStudentCourses
                                     .Where(sc => sc.CancelDate == null)
@@ -167,34 +164,47 @@ namespace EFTest.Controllers
         }
         #endregion
 
-        #region Others
+        #region Profile
         [HttpGet]
         public async Task<IActionResult> Profile(int id, int? SelectedCourseId)
         {
             var student = await _studentRepository.GetById(id);
-            if (student == null) return NotFound();
+            if (student == null)
+                return NotFound();
 
-            // Inclui cursos e modulos
+            // Inclui cursos e materias
             await _context.Entry(student)
-                          .Collection(s => s.StudentCourses)
+                          .Collection(s => s.StudentCourses!)
                           .Query()
                           .Include(sc => sc.Course)
                           .LoadAsync();
 
             await _context.Entry(student)
-                          .Collection(s => s.StudentModules)
+                          .Collection(s => s.StudentModules!)
                           .Query()
                           .Include(sm => sm.Module)
-                          .ThenInclude(m => m.CourseModules)
+                          .ThenInclude(m => m!.CourseModules)
                           .LoadAsync();
 
             // Curso selecionado
-            int selectedCourseId = SelectedCourseId ?? student.StudentCourses.FirstOrDefault()?.CourseID ?? 0;
+            int selectedCourseId = SelectedCourseId ?? student.StudentCourses!.FirstOrDefault()?.CourseID ?? 0;
             ViewBag.SelectedCourseId = selectedCourseId;
+
+            // Dropdown
+            ViewBag.StudentCourses = student.StudentCourses!
+                .Select(sc => new SelectListItem
+                {
+                    Text = sc.Course!.Name,
+                    Value = sc.CourseID.ToString(),
+                    Selected = (sc.CourseID == selectedCourseId)
+                })
+                .ToList();
 
             return View(student);
         }
+        #endregion
 
+        #region Others
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

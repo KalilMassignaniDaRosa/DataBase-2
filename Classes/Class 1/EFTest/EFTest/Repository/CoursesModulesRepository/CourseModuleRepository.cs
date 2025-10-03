@@ -46,13 +46,21 @@ namespace EFTest.Repository.CoursesModulesRepository
             return courseModules;
         }
 
-        public async Task<List<CourseModule>> GetByCourseId(int courseId)
+        public async Task<List<CourseModule>> GetByCourseId(int courseId, 
+            DayOfWeek? dayOfWeek = null, int? semester = null)
         {
-            var courseModules = await _context.CourseModules
+            var query = _context.CourseModules
                 .Include(cm => cm.Course)
                 .Include(cm => cm.Module)
-                .Where(cm => cm.CourseID == courseId)
-                .ToListAsync();
+                .Where(cm => cm.CourseID == courseId);
+
+            if (semester.HasValue)
+                query = query.Where(cm => cm.Semester == semester.Value);
+
+            if (dayOfWeek.HasValue)
+                query = query.Where(cm => cm.DayOfWeek == dayOfWeek.Value);
+
+            var courseModules = await query.ToListAsync();
 
             return courseModules;
         }
@@ -68,40 +76,48 @@ namespace EFTest.Repository.CoursesModulesRepository
             return courseModules;
         }
 
-        public async Task<Course?> GetCourseByIdWithModules(int courseId)
+        public async Task<List<CourseModule>> GetModulesByCourseIdAndDay(int courseId, 
+            int semester, DayOfWeek? dayOfWeek = null)
         {
-            var course = await _context.Courses
-                .Include(c => c.CourseModules!)
-                .ThenInclude(cm => cm.Module)
-                .FirstOrDefaultAsync(c => c.ID == courseId);
+            var query = _context.CourseModules
+                .Include(cm => cm.Module)
+                .Include(cm => cm.Course)
+                .Where(cm => cm.CourseID == courseId && cm.Semester == semester);
 
-            return course;
+            if (dayOfWeek.HasValue)
+                query = query.Where(cm => cm.DayOfWeek == dayOfWeek.Value);
+
+            var modules = await query.ToListAsync();
+
+            return modules;
         }
 
-        public async Task<Module?> GetModuleByIdWithCourses(int moduleId)
+        public async Task<List<DayOfWeek>> GetUsedDaysByCourseAndSemester(int courseId, int semester)
         {
-            var module = await _context.Modules
-                .Include(m => m.CourseModules!)
-                .ThenInclude(cm => cm.Course)
-                .FirstOrDefaultAsync(m => m.ID == moduleId);
+            var usedDays = await _context.CourseModules
+                .Where(cm => cm.CourseID == courseId &&
+                            cm.Semester == semester &&
+                            cm.DayOfWeek.HasValue)
+                .Select(cm => cm.DayOfWeek!.Value)
+                .ToListAsync();
 
-            return module;
+            return usedDays;
         }
         #endregion
 
-        #region Enrollments (Add/Update)
-        public async Task AddModuleToCourse(int moduleId, int courseId, 
-            int semester, DayOfWeek? dayOfWeek = null)
+        #region Modules (Add/Sync/Update/Delete)
+        public async Task AddModuleToCourse(int moduleId, 
+            int courseId, int semester, DayOfWeek? dayOfWeek = null)
         {
             var exists = await _context.CourseModules
-                .FirstOrDefaultAsync(cm => cm.ModuleID == moduleId && cm.CourseID == courseId);
+                .FirstOrDefaultAsync(cm => cm.ModuleID == moduleId &&
+                                    cm.CourseID == courseId);
 
             if (exists != null)
             {
                 exists.Semester = semester;
                 exists.DayOfWeek = dayOfWeek;
                 _context.CourseModules.Update(exists);
-                await _context.SaveChangesAsync();
             }
             else
             {
@@ -113,29 +129,53 @@ namespace EFTest.Repository.CoursesModulesRepository
                     DayOfWeek = dayOfWeek
                 };
                 await _context.CourseModules.AddAsync(cm);
-                await _context.SaveChangesAsync();
             }
+
+            await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateCourses(int moduleId, int[] courseIds, 
-            int[] semesters, DayOfWeek[] daysOfWeek)
+        public async Task SyncModuleCourses(int moduleId, int[] courseIds, int[] semesters, DayOfWeek[] daysOfWeek)
         {
             var current = await GetByModuleId(moduleId);
 
             foreach (var cm in current)
             {
                 if (!courseIds.Contains(cm.CourseID))
-                {
                     _context.CourseModules.Remove(cm);
-                }
             }
 
             for (int i = 0; i < courseIds.Length; i++)
-            {
                 await AddModuleToCourse(moduleId, courseIds[i], semesters[i], daysOfWeek[i]);
-            }
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateModuleInCourse(int courseId, int moduleId, int semester, DayOfWeek? dayOfWeek = null)
+        {
+            var cm = await _context.CourseModules
+                .FirstOrDefaultAsync(c => c.CourseID == courseId &&
+                                        c.ModuleID == moduleId);
+
+            if (cm != null)
+            {
+                cm.Semester = semester;
+                cm.DayOfWeek = dayOfWeek;
+
+                _context.CourseModules.Update(cm);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task RemoveModuleFromCourse(int courseId, int moduleId)
+        {
+            var courseModule = await _context.CourseModules
+                .FirstOrDefaultAsync(cm => cm.CourseID == courseId && cm.ModuleID == moduleId);
+
+            if (courseModule != null)
+            {
+                _context.CourseModules.Remove(courseModule);
+                await _context.SaveChangesAsync();
+            }
         }
         #endregion
     }

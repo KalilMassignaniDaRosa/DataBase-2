@@ -12,7 +12,7 @@
         </h1>
 
         <a asp-controller="Student" asp-action="Create" class="btn btn-success">
-            <i class="fa-solid fa-user-plus"></i> New Student
+            <i class="fa-solid fa-plus"></i> New Student
         </a>
     </div>
 
@@ -35,15 +35,15 @@
                     @foreach (var s in Model)
                     {
                         <tr class="align-middle">
-                            <!-- Name-->
+                            <!-- Nome-->
                             <td class="text-center align-middle">@s.ID</td>
                             <td class="align-middle">@s.FirstMidName</td>
                             <td class="align-middle">@s.LastName</td>
 
-                            <!-- Enrollment date -->
+                            <!-- Data -->
                             <td class="text-center align-middle">@s.EnrollmentDate.ToString("dd/MM/yyyy")</td>
 
-                            <!-- Profile -->
+                            <!-- Perfil -->
                             <td class="text-center align-middle">
                                 <form asp-controller="Student" asp-action="Profile" method="get">
                                     <input type="hidden" name="id" value="@s.ID" />
@@ -53,7 +53,7 @@
                                 </form>
                             </td>
 
-                            <!-- Courses -->
+                            <!-- Curso -->
                             <td class="text-center align-middle">
                                 @if (s.StudentCourses != null && s.StudentCourses.Any(sc => sc.CancelDate == null))
                                 {
@@ -99,6 +99,7 @@
                                 }
                             </td>
 
+                            <!-- Botoes -->
                             <td class="text-center align-middle">
                                 <form asp-controller="Student" asp-action="Update" method="get" class="d-inline">
                                     <input type="hidden" name="id" value="@s.ID" />

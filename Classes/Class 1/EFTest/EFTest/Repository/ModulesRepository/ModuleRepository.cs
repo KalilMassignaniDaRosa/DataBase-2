@@ -31,22 +31,33 @@ namespace EFTest.Repository.ModulesRepository
         #endregion
 
         #region Queries
-        public async Task<Module?> GetById(int id)
+        public async Task<Module?> GetById(int id,
+            bool includeCourses = false, bool includePrerequisites = false)
         {
-            var module = await _context.Modules
-                .Include(m => m.CourseModules)
-                .Include(m => m.Prerequisites)
-                .Include(m => m.IsPrerequisiteFor)
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var query = _context.Modules.AsQueryable();
+
+            if (includeCourses)
+                query = query.Include(m => m.CourseModules!)
+                             .ThenInclude(cm => cm.Course);
+
+            if (includePrerequisites)
+                query = query.Include(m => m.Prerequisites!)
+                             .ThenInclude(p => p.Prerequisite);
+
+            var module = await query.FirstOrDefaultAsync(m => m.ID == id);
 
             return module;
         }
 
-        public async Task<List<Module>> GetAll()
+        public async Task<List<Module>> GetAll(bool includePrerequisites = false)
         {
-            var modules = await _context.Modules
-                .OrderBy(m => m.Name)
-                .ToListAsync();
+            var query = _context.Modules.AsQueryable();
+
+            if (includePrerequisites)
+                query = query.Include(m => m.Prerequisites!)
+                             .ThenInclude(p => p.Prerequisite);
+
+            var modules = await query.OrderBy(m => m.Name).ToListAsync();
 
             return modules;
         }
@@ -54,8 +65,8 @@ namespace EFTest.Repository.ModulesRepository
         public async Task<List<Module>> GetByName(string name)
         {
             var modules = await _context.Modules
-                .Where(m => m.Name != null &&
-                            EF.Functions.Like(m.Name, $"%{name}%"))
+                // Busca semelhante
+                .Where(m => m.Name != null && EF.Functions.Like(m.Name, $"%{name}%"))
                 .ToListAsync();
 
             return modules;
@@ -70,15 +81,35 @@ namespace EFTest.Repository.ModulesRepository
 
             return modules;
         }
+        #endregion
 
-        public async Task<List<Module>> GetWithPrerequisites()
+        #region Prerequisite
+        public async Task AddPrerequisite(int moduleId, int prerequisiteId)
         {
-            var modules = await _context.Modules
-                .Include(m => m.Prerequisites!)
-                .ThenInclude(p => p.Prerequisite)
-                .ToListAsync();
+            var exists = await _context.ModulePrerequisites
+                .FirstOrDefaultAsync(mp => mp.ModuleID == moduleId && mp.PrerequisiteID == prerequisiteId);
 
-            return modules;
+            if (exists != null)
+                return;
+
+            var mp = new ModulePrerequisite
+            {
+                ModuleID = moduleId,
+                PrerequisiteID = prerequisiteId
+            };
+
+            await _context.ModulePrerequisites.AddAsync(mp);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveAllPrerequisites(int moduleId)
+        {
+            var prerequisites = _context.ModulePrerequisites
+                .Where(p => p.ModuleID == moduleId);
+
+            _context.ModulePrerequisites.RemoveRange(prerequisites);
+
+            await _context.SaveChangesAsync();
         }
         #endregion
     }
