@@ -1,22 +1,425 @@
+/* Padrao */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+/* Home/Index */
+.container.mt-5.text-center {
+    margin-top: 3rem !important;
+    text-align: center;
+}
+
+.card.shadow-lg.rounded-3.p-5 {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+    border-radius: 0.5rem !important;
+    padding: 3rem !important;
+}
+
+.display-4.mb-4 {
+    font-size: calc(1.475rem + 2.7vw);
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 1.5rem !important;
+}
+
+.lead.mb-5 {
+    font-size: 1.25rem;
+    font-weight: 300;
+    margin-bottom: 3rem !important;
+}
+
+.d-flex.justify-content-center.gap-3 {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 1rem !important;
+}
+
+/* Home/Privacy */
+.container.mt-5 {
+    margin-top: 3rem !important;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+/* Module/Create */
+.card.shadow-lg.rounded-3 {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+    border-radius: 0.5rem !important;
+}
+
+.card-header.bg-success.text-white {
+    background-color: #198754 !important;
+    color: white !important;
+}
+
+.form-check-label {
+    margin-bottom: 0;
+}
+
+/* Module/Index */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+}
+
+.table-dark {
+    background-color: #212529;
+    color: white;
+}
+
+.modal-dialog-scrollable .modal-body {
+    overflow-y: auto;
+}
+
+.list-group-flush .list-group-item:first-child {
+    border-top-width: 0;
+}
+
+.list-group-flush .list-group-item:last-child {
+    border-bottom-width: 0;
+}
+
+/* Module/Update */
+.card-header.bg-warning.text-white {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+}
+
+/* Genericos */
+/* Form */
+.form-label.fw-bold {
+    font-weight: bold !important;
+}
+
+.d-flex.justify-content-between {
+    display: flex !important;
+    justify-content: space-between !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+/* Modal e Scroll*/
+.border.rounded.p-2 {
+    border: 1px solid #dee2e6 !important;
+    border-radius: 0.375rem !important;
+    padding: 0.5rem !important;
+}
+
+    /* Containers com scroll para Student */
+    .border.rounded.p-2.mb-3 {
+        max-height: 300px;
+        overflow-y: auto;
+        background-color: #f8f9fa;
+    }
+
+    .border.rounded.p-2:last-child {
+        max-height: 200px;
+        overflow-y: auto;
+        background-color: #fff7f0;
+    }
+
+/* Container de cursos com scroll */
+.border.rounded.p-2 {
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+}
+
+/* Footer */
+.footer .container.d-flex.justify-content-between {
+    display: flex !important;
+    justify-content: space-between !important;
+}
+
+.text-decoration-none {
+    text-decoration: none !important;
+}
+
+.text-decoration-underline {
+    text-decoration: underline !important;
+}
+
+.prerequisites-container {
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+}
+
+/* Student/AddModuleToStudent */
+.card-header.bg-success.text-white h4 {
+    margin-bottom: 0;
+}
+
+.bg-info.text-dark.ms-2 {
+    margin-left: 0.5rem !important;
+}
+
+.bg-warning.text-dark.ms-2 {
+    margin-left: 0.5rem !important;
+}
+
+.list-unstyled.mb-0 li {
+    margin-bottom: 0.5rem !important;
+}
+
+.text-muted.small.mt-1 {
+    margin-top: 0.25rem !important;
+}
+
+/* Student/Create e Student/Update */
+.card-header.bg-warning.text-dark {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+}
+
+/* Student/Index */
+.table-hover tbody tr.align-middle td {
+    vertical-align: middle !important;
+}
+
+.btn-info.text-white {
+    color: white !important;
+}
+
+.modal-dialog-scrollable .modal-body ul {
+    margin-bottom: 0;
+}
+
+.list-group-item.d-flex.justify-content-between.align-items-center {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* Student/Profile */
+.text-muted.small {
+    font-size: 0.875em;
+}
+
+.badge.bg-success {
+    background-color: #198754 !important;
+}
+
+.badge.bg-danger {
+    background-color: #dc3545 !important;
+}
+
+.badge.bg-info.text-dark {
+    background-color: #0dcaf0 !important;
+    color: #000 !important;
+}
+
+.badge.bg-secondary {
+    background-color: #6c757d !important;
+}
+
+.badge.bg-light.text-dark {
+    background-color: #f8f9fa !important;
+    color: #000 !important;
+}
+
+.form-select.w-auto.d-inline-block {
+    width: auto !important;
+    display: inline-block !important;
+}
+
+.table.align-middle td {
+    vertical-align: middle !important;
+}
+
+.text-start {
+    text-align: left !important;
+}
+
+.d-flex.justify-content-between.align-items-center.mb-4 {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.text-end {
+    text-align: right !important;
+}
+
+.card.shadow-lg .card-body.p-0 {
+    padding: 0 !important;
+}
+
+.table.table-hover.mb-0.align-middle {
+    margin-bottom: 0 !important;
+}
+
+.table-dark.text-center th {
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+    .table-dark.text-center th.text-start {
+        text-align: left !important;
+    }
+
+
+.table.table-hover.mb-0.align-middle th:nth-child(1) {
+    width: 9%;
+}
+
+.table.table-hover.mb-0.align-middle th:nth-child(2) {
+    width: 5%;
+}
+
+.table.table-hover.mb-0.align-middle th:nth-child(3) {
+    width: 40%;
+}
+
+.table.table-hover.mb-0.align-middle th:nth-child(4) {
+    width: 5%;
+}
+
+.table.table-hover.mb-0.align-middle th:nth-child(5) {
+    width: 6%;
+}
+
+.table.table-hover.mb-0.align-middle th:nth-child(6) {
+    width: 6%;
+}
+
+.table.table-hover.mb-0.align-middle th:nth-child(7) {
+    width: 12%;
+}
+
+.table.table-hover.mb-0.align-middle th:nth-child(8) {
+    width: 9%;
+}
+
+.table.table-hover.mb-0.align-middle th:nth-child(9) {
+    width: 12%;
+}
+
+/* Course/Overview */
+.card.shadow-lg.rounded-3 .card-body.p-0 {
+    padding: 0 !important;
+}
+
+.table.table-hover.mb-0 .align-middle td {
+    vertical-align: middle !important;
+}
+
+/* Course/AddModuleToCourse */
+.border.rounded.p-2.mb-2 {
+    border: 1px solid #dee2e6 !important;
+    border-radius: 0.375rem !important;
+    padding: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+/* Container com scroll para materias */
+.border.rounded.p-2 {
+    max-height: 250px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+}
+
+/* Course/EditModule */
+.card.border-warning {
+    border-color: #ffc107 !important;
+}
+
+.card-header.bg-warning.text-dark {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+}
+
+.btn-warning.text-dark {
+    color: #000 !important;
+}
+
+/* Course/Index */
+.table.table-hover.mb-0 .align-middle td {
+    vertical-align: middle !important;
+}
+
+.table.table-hover.mb-0 th:nth-child(1) {
+    width: 5%;
+}
+.table.table-hover.mb-0 th:nth-child(2) {
+    width: 30%;
+}
+.table.table-hover.mb-0 th:nth-child(3) {
+    width: 10%;
+}
+.table.table-hover.mb-0 th:nth-child(4) {
+    width: 10%;
+}
+.table.table-hover.mb-0 th:nth-child(5) {
+    width: 12%;
+}
+.table.table-hover.mb-0 th:nth-child(6) {
+    width: 10%;
+}
+.table.table-hover.mb-0 th:nth-child(7) {
+    width: 10%;
+}
+
+.table.table-hover.mb-0 td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Course/Overview */
+.card.shadow-lg.rounded-3 .card-body.p-0 {
+    padding: 0 !important;
+}
+
+.table.table-hover.mb-0 th:nth-child(1) {
+    width: 10%;
+}
+
+.table.table-hover.mb-0 th:nth-child(2) {
+    width: 5%;
+}
+
+.table.table-hover.mb-0 th:nth-child(3) {
+    width: 25%;
+}
+
+.table.table-hover.mb-0 th:nth-child(4) {
+    width: 10%;
+}
+
+.table.table-hover.mb-0 th:nth-child(5) {
+    width: 25%;
+}
+
+.table.table-hover.mb-0 th:nth-child(6) {
+    width: 15%;
+}
+
+.table.table-hover.mb-0 th:nth-child(7) {
+    width: 10%;
 }

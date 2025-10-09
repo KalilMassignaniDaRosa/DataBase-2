@@ -27,6 +27,15 @@
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
 
+                <!-- Semestre -->
+                <div class="form-group mb-4">
+                    <label asp-for="NumberOfSemesters" class="form-label fw-bold">
+                        <i class="fa-solid fa-layer-group"></i> Number of Semesters
+                    </label>
+                    <input asp-for="NumberOfSemesters" class="form-control" type="number" min="1" max="12" placeholder="Enter number of semesters" />
+                    <span asp-validation-for="NumberOfSemesters" class="text-danger"></span>
+                </div>
+
                 <div class="d-flex justify-content-between">
                     <a asp-controller="Course" asp-action="Index" class="btn btn-secondary">
                         <i class="fa-solid fa-arrow-left"></i> Back

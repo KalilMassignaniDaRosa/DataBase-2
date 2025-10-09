@@ -16,20 +16,21 @@ namespace EFTest.Controllers
     {
         private readonly ILogger<CourseController> _logger;
         private readonly ICourseRepository _courseRepository;
-        private readonly ICourseModuleRepository _cmRepository;
         private readonly IModuleRepository _moduleRepository;
+        private readonly ICourseModuleRepository _cmRepository;
 
         public CourseController(
             ILogger<CourseController> logger, 
             ICourseRepository courseRepository,
-            ICourseModuleRepository courseModuleRepository,
-            IModuleRepository moduleRepository
+            IModuleRepository moduleRepository,
+            ICourseModuleRepository courseModuleRepository
+            
         )
         {
             _logger = logger;
             _courseRepository = courseRepository;
-            _cmRepository = courseModuleRepository;
             _moduleRepository = moduleRepository;
+            _cmRepository = courseModuleRepository;
         }
 
         #region Index
@@ -161,14 +162,16 @@ namespace EFTest.Controllers
 
                 if (usedDays.Contains(dayOfWeek.Value))
                 {
-                    ModelState.AddModelError("DayOfWeek", $"Day {dayOfWeek.Value} is already used in semester {semester}");
+                    ModelState.AddModelError("DayOfWeek", $"Day {dayOfWeek.Value} " +
+                        $"is already used in semester {semester}");
                 }
             }
 
             // Verifica prerequisito
             if (prerequisiteModuleId.HasValue)
             {
-                var isInCourse = course?.CourseModules?.Any(cm => cm.ModuleID == prerequisiteModuleId.Value) ?? false;
+                var isInCourse = course?.CourseModules?.Any(cm => 
+                cm.ModuleID == prerequisiteModuleId.Value) ?? false;
 
                 if (!isInCourse)
                 {
@@ -218,10 +221,9 @@ namespace EFTest.Controllers
 
         [HttpPost]
         public async Task<IActionResult> EditModule(int courseId, int moduleId,
-            int semester, DayOfWeek? dayOfWeek,int? prerequisiteModuleId)
+            int semester, DayOfWeek? dayOfWeek, int? prerequisiteModuleId) 
         {
             await _cmRepository.UpdateModuleInCourse(courseId, moduleId, semester, dayOfWeek);
-
 
             if (prerequisiteModuleId.HasValue)
             {
@@ -258,7 +260,7 @@ namespace EFTest.Controllers
         }
         #endregion
 
-        #region Others
+        #region Error
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

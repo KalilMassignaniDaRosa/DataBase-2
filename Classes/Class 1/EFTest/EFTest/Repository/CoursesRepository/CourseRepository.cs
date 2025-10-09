@@ -39,6 +39,9 @@ namespace EFTest.Repository.CoursesRepository
         {
             var query = _context.Courses.AsQueryable();
 
+            // Garante as propriedades sejam carregadas
+            query = query.AsNoTracking().Where(c => c.ID == id);
+
             if (includeModules)
                 query = query.Include(c => c.CourseModules!)
                              .ThenInclude(cm => cm.Module);
@@ -47,7 +50,7 @@ namespace EFTest.Repository.CoursesRepository
                 query = query.Include(c => c.StudentCourses!)
                              .ThenInclude(sc => sc.Student);
 
-            var course = await query.FirstOrDefaultAsync(c => c.ID == id);
+            var course = await query.FirstOrDefaultAsync();
 
             return course;
         }

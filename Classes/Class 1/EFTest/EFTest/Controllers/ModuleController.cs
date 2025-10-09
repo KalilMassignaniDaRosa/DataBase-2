@@ -162,7 +162,7 @@ namespace EFTest.Controllers
         }
         #endregion
 
-        #region Others
+        #region Error
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

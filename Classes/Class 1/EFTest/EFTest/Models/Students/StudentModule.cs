@@ -1,10 +1,12 @@
-﻿using EFTest.Models.Modules;
+﻿using EFTest.Models.Courses;
+using EFTest.Models.Modules;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EFTest.Models.Students
 {
-    [PrimaryKey(nameof(StudentID), nameof(ModuleID))]
+    // Chave composta tripla
+    [PrimaryKey(nameof(StudentID), nameof(ModuleID), nameof(CourseID))]
     public class StudentModule
     {
         public int StudentID { get; set; }
@@ -15,11 +17,16 @@ namespace EFTest.Models.Students
         [ForeignKey(nameof(ModuleID))]
         public Module? Module { get; set; }
 
+        public int CourseID { get; set; }
+        [ForeignKey(nameof(CourseID))]
+        public Course? Course { get; set; }
+
         public double? Grade { get; set; }
         public double? Frequency { get; set; }
+        public DayOfWeek? DayOfWeek { get; set; }
 
         public DateTime SignDate { get; set; } = DateTime.UtcNow;
         public DateTime? CancelDate { get; set; }
-        public ModuleStatusEnum Status { get; set; } = ModuleStatusEnum.Enrolled;
+        public ModuleStatusEnum Status { get; set; } = ModuleStatusEnum.NotTaken;
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using EFTest.Repository.CoursesModulesRepository;
 using EFTest.Repository.ModulesRepository;
+using EFTest.Repository.StudentsModulesRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,8 +23,9 @@ builder.Services.AddDbContext<SchoolContext>(options =>
 // Cria uma instancia da classe toda vez que usar a interface
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
-builder.Services.AddScoped<IStudentCourseRepository, StudentCourseRepository>();
 builder.Services.AddScoped<IModuleRepository, ModuleRepository>();
+builder.Services.AddScoped<IStudentCourseRepository, StudentCourseRepository>();
+builder.Services.AddScoped<IStudentModuleRepository, StudentModuleRepository>();
 builder.Services.AddScoped<ICourseModuleRepository, CourseModuleRepository>();
 
 var app = builder.Build();

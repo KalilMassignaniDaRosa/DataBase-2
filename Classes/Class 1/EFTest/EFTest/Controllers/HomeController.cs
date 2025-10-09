@@ -15,12 +15,14 @@ namespace EFTest.Controllers
         }
         #endregion
 
-        #region Others
+        #region Privacy
         public IActionResult Privacy()
         {
             return View();
         }
+        #endregion
 
+        #region Error
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

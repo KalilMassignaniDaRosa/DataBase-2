@@ -81,6 +81,7 @@
                         <i class="fa-solid fa-link"></i> Prerequisite (optional)
                     </label>
                     <select class="form-select" name="prerequisiteModuleId">
+                        <!-- Verifique se está igual -->
                         @if (Model.Module?.Prerequisites == null || !Model.Module.Prerequisites.Any())
                         {
                             <option value="" selected>None</option>

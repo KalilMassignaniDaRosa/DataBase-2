@@ -4,14 +4,14 @@
 @{
     ViewData["Title"] = "Create Module";
     // Para pre-requisitos
-    var existingModules = ViewBag.Modules as List<Module>; 
+    var existingModules = ViewBag.Modules as List<Module>;
 }
 
 <div class="container mt-5">
     <div class="card shadow-lg rounded-3">
         <div class="card-header bg-success text-white">
             <h4 class="mb-0">
-                <i class="fa-solid fa-layer-group"></i> Create Module
+                <i class="fas fa-bookmark"></i> Create Module
             </h4>
         </div>
 
@@ -22,7 +22,7 @@
                 <!-- Nome -->
                 <div class="form-group mb-3">
                     <label asp-for="Name" class="form-label fw-bold">
-                        <i class="fa-solid fa-layer-group"></i> Module Name
+                        <i class="fas fa-bookmark"></i> Module Name
                     </label>
 
                     <input asp-for="Name" class="form-control" placeholder="Enter module name" />
@@ -46,7 +46,7 @@
                         <label class="form-label fw-bold">
                             <i class="fa-solid fa-book-reader"></i> Select Prerequisites
                         </label>
-                        <div class="border rounded p-2" style="max-height: 150px; overflow-y: auto; background-color: #f8f9fa;">
+                        <div class="border rounded p-2 prerequisites-container">
                             @foreach (var m in existingModules)
                             {
                                 <div class="form-check">

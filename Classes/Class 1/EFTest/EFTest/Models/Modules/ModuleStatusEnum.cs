@@ -5,6 +5,7 @@
         Enrolled,
         Approved,
         Failed,
-        Canceled
+        Canceled,
+        NotTaken
     }
 }

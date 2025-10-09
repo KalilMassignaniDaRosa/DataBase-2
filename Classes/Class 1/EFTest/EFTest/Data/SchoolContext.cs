@@ -92,21 +92,27 @@ namespace EFTest.Data
             #endregion
 
             #region StudentModule
-            // Chave composta
+            // Chave composta tripla
             modelBuilder.Entity<StudentModule>()
-                .HasKey(sm => new { sm.StudentID, sm.ModuleID });
+                .HasKey(sm => new { sm.StudentID, sm.ModuleID, sm.CourseID });
 
             // FK para Student
             modelBuilder.Entity<StudentModule>()
                 .HasOne(sm => sm.Student)
-                .WithMany(s => s.StudentModules) 
+                .WithMany(s => s.StudentModules)
                 .HasForeignKey(sm => sm.StudentID);
 
             // FK para Module
             modelBuilder.Entity<StudentModule>()
                 .HasOne(sm => sm.Module)
-                .WithMany(m => m.StudentModules) 
+                .WithMany(m => m.StudentModules)
                 .HasForeignKey(sm => sm.ModuleID);
+
+            // FK para Course
+            modelBuilder.Entity<StudentModule>()
+                .HasOne(sm => sm.Course)
+                .WithMany()
+                .HasForeignKey(sm => sm.CourseID);
             #endregion
         }
     }

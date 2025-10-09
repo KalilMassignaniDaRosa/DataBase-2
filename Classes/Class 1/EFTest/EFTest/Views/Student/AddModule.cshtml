@@ -1,0 +1,120 @@
+﻿@model EFTest.ViewModel.StudentModuleCourseViewModel
+@using EFTest.Models
+
+@{
+    ViewData["Title"] = "Add Module";
+
+    var available = Model.GetAvailableModules();
+    var unavailable = Model.GetUnavailableModules();
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg rounded-3">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0"><i class="fas fa-bookmark"></i> Add Module to @Model.Student.FirstMidName @Model.Student.LastName</h4>
+        </div>
+
+        <div class="card-body">
+            <form asp-controller="Student" asp-action="AddModuleToStudent" method="post">
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" name="studentId" value="@Model.Student.ID" />
+                <input type="hidden" name="courseId" value="@Model.Course.ID" />
+
+                <div class="form-group mb-3">
+                    <label class="form-label fw-bold">
+                        <i class="fa-solid fa-book"></i> Available modules
+                    </label>
+
+                    <div class="border rounded p-2 mb-3">
+                        @if (!available.Any())
+                        {
+                            <div class="text-muted">No available modules to add</div>
+                        }
+                        else
+                        {
+                            foreach (var mObj in available)
+                            {
+                                string mId = PropHelper.PropToString(mObj, "ID", "Id", "id");
+                                string mName = PropHelper.PropToString(mObj, "Name", "name", "Nome");
+                                string dayText = PropHelper.PropToString(mObj, "DayOfWeek", "DayOfWeekText", "Day");
+
+                                var prereqObjs = PropHelper.PropToEnumerable(mObj, "Prerequisites", "Prereq", "Prereqs");
+                                var prereqNames = new List<string>();
+                                foreach (var p in prereqObjs)
+                                {
+                                    string pn = PropHelper.PropToString(p, "Name", "name");
+                                    if (string.IsNullOrWhiteSpace(pn)) pn = p?.ToString() ?? "";
+                                    if (!string.IsNullOrWhiteSpace(pn)) prereqNames.Add(pn);
+                                }
+                                string prereqText = prereqNames.Any() ? string.Join(", ", prereqNames) : "";
+
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="moduleId" value="@mId" id="module-@mId" />
+                                    <label class="form-check-label" for="module-@mId">
+                                        <strong>@mName</strong>
+                                        @if (!string.IsNullOrEmpty(dayText))
+                                        {
+                                            <span class="badge bg-info text-dark ms-2">@dayText</span>
+                                        }
+                                        @if (!string.IsNullOrEmpty(prereqText))
+                                        {
+                                            <span class="badge bg-warning text-dark ms-2">(Requires: @prereqText)</span>
+                                        }
+                                    </label>
+                                </div>
+                            }
+                        }
+                    </div>
+
+                    <label class="form-label fw-bold">
+                        <i class="fa-solid fa-ban"></i> Unavailable modules (reasons)
+                    </label>
+
+                    <div class="border rounded p-2">
+                        @if (!unavailable.Any())
+                        {
+                            <div class="text-muted">No unavailable modules</div>
+                        }
+                        else
+                        {
+                            <ul class="list-unstyled mb-0">
+                                @foreach (var item in unavailable)
+                                {
+                                    var uObj = item.Module;
+                                    var reason = item.Reason;
+
+                                    string uId = PropHelper.PropToString(uObj, "ID", "Id", "id");
+                                    string uName = PropHelper.PropToString(uObj, "Name", "name");
+                                    if (string.IsNullOrWhiteSpace(uName)) 
+                                        uName = "#" + uId;
+                                    string uDay = PropHelper.PropToString(uObj, "DayOfWeek", "DayOfWeekText", "Day");
+
+                                    <li class="mb-2">
+                                        <strong>@uName</strong>
+                                        @if (!string.IsNullOrEmpty(uDay))
+                                        {
+                                            <span class="badge bg-info text-dark ms-2">@uDay</span>
+                                        }
+                                        <div class="text-muted small mt-1">@reason</div>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </div>
+
+                </div>
+
+                <div class="d-flex justify-content-between mt-3">
+                    <a asp-controller="Student" asp-action="Profile" asp-route-id="@Model.Student.ID" class="btn btn-secondary">
+                        <i class="fa-solid fa-arrow-left"></i> Back
+                    </a>
+
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa-solid fa-save"></i> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

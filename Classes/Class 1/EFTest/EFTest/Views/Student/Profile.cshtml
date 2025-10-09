@@ -1,71 +1,154 @@
-﻿@using EFTest.Models.Courses
-@using EFTest.Models.Students
-@model Student
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@model EFTest.Models.Students.Student
 
 @{
-    ViewData["Title"] = $"{Model.FirstMidName} Profile";
+    ViewData["Title"] = $"{Model.FirstMidName} {Model.LastName} Profile";
 
-    // Cursos do aluno
-    var studentCourses = Model.StudentCourses?.OrderBy(sc => sc.CourseID).ToList() ?? new List<StudentCourse>();
-
-    // Id do curso selecionado
     int? selectedCourseId = ViewBag.SelectedCourseId as int?;
-
-    // Curso selecionado
-    var selectedCourse = selectedCourseId.HasValue
-        ? studentCourses.FirstOrDefault(sc => sc.CourseID == selectedCourseId.Value)?.Course
-        : null;
+    var studentCourses = ViewBag.StudentCourses as List<SelectListItem> ?? new List<SelectListItem>();
+    var precomputedCourseModules = ViewBag.CourseModules as IEnumerable<dynamic>;
 }
 
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold text-primary">
-            <i class="fa-solid fa-user"></i> @Model.FirstMidName @Model.LastName Profile
-        </h2>
-        <span class="badge bg-secondary">ID: @Model.ID</span>
+        <div>
+            <h2 class="fw-bold text-primary">
+                <i class="fa-solid fa-user"></i> @Model.FirstMidName @Model.LastName
+            </h2>
+            <span class="text-muted">ID: @Model.ID</span>
+        </div>
+
+        <div class="text-end">
+            @if (selectedCourseId.HasValue && selectedCourseId.Value > 0)
+            {
+                <form asp-controller="Student" asp-action="AddModuleToStudent" method="get" class="d-inline">
+                    <input type="hidden" name="studentId" value="@Model.ID" />
+                    <input type="hidden" name="courseId" value="@selectedCourseId" />
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa-solid fa-plus"></i> Add Module
+                    </button>
+                </form>
+            }
+        </div>
     </div>
 
+    <!-- Droplist curso -->
     <form method="get" asp-action="Profile" asp-controller="Student">
         <input type="hidden" name="id" value="@Model.ID" />
-
         <div class="mb-4">
-            <label class="form-label fw-bold">
+            <label for="SelectedCourseId" class="form-label fw-bold">
                 <i class="fa-solid fa-book"></i> Select Course
             </label>
-            @Html.DropDownList("SelectedCourseId",
-                     (IEnumerable<SelectListItem>)ViewBag.StudentCourses,
-                     "Select a course",
-                     new { @class = "form-select", onchange = "this.form.submit();" })
+            @Html.DropDownList(
+                     "SelectedCourseId",
+                     studentCourses,
+                     "Select a course", // Placeholder
+                     new { @class = "form-select w-auto d-inline-block", onchange = "this.form.submit();" }
+                     )
         </div>
     </form>
 
-    @if (selectedCourse != null)
+    @if (selectedCourseId.HasValue && selectedCourseId.Value > 0)
     {
-        <h4 class="mt-4">Modules in @selectedCourse.Name</h4>
-        <table class="table table-bordered table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <th>Module</th>
-                    <th>Sign Date</th>
-                    <th>Status</th>
-                    <th>Grade</th>
-                    <th>Frequency</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var sm in Model.StudentModules
-               .Where(sm => sm.Module.CourseModules.Any(cm => cm.CourseID == selectedCourse.ID))
-               .OrderBy(sm => sm.Module.ID))
-                {
-                    <tr>
-                        <td>@sm.Module.Name</td>
-                        <td>@sm.SignDate.ToShortDateString()</td>
-                        <td>@sm.Status</td>
-                        <td>@(sm.Grade?.ToString("F1") ?? "-")</td>
-                        <td>@(sm.Frequency?.ToString("F1") ?? "-")</td>
-                    </tr>
+        <div class="card shadow-lg">
+            <div class="card-body p-0">
+                @{
+                    IEnumerable<dynamic> rows = precomputedCourseModules ?? new List<dynamic>();
                 }
-            </tbody>
-        </table>
+
+                @if (!rows.Any())
+                {
+                    <div class="p-4">
+                        <p class="text-muted mb-0">No modules found for this course</p>
+                    </div>
+                }
+                else
+                {
+                    <table class="table table-hover mb-0 align-middle">
+                        <thead class="table-dark text-center">
+                            <tr>
+                                <th><i class="fa-solid fa-layer-group"></i> Semester</th>
+                                <th><i class="fa-solid fa-id-card"></i> ID</th>
+                                <th class="text-start"><i class="fa-solid fa-bookmark"></i> Module</th>
+                                <th><i class="fa-solid fa-clock"></i> Hrs</th>
+                                <th><i class="fa-solid fa-percent"></i> Freq</th>
+                                <th><i class="fa-solid fa-chart-simple"></i> Avg</th>
+                                <th><i class="fa-solid fa-calendar-days"></i> Period</th>
+                                <th><i class="fa-solid fa-list"></i> Status</th>
+                                <th><i class="fa-solid fa-ban"></i> Cancel</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var m in rows)
+                            {
+                                int semester = m.Semester ?? 0;
+                                int moduleId = m.ModuleId ?? 0;
+                                string name = m.Name ?? "-";
+                                int? workload = m.WorkloadHours as int?;
+                                double? freq = m.Frequency as double?;
+                                double? grade = m.Grade as double?;
+                                DateTime? periodDt = m.Period as DateTime?;
+                                string rawStatus = (m.Status ?? "").ToString();
+                                string statusText = rawStatus switch
+                                {
+                                    "Approved" => "Approved",
+                                    "Failed" => "Failed",
+                                    "Enrolled" => "Enrolled",
+                                    "Canceled" => "Canceled",
+                                    "NotTaken" => "Not taken",
+                                    _ => rawStatus
+                                };
+                                string badgeClass = statusText switch
+                                {
+                                    "Approved" => "badge bg-success",
+                                    "Failed" => "badge bg-danger",
+                                    "Enrolled" => "badge bg-info text-dark",
+                                    "Canceled" => "badge bg-secondary",
+                                    "Not taken" => "badge bg-light text-dark",
+                                    _ => "badge bg-light text-dark"
+                                };
+
+                                <tr>
+                                    <td class="text-center">@semester</td>
+                                    <td class="text-center">@moduleId</td>
+                                    <td class="text-start">@name</td>
+                                    <td class="text-center">@(
+                                        (workload != null) ? workload.ToString() : "-")</td>
+
+                                    <td class="text-center">@(
+                                        (freq != null) ? $"{(int)Math.Round(freq.Value)}%" : "-")</td>
+
+                                    <td class="text-center">@(
+                                        (grade != null) ? string.Format("{0:0.0}", grade) : "-")</td>
+
+                                    <td class="text-center">@(
+                                        (periodDt != null) ? $"{(periodDt.Value.Month <= 6 ? 1 : 2)}/{periodDt.Value.Year}" : "-")</td>
+                                    <td class="text-center"><span class="@badgeClass">@statusText</span></td>
+
+                                    <!-- Cancelar -->
+                                    <td class="text-center">
+                                        @if (rawStatus == "Enrolled" || rawStatus == "Approved" || rawStatus == "Failed")
+                                        {
+                                            <form asp-controller="Student" asp-action="CancelModule" method="post"
+                                                  onsubmit="return confirm('Are you sure you want to cancel this module?');">
+                                                <input type="hidden" name="studentId" value="@Model.ID" />
+                                                <input type="hidden" name="moduleId" value="@moduleId" />
+                                                <input type="hidden" name="returnUrl" value="@Url.Action("Profile",
+                                                "Student", new { id = Model.ID, SelectedCourseId = selectedCourseId })" />
+                                                
+                                                <button type="submit" class="btn btn-danger btn-sm px-2 py-1">
+                                                    <i class="fa-solid fa-ban"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
     }
 </div>

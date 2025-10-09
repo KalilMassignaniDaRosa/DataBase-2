@@ -25,7 +25,16 @@ namespace EFTest.Repository.ModulesRepository
 
         public async Task Delete(Module module)
         {
+            // Remove prerequisitos
+            var prereqs = await _context.ModulePrerequisites
+                .Where(mp => mp.ModuleID == module.ID || mp.PrerequisiteID == module.ID)
+                .ToListAsync();
+
+            _context.ModulePrerequisites.RemoveRange(prereqs);
+
+            // Remove a materia
             _context.Modules.Remove(module);
+
             await _context.SaveChangesAsync();
         }
         #endregion
