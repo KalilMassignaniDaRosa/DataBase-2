@@ -1,5 +1,6 @@
 ﻿using EFTest.Data;
 using EFTest.Models.Modules;
+using EFTest.Models.Students;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFTest.Repository.ModulesRepository
@@ -89,6 +90,14 @@ namespace EFTest.Repository.ModulesRepository
                 .ToListAsync();
 
             return modules;
+        }
+
+        public async Task<ICollection<StudentModule>> GetStudentModulesByModuleId(int moduleId)
+        {
+            return await _context.StudentModules
+                .Include(sm => sm.Student)
+                .Where(sm => sm.ModuleID == moduleId)
+                .ToListAsync();
         }
         #endregion
 

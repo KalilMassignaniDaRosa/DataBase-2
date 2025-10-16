@@ -9,7 +9,7 @@ namespace EFTest.Data
         public static void Initialize(SchoolContext context)
         {
             context.Database.EnsureCreated();
-            // Tem materias que nao estao colocadas correamente nos cursos
+            // Tem materias que nao estao colocadas corretamente nos cursos
             // Apenas para exemplo
 
             #region Student
@@ -46,18 +46,12 @@ namespace EFTest.Data
             {
                 var courses = new Course[]
                 {
-                    new() { Name = "Computer Science", CreationDate = DateTime.Parse("2024-01-10"), NumberOfSemesters = 8 },
-                    new() { Name = "Mathematics", CreationDate = DateTime.Parse("2024-02-05"), NumberOfSemesters = 6 },
-                    new() { Name = "Physics", CreationDate = DateTime.Parse("2024-03-01"), NumberOfSemesters = 6 },
-                    new() { Name = "Chemistry", CreationDate = DateTime.Parse("2024-03-25"), NumberOfSemesters = 6 },
-                    new() { Name = "Biology", CreationDate = DateTime.Parse("2024-04-20"), NumberOfSemesters = 6 },
-                    new() { Name = "English Literature", CreationDate = DateTime.Parse("2024-05-15"), NumberOfSemesters = 4 },
-                    new() { Name = "History", CreationDate = DateTime.Parse("2024-06-10"), NumberOfSemesters = 4 },
-                    new() { Name = "Philosophy", CreationDate = DateTime.Parse("2024-07-05"), NumberOfSemesters = 4 },
-                    new() { Name = "Engineering", CreationDate = DateTime.Parse("2024-08-01"), NumberOfSemesters = 10 },
-                    new() { Name = "Medicine", CreationDate = DateTime.Parse("2024-09-01"), NumberOfSemesters = 12 },
-                    new() { Name = "Business Administration", CreationDate = DateTime.Parse("2024-10-01"), NumberOfSemesters = 8 },
-                    new() { Name = "Psychology", CreationDate = DateTime.Parse("2024-11-01"), NumberOfSemesters = 8 }
+                    new() { Name = "Computer Science", CreationDate = DateTime.Parse("2020-01-10"), NumberOfSemesters = 8 },
+                    new() { Name = "Computer Engineering", CreationDate = DateTime.Parse("2019-02-15"), NumberOfSemesters = 10 },
+                    new() { Name = "Agronomy", CreationDate = DateTime.Parse("2018-03-20"), NumberOfSemesters = 8 },
+                    new() { Name = "Mathematics (Teaching Degree)", CreationDate = DateTime.Parse("2017-04-25"), NumberOfSemesters = 8 },
+                    new() { Name = "Medicine", CreationDate = DateTime.Parse("2016-05-30"), NumberOfSemesters = 12 }
+
                 };
 
                 context.Courses.AddRange(courses);
@@ -68,165 +62,361 @@ namespace EFTest.Data
             #region Modules
             if (!context.Modules.Any())
             {
-                var modules = new Module[]
+                var modules = new List<Module>();
+
+                #region Computer Science
+                var computerScienceModules = new Module[]
                 {
-                    new() { Name = "Introduction to Programming", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-01-01") },
-                    new() { Name = "Data Structures", WorkloadHours = 80, CreationDate = DateTime.Parse("2024-01-02") },
-                    new() { Name = "Algorithms", WorkloadHours = 80, CreationDate = DateTime.Parse("2024-01-03") },
-                    new() { Name = "Computer Architecture", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-01-04") },
-                    new() { Name = "Database Systems", WorkloadHours = 70, CreationDate = DateTime.Parse("2024-01-05") },
-                    new() { Name = "Operating Systems", WorkloadHours = 70, CreationDate = DateTime.Parse("2024-01-06") },
-                    new() { Name = "Software Engineering", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-01-07") },
-                    new() { Name = "Computer Networks", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-01-08") },
-                    new() { Name = "Web Development", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-01-09") },
-                    new() { Name = "Mobile Development", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-01-10") },
-                    new() { Name = "Artificial Intelligence", WorkloadHours = 80, CreationDate = DateTime.Parse("2024-01-11") },
-                    new() { Name = "Machine Learning", WorkloadHours = 80, CreationDate = DateTime.Parse("2024-01-12") },
-                    new() { Name = "Cybersecurity", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-01-13") },
-                    new() { Name = "Cloud Computing", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-01-14") },
-                    new() { Name = "Big Data", WorkloadHours = 70, CreationDate = DateTime.Parse("2024-01-15") },
+                    // Semestre 1
+                    new() { Name = "Introduction to Computing", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-01-01") },
+                    new() { Name = "Algorithm and Programming Logic", WorkloadHours = 80, CreationDate = DateTime.Parse("2020-01-02") },
+                    new() { Name = "Calculus I", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-01-03") },
+                    new() { Name = "Discrete Mathematics", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-01-04") },
+                    new() { Name = "Digital Systems", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-01-05") },
+                    new() { Name = "Technical Communication", WorkloadHours = 40, CreationDate = DateTime.Parse("2020-01-06") },
 
-                    new() { Name = "Calculus I", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-02-01") },
-                    new() { Name = "Calculus II", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-02-02") },
-                    new() { Name = "Linear Algebra", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-02-03") },
-                    new() { Name = "Discrete Mathematics", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-02-04") },
-                    new() { Name = "Probability", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-02-05") },
-                    new() { Name = "Statistics", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-02-06") },
-                    new() { Name = "Differential Equations", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-02-07") },
-                    new() { Name = "Numerical Methods", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-02-08") },
-                    new() { Name = "Complex Analysis", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-02-09") },
-                    new() { Name = "Abstract Algebra", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-02-10") },
+                    // Semestre 2
+                    new() { Name = "Object-Oriented Programming", WorkloadHours = 80, CreationDate = DateTime.Parse("2020-02-01") },
+                    new() { Name = "Data Structures", WorkloadHours = 80, CreationDate = DateTime.Parse("2020-02-02") },
+                    new() { Name = "Calculus II", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-02-03") },
+                    new() { Name = "Computer Architecture", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-02-04") },
+                    new() { Name = "Linear Algebra", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-02-05") },
 
-                    new() { Name = "Classical Mechanics", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-03-01") },
-                    new() { Name = "Electromagnetism", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-03-02") },
-                    new() { Name = "Thermodynamics", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-03-03") },
-                    new() { Name = "Quantum Mechanics", WorkloadHours = 80, CreationDate = DateTime.Parse("2024-03-04") },
-                    new() { Name = "Relativity", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-03-05") },
-                    new() { Name = "Optics", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-03-06") },
-                    new() { Name = "Nuclear Physics", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-03-07") },
-                    new() { Name = "Particle Physics", WorkloadHours = 70, CreationDate = DateTime.Parse("2024-03-08") },
-                    new() { Name = "Astrophysics", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-03-09") },
-                    new() { Name = "Solid State Physics", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-03-10") },
+                    // Semestre 3
+                    new() { Name = "Algorithms and Complexity", WorkloadHours = 80, CreationDate = DateTime.Parse("2020-03-01") },
+                    new() { Name = "Database Systems I", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-03-02") },
+                    new() { Name = "Operating Systems", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-03-03") },
+                    new() { Name = "Probability and Statistics", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-03-04") },
+                    new() { Name = "Software Engineering I", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-03-05") },
 
-                    new() { Name = "Organic Chemistry", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-03-25") },
-                    new() { Name = "Inorganic Chemistry", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-03-26") },
-                    new() { Name = "Physical Chemistry", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-03-27") },
-                    new() { Name = "Analytical Chemistry", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-03-28") },
-                    new() { Name = "Biochemistry", WorkloadHours = 70, CreationDate = DateTime.Parse("2024-03-29") },
-                    new() { Name = "Environmental Chemistry", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-03-30") },
-                    new() { Name = "Polymer Chemistry", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-03-31") },
-                    new() { Name = "Medicinal Chemistry", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-04-01") },
-                    new() { Name = "Computational Chemistry", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-04-02") },
-                    new() { Name = "Quantum Chemistry", WorkloadHours = 70, CreationDate = DateTime.Parse("2024-04-03") },
+                    // Semestre 4
+                    new() { Name = "Database Systems II", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-04-01") },
+                    new() { Name = "Computer Networks", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-04-02") },
+                    new() { Name = "Web Development", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-04-03") },
+                    new() { Name = "Software Engineering II", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-04-04") },
+                    new() { Name = "Human-Computer Interaction", WorkloadHours = 40, CreationDate = DateTime.Parse("2020-04-05") },
 
-                    new() { Name = "Cell Biology", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-04-01") },
-                    new() { Name = "Genetics", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-04-02") },
-                    new() { Name = "Microbiology", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-04-03") },
-                    new() { Name = "Biochemistry", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-04-04") },
-                    new() { Name = "Molecular Biology", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-04-05") },
-                    new() { Name = "Ecology", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-04-06") },
-                    new() { Name = "Evolutionary Biology", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-04-07") },
-                    new() { Name = "Physiology", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-04-08") },
-                    new() { Name = "Immunology", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-04-09") },
-                    new() { Name = "Neuroscience", WorkloadHours = 70, CreationDate = DateTime.Parse("2024-04-10") },
+                    // Semestre 5
+                    new() { Name = "Artificial Intelligence", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-05-01") },
+                    new() { Name = "Compilers", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-05-02") },
+                    new() { Name = "Distributed Systems", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-05-03") },
+                    new() { Name = "Computer Graphics", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-05-04") },
+                    new() { Name = "Formal Languages and Automata", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-05-05") },
 
-                    new() { Name = "Shakespearean Literature", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-05-01") },
-                    new() { Name = "Modern Poetry", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-05-02") },
-                    new() { Name = "American Literature", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-05-03") },
-                    new() { Name = "British Literature", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-05-04") },
-                    new() { Name = "Literary Theory", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-05-05") },
-                    new() { Name = "Creative Writing", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-05-06") },
-                    new() { Name = "Drama Studies", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-05-07") },
-                    new() { Name = "Postcolonial Literature", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-05-08") },
-                    new() { Name = "Children's Literature", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-05-09") },
-                    new() { Name = "Science Fiction", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-05-10") },
+                    // Semestre 6
+                    new() { Name = "Machine Learning", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-06-01") },
+                    new() { Name = "Mobile Development", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-06-02") },
+                    new() { Name = "Information Security", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-06-03") },
+                    new() { Name = "Software Testing and Quality", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-06-04") },
+                    new() { Name = "Cloud Computing", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-06-05") },
 
-                    new() { Name = "World History I", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-06-01") },
-                    new() { Name = "World History II", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-06-02") },
-                    new() { Name = "European History", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-06-03") },
-                    new() { Name = "American History", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-06-04") },
-                    new() { Name = "Ancient History", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-06-05") },
-                    new() { Name = "Medieval History", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-06-06") },
-                    new() { Name = "Modern History", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-06-07") },
-                    new() { Name = "Military History", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-06-08") },
-                    new() { Name = "Cultural History", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-06-09") },
-                    new() { Name = "Economic History", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-06-10") },
+                    // Semestre 7
+                    new() { Name = "Software Project Management", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-07-01") },
+                    new() { Name = "Entrepreneurship in Computing", WorkloadHours = 40, CreationDate = DateTime.Parse("2020-07-02") },
+                    new() { Name = "Professional Ethics", WorkloadHours = 40, CreationDate = DateTime.Parse("2020-07-03") },
+                    new() { Name = "Internship I", WorkloadHours = 100, CreationDate = DateTime.Parse("2020-07-04") },
+                    new() { Name = "Final Project I", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-07-05") },
 
-                    new() { Name = "Ethics", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-07-01") },
-                    new() { Name = "Logic", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-07-02") },
-                    new() { Name = "Metaphysics", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-07-03") },
-                    new() { Name = "Epistemology", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-07-04") },
-                    new() { Name = "Political Philosophy", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-07-05") },
-                    new() { Name = "Aesthetics", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-07-06") },
-                    new() { Name = "Existentialism", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-07-07") },
-                    new() { Name = "Philosophy of Science", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-07-08") },
-                    new() { Name = "Philosophy of Mind", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-07-09") },
-                    new() { Name = "Ancient Philosophy", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-07-10") },
-
-                    new() { Name = "Engineering Mathematics", WorkloadHours = 70, CreationDate = DateTime.Parse("2024-08-01") },
-                    new() { Name = "Mechanics", WorkloadHours = 70, CreationDate = DateTime.Parse("2024-08-02") },
-                    new() { Name = "Thermodynamics", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-08-03") },
-                    new() { Name = "Materials Science", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-08-04") },
-                    new() { Name = "Electrical Circuits", WorkloadHours = 70, CreationDate = DateTime.Parse("2024-08-05") },
-                    new() { Name = "Digital Systems", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-08-06") },
-                    new() { Name = "Fluid Mechanics", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-08-07") },
-                    new() { Name = "Structural Analysis", WorkloadHours = 70, CreationDate = DateTime.Parse("2024-08-08") },
-                    new() { Name = "Control Systems", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-08-09") },
-                    new() { Name = "Engineering Design", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-08-10") },
-                    new() { Name = "Heat Transfer", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-08-11") },
-                    new() { Name = "Manufacturing Processes", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-08-12") },
-                    new() { Name = "Engineering Economics", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-08-13") },
-                    new() { Name = "Project Management", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-08-14") },
-                    new() { Name = "Sustainable Engineering", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-08-15") },
-
-                    new() { Name = "Human Anatomy", WorkloadHours = 80, CreationDate = DateTime.Parse("2024-09-01") },
-                    new() { Name = "Physiology", WorkloadHours = 80, CreationDate = DateTime.Parse("2024-09-02") },
-                    new() { Name = "Biochemistry", WorkloadHours = 70, CreationDate = DateTime.Parse("2024-09-03") },
-                    new() { Name = "Pharmacology", WorkloadHours = 70, CreationDate = DateTime.Parse("2024-09-04") },
-                    new() { Name = "Pathology", WorkloadHours = 80, CreationDate = DateTime.Parse("2024-09-05") },
-                    new() { Name = "Microbiology", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-09-06") },
-                    new() { Name = "Immunology", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-09-07") },
-                    new() { Name = "Neuroscience", WorkloadHours = 70, CreationDate = DateTime.Parse("2024-09-08") },
-                    new() { Name = "Cardiology", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-09-09") },
-                    new() { Name = "Pediatrics", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-09-10") },
-                    new() { Name = "Surgery", WorkloadHours = 80, CreationDate = DateTime.Parse("2024-09-11") },
-                    new() { Name = "Internal Medicine", WorkloadHours = 70, CreationDate = DateTime.Parse("2024-09-12") },
-                    new() { Name = "Psychiatry", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-09-13") },
-                    new() { Name = "Radiology", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-09-14") },
-                    new() { Name = "Public Health", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-09-15") },
-
-                    new() { Name = "Principles of Management", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-10-01") },
-                    new() { Name = "Accounting", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-10-02") },
-                    new() { Name = "Marketing", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-10-03") },
-                    new() { Name = "Finance", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-10-04") },
-                    new() { Name = "Human Resources", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-10-05") },
-                    new() { Name = "Operations Management", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-10-06") },
-                    new() { Name = "Business Law", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-10-07") },
-                    new() { Name = "Strategic Management", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-10-08") },
-                    new() { Name = "International Business", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-10-09") },
-                    new() { Name = "Entrepreneurship", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-10-10") },
-                    new() { Name = "Organizational Behavior", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-10-11") },
-                    new() { Name = "Business Ethics", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-10-12") },
-                    new() { Name = "Supply Chain Management", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-10-13") },
-                    new() { Name = "Business Analytics", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-10-14") },
-                    new() { Name = "E-Commerce", WorkloadHours = 40, CreationDate = DateTime.Parse("2024-10-15") },
-
-                    new() { Name = "Introduction to Psychology", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-11-01") },
-                    new() { Name = "Developmental Psychology", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-11-02") },
-                    new() { Name = "Cognitive Psychology", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-11-03") },
-                    new() { Name = "Social Psychology", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-11-04") },
-                    new() { Name = "Abnormal Psychology", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-11-05") },
-                    new() { Name = "Clinical Psychology", WorkloadHours = 70, CreationDate = DateTime.Parse("2024-11-06") },
-                    new() { Name = "Research Methods", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-11-07") },
-                    new() { Name = "Biological Psychology", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-11-08") },
-                    new() { Name = "Personality Psychology", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-11-09") },
-                    new() { Name = "Forensic Psychology", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-11-10") },
-                    new() { Name = "Health Psychology", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-11-11") },
-                    new() { Name = "Educational Psychology", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-11-12") },
-                    new() { Name = "Industrial Psychology", WorkloadHours = 50, CreationDate = DateTime.Parse("2024-11-13") },
-                    new() { Name = "Neuropsychology", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-11-14") },
-                    new() { Name = "Counseling Psychology", WorkloadHours = 60, CreationDate = DateTime.Parse("2024-11-15") }
+                    // Semestre 8
+                    new() { Name = "Advanced Topics in Computing", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-08-01") },
+                    new() { Name = "Internship II", WorkloadHours = 100, CreationDate = DateTime.Parse("2020-08-02") },
+                    new() { Name = "Final Project II", WorkloadHours = 60, CreationDate = DateTime.Parse("2020-08-03") },
+                    new() { Name = "Career Planning", WorkloadHours = 40, CreationDate = DateTime.Parse("2020-08-04") }
                 };
+
+                modules.AddRange(computerScienceModules);
+                #endregion
+
+                #region Computer Engineering
+                var computerEngineeringModules = new Module[]
+                {
+                    // Semestre 1
+                    new() { Name = "Engineering Calculus I", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-01-01") },
+                    new() { Name = "General Physics I", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-01-02") },
+                    new() { Name = "Technical Drawing", WorkloadHours = 60, CreationDate = DateTime.Parse("2019-01-03") },
+                    new() { Name = "Introduction to Engineering", WorkloadHours = 40, CreationDate = DateTime.Parse("2019-01-04") },
+                    new() { Name = "Chemistry for Engineering", WorkloadHours = 60, CreationDate = DateTime.Parse("2019-01-05") },
+
+                    // Semestre 2
+                    new() { Name = "Engineering Calculus II", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-02-01") },
+                    new() { Name = "General Physics II", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-02-02") },
+                    new() { Name = "Algorithm and Programming Logic", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-02-03") },
+                    new() { Name = "Linear Algebra", WorkloadHours = 60, CreationDate = DateTime.Parse("2019-02-04") },
+                    new() { Name = "Experimental Physics", WorkloadHours = 60, CreationDate = DateTime.Parse("2019-02-05") },
+
+                    // Semestre 3
+                    new() { Name = "Electrical Circuits I", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-03-01") },
+                    new() { Name = "Digital Systems", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-03-02") },
+                    new() { Name = "Object-Oriented Programming", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-03-03") },
+                    new() { Name = "Differential Equations", WorkloadHours = 60, CreationDate = DateTime.Parse("2019-03-04") },
+                    new() { Name = "Numerical Calculus", WorkloadHours = 60, CreationDate = DateTime.Parse("2019-03-05") },
+
+                    // Semestre 4
+                    new() { Name = "Electrical Circuits II", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-04-01") },
+                    new() { Name = "Electronics I", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-04-02") },
+                    new() { Name = "Microprocessors", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-04-03") },
+                    new() { Name = "Data Structures", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-04-04") },
+                    new() { Name = "Probability and Statistics", WorkloadHours = 60, CreationDate = DateTime.Parse("2019-04-05") },
+
+                    // Semestre 5
+                    new() { Name = "Electronics II", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-05-01") },
+                    new() { Name = "Computer Architecture", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-05-02") },
+                    new() { Name = "Signals and Systems", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-05-03") },
+                    new() { Name = "Algorithms and Complexity", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-05-04") },
+                    new() { Name = "Database Systems", WorkloadHours = 60, CreationDate = DateTime.Parse("2019-05-05") },
+
+                    // Semestre 6
+                    new() { Name = "Embedded Systems", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-06-01") },
+                    new() { Name = "Control Systems", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-06-02") },
+                    new() { Name = "Operating Systems", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-06-03") },
+                    new() { Name = "Computer Networks", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-06-04") },
+                    new() { Name = "Software Engineering", WorkloadHours = 60, CreationDate = DateTime.Parse("2019-06-05") },
+
+                    // Semestre 7
+                    new() { Name = "Digital Signal Processing", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-07-01") },
+                    new() { Name = "VLSI Design", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-07-02") },
+                    new() { Name = "Real-Time Systems", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-07-03") },
+                    new() { Name = "Computer Networks II", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-07-04") },
+                    new() { Name = "Engineering Economics", WorkloadHours = 40, CreationDate = DateTime.Parse("2019-07-05") },
+
+                    // Semestre 8
+                    new() { Name = "Industrial Automation", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-08-01") },
+                    new() { Name = "Robotics", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-08-02") },
+                    new() { Name = "Digital Control Systems", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-08-03") },
+                    new() { Name = "Instrumentation", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-08-04") },
+                    new() { Name = "Engineering Project I", WorkloadHours = 60, CreationDate = DateTime.Parse("2019-08-05") },
+
+                    // Semestre 9
+                    new() { Name = "Artificial Intelligence", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-09-01") },
+                    new() { Name = "Computer Vision", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-09-02") },
+                    new() { Name = "Internet of Things", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-09-03") },
+                    new() { Name = "Embedded Software", WorkloadHours = 80, CreationDate = DateTime.Parse("2019-09-04") },
+                    new() { Name = "Engineering Project II", WorkloadHours = 60, CreationDate = DateTime.Parse("2019-09-05") },
+
+                    // Semestre 10
+                    new() { Name = "Professional Practice", WorkloadHours = 100, CreationDate = DateTime.Parse("2019-10-01") },
+                    new() { Name = "Final Engineering Project", WorkloadHours = 100, CreationDate = DateTime.Parse("2019-10-02") },
+                    new() { Name = "Engineering Management", WorkloadHours = 60, CreationDate = DateTime.Parse("2019-10-03") },
+                    new() { Name = "Technical Entrepreneurship", WorkloadHours = 40, CreationDate = DateTime.Parse("2019-10-04") }
+                };
+
+                modules.AddRange(computerEngineeringModules);
+                #endregion
+
+                #region Agronomy 
+                var agronomyModules = new Module[]
+                {
+                    // Semestre 1
+                    new() { Name = "Introduction to Agronomy", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-01-01") },
+                    new() { Name = "General Botany", WorkloadHours = 80, CreationDate = DateTime.Parse("2018-01-02") },
+                    new() { Name = "General Chemistry", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-01-03") },
+                    new() { Name = "Mathematics for Agronomy", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-01-04") },
+                    new() { Name = "Technical Drawing", WorkloadHours = 40, CreationDate = DateTime.Parse("2018-01-05") },
+
+                    // Semestre 2
+                    new() { Name = "Plant Physiology", WorkloadHours = 80, CreationDate = DateTime.Parse("2018-02-01") },
+                    new() { Name = "Organic Chemistry", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-02-02") },
+                    new() { Name = "Soil Science", WorkloadHours = 80, CreationDate = DateTime.Parse("2018-02-03") },
+                    new() { Name = "Biochemistry", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-02-04") },
+                    new() { Name = "Statistics", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-02-05") },
+
+                    // Semestre 3
+                    new() { Name = "Plant Morphology", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-03-01") },
+                    new() { Name = "Soil Fertility", WorkloadHours = 80, CreationDate = DateTime.Parse("2018-03-02") },
+                    new() { Name = "Agricultural Microbiology", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-03-03") },
+                    new() { Name = "Agricultural Climatology", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-03-04") },
+                    new() { Name = "Agricultural Entomology", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-03-05") },
+
+                    // Semestre 4
+                    new() { Name = "Plant Nutrition", WorkloadHours = 80, CreationDate = DateTime.Parse("2018-04-01") },
+                    new() { Name = "Phytopathology", WorkloadHours = 80, CreationDate = DateTime.Parse("2018-04-02") },
+                    new() { Name = "Forage Crops", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-04-03") },
+                    new() { Name = "Cereal Crops", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-04-04") },
+                    new() { Name = "Weed Science", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-04-05") },
+
+                    // Semestre 5
+                    new() { Name = "Agricultural Machinery", WorkloadHours = 80, CreationDate = DateTime.Parse("2018-05-01") },
+                    new() { Name = "Irrigation and Drainage", WorkloadHours = 80, CreationDate = DateTime.Parse("2018-05-02") },
+                    new() { Name = "Soil Conservation", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-05-03") },
+                    new() { Name = "Agricultural Genetics", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-05-04") },
+                    new() { Name = "Plant Breeding", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-05-05") },
+
+                    // Semestre 6
+                    new() { Name = "Fruit Culture", WorkloadHours = 80, CreationDate = DateTime.Parse("2018-06-01") },
+                    new() { Name = "Vegetable Crops", WorkloadHours = 80, CreationDate = DateTime.Parse("2018-06-02") },
+                    new() { Name = "Agricultural Pesticides", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-06-03") },
+                    new() { Name = "Organic Agriculture", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-06-04") },
+                    new() { Name = "Agricultural Zootechnics", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-06-05") },
+
+                    // Semestre 7
+                    new() { Name = "Agricultural Management", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-07-01") },
+                    new() { Name = "Rural Economics", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-07-02") },
+                    new() { Name = "Agricultural Marketing", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-07-03") },
+                    new() { Name = "Rural Extension", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-07-04") },
+                    new() { Name = "Agricultural Project I", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-07-05") },
+
+                    // Semestre 8
+                    new() { Name = "Agricultural Legislation", WorkloadHours = 40, CreationDate = DateTime.Parse("2018-08-01") },
+                    new() { Name = "Environmental Management", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-08-02") },
+                    new() { Name = "Precision Agriculture", WorkloadHours = 60, CreationDate = DateTime.Parse("2018-08-03") },
+                    new() { Name = "Agricultural Project II", WorkloadHours = 100, CreationDate = DateTime.Parse("2018-08-04") },
+                    new() { Name = "Professional Internship", WorkloadHours = 100, CreationDate = DateTime.Parse("2018-08-05") }
+                };
+
+                modules.AddRange(agronomyModules);
+                #endregion
+
+                #region Mathematics
+                var mathematicsModules = new Module[]
+                {
+                    // Semestre 1
+                    new() { Name = "Differential and Integral Calculus I", WorkloadHours = 80, CreationDate = DateTime.Parse("2017-01-01") },
+                    new() { Name = "Vector Geometry and Linear Algebra", WorkloadHours = 80, CreationDate = DateTime.Parse("2017-01-02") },
+                    new() { Name = "Mathematical Logic", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-01-03") },
+                    new() { Name = "Introduction to Higher Mathematics", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-01-04") },
+                    new() { Name = "Portuguese Language", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-01-05") },
+
+                    // Semestre 2
+                    new() { Name = "Differential and Integral Calculus II", WorkloadHours = 80, CreationDate = DateTime.Parse("2017-02-01") },
+                    new() { Name = "Analytic Geometry", WorkloadHours = 80, CreationDate = DateTime.Parse("2017-02-02") },
+                    new() { Name = "Theory of Sets", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-02-03") },
+                    new() { Name = "Computer Science for Mathematics", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-02-04") },
+                    new() { Name = "Philosophy of Education", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-02-05") },
+
+                    // Semestre 3
+                    new() { Name = "Differential and Integral Calculus III", WorkloadHours = 80, CreationDate = DateTime.Parse("2017-03-01") },
+                    new() { Name = "Abstract Algebra I", WorkloadHours = 80, CreationDate = DateTime.Parse("2017-03-02") },
+                    new() { Name = "Numerical Calculus", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-03-03") },
+                    new() { Name = "Probability and Statistics I", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-03-04") },
+                    new() { Name = "Educational Psychology", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-03-05") },
+
+                    // Semestre 4
+                    new() { Name = "Differential Equations", WorkloadHours = 80, CreationDate = DateTime.Parse("2017-04-01") },
+                    new() { Name = "Abstract Algebra II", WorkloadHours = 80, CreationDate = DateTime.Parse("2017-04-02") },
+                    new() { Name = "Real Analysis I", WorkloadHours = 80, CreationDate = DateTime.Parse("2017-04-03") },
+                    new() { Name = "Probability and Statistics II", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-04-04") },
+                    new() { Name = "History of Mathematics", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-04-05") },
+
+                    // Semestre 5
+                    new() { Name = "Complex Analysis", WorkloadHours = 80, CreationDate = DateTime.Parse("2017-05-01") },
+                    new() { Name = "Linear Algebra", WorkloadHours = 80, CreationDate = DateTime.Parse("2017-05-02") },
+                    new() { Name = "Real Analysis II", WorkloadHours = 80, CreationDate = DateTime.Parse("2017-05-03") },
+                    new() { Name = "Mathematical Modeling", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-05-04") },
+                    new() { Name = "Teaching Methodology I", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-05-05") },
+
+                    // Semestre 6
+                    new() { Name = "Topology", WorkloadHours = 80, CreationDate = DateTime.Parse("2017-06-01") },
+                    new() { Name = "Number Theory", WorkloadHours = 80, CreationDate = DateTime.Parse("2017-06-02") },
+                    new() { Name = "Geometry", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-06-03") },
+                    new() { Name = "Teaching Methodology II", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-06-04") },
+                    new() { Name = "Educational Technology", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-06-05") },
+
+                    // Semestre 7
+                    new() { Name = "Functional Analysis", WorkloadHours = 80, CreationDate = DateTime.Parse("2017-07-01") },
+                    new() { Name = "Discrete Mathematics", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-07-02") },
+                    new() { Name = "Mathematics Teaching Internship I", WorkloadHours = 100, CreationDate = DateTime.Parse("2017-07-03") },
+                    new() { Name = "Scientific Research Methodology", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-07-04") },
+                    new() { Name = "Educational Assessment", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-07-05") },
+
+                    // Semestre 8
+                    new() { Name = "Mathematics Teaching Internship II", WorkloadHours = 100, CreationDate = DateTime.Parse("2017-08-01") },
+                    new() { Name = "Final Course Project", WorkloadHours = 100, CreationDate = DateTime.Parse("2017-08-02") },
+                    new() { Name = "Special Topics in Mathematics", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-08-03") },
+                    new() { Name = "School Management", WorkloadHours = 60, CreationDate = DateTime.Parse("2017-08-04") },
+                    new() { Name = "Educational Legislation", WorkloadHours = 40, CreationDate = DateTime.Parse("2017-08-05") }
+                };
+
+                modules.AddRange(mathematicsModules);
+                #endregion
+
+                #region Medicine 
+                var medicineModules = new Module[]
+                {
+                    // Semestre 1
+                    new() { Name = "Human Anatomy I", WorkloadHours = 120, CreationDate = DateTime.Parse("2016-01-01") },
+                    new() { Name = "Medical Histology", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-01-02") },
+                    new() { Name = "Medical Embryology", WorkloadHours = 60, CreationDate = DateTime.Parse("2016-01-03") },
+                    new() { Name = "Biochemistry I", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-01-04") },
+                    new() { Name = "Introduction to Medicine", WorkloadHours = 40, CreationDate = DateTime.Parse("2016-01-05") },
+
+                    // Semestre 2
+                    new() { Name = "Human Anatomy II", WorkloadHours = 120, CreationDate = DateTime.Parse("2016-02-01") },
+                    new() { Name = "Medical Physiology I", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-02-02") },
+                    new() { Name = "Medical Genetics", WorkloadHours = 60, CreationDate = DateTime.Parse("2016-02-03") },
+                    new() { Name = "Biochemistry II", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-02-04") },
+                    new() { Name = "Medical Psychology", WorkloadHours = 60, CreationDate = DateTime.Parse("2016-02-05") },
+
+                    // Semestre 3
+                    new() { Name = "Medical Physiology II", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-03-01") },
+                    new() { Name = "Medical Biophysics", WorkloadHours = 60, CreationDate = DateTime.Parse("2016-03-02") },
+                    new() { Name = "Medical Immunology", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-03-03") },
+                    new() { Name = "Medical Parasitology", WorkloadHours = 60, CreationDate = DateTime.Parse("2016-03-04") },
+                    new() { Name = "Medical Ethics I", WorkloadHours = 40, CreationDate = DateTime.Parse("2016-03-05") },
+
+                    // Semestre 4
+                    new() { Name = "General Pathology", WorkloadHours = 100, CreationDate = DateTime.Parse("2016-04-01") },
+                    new() { Name = "Medical Microbiology", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-04-02") },
+                    new() { Name = "Pharmacology I", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-04-03") },
+                    new() { Name = "Medical Semiology I", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-04-04") },
+                    new() { Name = "Epidemiology", WorkloadHours = 60, CreationDate = DateTime.Parse("2016-04-05") },
+
+                    // Semestre 5
+                    new() { Name = "Internal Medicine I", WorkloadHours = 100, CreationDate = DateTime.Parse("2016-05-01") },
+                    new() { Name = "Surgical Technique", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-05-02") },
+                    new() { Name = "Pharmacology II", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-05-03") },
+                    new() { Name = "Medical Semiology II", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-05-04") },
+                    new() { Name = "Medical Propaedeutics", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-05-05") },
+
+                    // Semestre 6
+                    new() { Name = "Internal Medicine II", WorkloadHours = 100, CreationDate = DateTime.Parse("2016-06-01") },
+                    new() { Name = "General Surgery", WorkloadHours = 100, CreationDate = DateTime.Parse("2016-06-02") },
+                    new() { Name = "Pediatrics I", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-06-03") },
+                    new() { Name = "Obstetrics I", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-06-04") },
+                    new() { Name = "Medical Ethics II", WorkloadHours = 40, CreationDate = DateTime.Parse("2016-06-05") },
+
+                    // Semestre 7
+                    new() { Name = "Cardiology", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-07-01") },
+                    new() { Name = "Pulmonology", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-07-02") },
+                    new() { Name = "Gastroenterology", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-07-03") },
+                    new() { Name = "Nephrology", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-07-04") },
+                    new() { Name = "Endocrinology", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-07-05") },
+
+                    // Semestre 8
+                    new() { Name = "Neurology", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-08-01") },
+                    new() { Name = "Psychiatry", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-08-02") },
+                    new() { Name = "Dermatology", WorkloadHours = 60, CreationDate = DateTime.Parse("2016-08-03") },
+                    new() { Name = "Ophthalmology", WorkloadHours = 60, CreationDate = DateTime.Parse("2016-08-04") },
+                    new() { Name = "Otorhinolaryngology", WorkloadHours = 60, CreationDate = DateTime.Parse("2016-08-05") },
+
+                    // Semestre 9
+                    new() { Name = "Orthopedics", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-09-01") },
+                    new() { Name = "Urology", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-09-02") },
+                    new() { Name = "Anesthesiology", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-09-03") },
+                    new() { Name = "Pediatrics II", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-09-04") },
+                    new() { Name = "Obstetrics II", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-09-05") },
+
+                    // Semestre 10
+                    new() { Name = "Preventive Medicine", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-10-01") },
+                    new() { Name = "Family and Community Medicine", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-10-02") },
+                    new() { Name = "Public Health", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-10-03") },
+                    new() { Name = "Medical Law", WorkloadHours = 60, CreationDate = DateTime.Parse("2016-10-04") },
+                    new() { Name = "Medical Internship I", WorkloadHours = 120, CreationDate = DateTime.Parse("2016-10-05") },
+
+                    // Semestre 11
+                    new() { Name = "Medical Internship II", WorkloadHours = 160, CreationDate = DateTime.Parse("2016-11-01") },
+                    new() { Name = "Medical Internship III", WorkloadHours = 160, CreationDate = DateTime.Parse("2016-11-02") },
+                    new() { Name = "Emergency Medicine", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-11-03") },
+                    new() { Name = "Intensive Care", WorkloadHours = 80, CreationDate = DateTime.Parse("2016-11-04") },
+
+                    // Semestre 12
+                    new() { Name = "Medical Internship IV", WorkloadHours = 160, CreationDate = DateTime.Parse("2016-12-01") },
+                    new() { Name = "Medical Internship V", WorkloadHours = 160, CreationDate = DateTime.Parse("2016-12-02") },
+                    new() { Name = "Final Medical Course", WorkloadHours = 100, CreationDate = DateTime.Parse("2016-12-03") },
+                    new() { Name = "Medical Residency Preparation", WorkloadHours = 60, CreationDate = DateTime.Parse("2016-12-04") }
+                };
+
+                modules.AddRange(medicineModules);
+                #endregion
 
                 context.Modules.AddRange(modules);
                 context.SaveChanges();
@@ -239,236 +429,486 @@ namespace EFTest.Data
                 var courseModules = new List<CourseModule>();
                 var dayOfWeeks = new[] { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday };
 
-                // Pega todos os módulos criados para verificar se existem
-                var allModules = context.Modules.Select(m => m.ID).ToList();
+                var courses = context.Courses.ToList();
+                var modules = context.Modules.ToList();
 
-                // Ciencia da computacao, 8 semestre, 5 materias por semestre
-                for (int semester = 1; semester <= 8; semester++)
+                #region Computer Science
+                var computerScienceCourse = courses.First(c => c.Name == "Computer Science");
+                var computerScienceSemesters = new[]
                 {
-                    for (int i = 0; i < 5; i++)
+                    // Semestre 1
+                    new {
+                        ModuleNames = new[] {
+                            "Introduction to Computing", "Algorithm and Programming Logic", "Calculus I",
+                            "Discrete Mathematics", "Digital Systems", "Technical Communication"
+                        },
+                        Semester = 1
+                    },
+                    // Semestre 2
+                    new {
+                        ModuleNames = new[] {
+                            "Object-Oriented Programming", "Data Structures", "Calculus II",
+                            "Computer Architecture", "Linear Algebra"
+                        },
+                        Semester = 2
+                    },
+                    // Semestre 3
+                    new {
+                        ModuleNames = new[] {
+                            "Algorithms and Complexity", "Database Systems I", "Operating Systems",
+                            "Probability and Statistics", "Software Engineering I"
+                        },
+                        Semester = 3
+                    },
+                    // Semestre 4
+                    new {
+                        ModuleNames = new[] {
+                            "Database Systems II", "Computer Networks", "Web Development",
+                            "Software Engineering II", "Human-Computer Interaction"
+                        },
+                        Semester = 4
+                    },
+                    // Semestre 5
+                    new {
+                        ModuleNames = new[] {
+                            "Artificial Intelligence", "Compilers", "Distributed Systems",
+                            "Computer Graphics", "Formal Languages and Automata"
+                        },
+                        Semester = 5
+                    },
+                    // Semestre 6
+                    new {
+                        ModuleNames = new[] {
+                            "Machine Learning", "Mobile Development", "Information Security",
+                            "Software Testing and Quality", "Cloud Computing"
+                        },
+                        Semester = 6
+                    },
+                    // Semestre 7
+                    new {
+                        ModuleNames = new[] {
+                            "Software Project Management", "Entrepreneurship in Computing", "Professional Ethics",
+                            "Internship I", "Final Project I"
+                        },
+                        Semester = 7
+                    },
+                    // Semestre 8
+                    new {
+                        ModuleNames = new[] {
+                            "Advanced Topics in Computing", "Internship II", "Final Project II",
+                            "Career Planning"
+                        },
+                        Semester = 8
+                    }
+                };
+
+                foreach (var semesterData in computerScienceSemesters)
+                {
+                    for (int i = 0; i < semesterData.ModuleNames.Length; i++)
                     {
-                        int moduleId = (semester - 1) * 5 + i + 1;
-                        if (moduleId <= 40 && allModules.Contains(moduleId))
+                        var module = modules.First(m => m.Name == semesterData.ModuleNames[i] && m.CreationDate.Year == 2020);
+                        courseModules.Add(new CourseModule
                         {
-                            courseModules.Add(new CourseModule
-                            {
-                                CourseID = 1,
-                                ModuleID = moduleId,
-                                Semester = semester,
-                                DayOfWeek = dayOfWeeks[i % 5]
-                            });
-                        }
+                            CourseID = computerScienceCourse.ID,
+                            ModuleID = module.ID,
+                            Semester = semesterData.Semester,
+                            DayOfWeek = dayOfWeeks[i % dayOfWeeks.Length]
+                        });
                     }
                 }
+                #endregion
 
-                // Matematica, 6 semestre, 5 materias por semestre
-                for (int semester = 1; semester <= 6; semester++)
+                #region Computer Engineering
+                var computerEngineeringCourse = courses.First(c => c.Name == "Computer Engineering");
+                var computerEngineeringSemesters = new[]
                 {
-                    for (int i = 0; i < 5; i++)
+                    // Semestre 1
+                    new {
+                        ModuleNames = new[] {
+                            "Engineering Calculus I", "General Physics I", "Technical Drawing",
+                            "Introduction to Engineering", "Chemistry for Engineering"
+                        },
+                        Semester = 1
+                    },
+                    // Semestre 2
+                    new {
+                        ModuleNames = new[] {
+                            "Engineering Calculus II", "General Physics II", "Algorithm and Programming Logic",
+                            "Linear Algebra", "Experimental Physics"
+                        },
+                        Semester = 2
+                    },
+                    // Semestre 3
+                    new {
+                        ModuleNames = new[] {
+                            "Electrical Circuits I", "Digital Systems", "Object-Oriented Programming",
+                            "Differential Equations", "Numerical Calculus"
+                        },
+                        Semester = 3
+                    },
+                    // Semestre 4
+                    new {
+                        ModuleNames = new[] {
+                            "Electrical Circuits II", "Electronics I", "Microprocessors",
+                            "Data Structures", "Probability and Statistics"
+                        },
+                        Semester = 4
+                    },
+                    // Semestre 5
+                    new {
+                        ModuleNames = new[] {
+                            "Electronics II", "Computer Architecture", "Signals and Systems",
+                            "Algorithms and Complexity", "Database Systems"
+                        },
+                        Semester = 5
+                    },
+                    // Semestre 6
+                    new {
+                        ModuleNames = new[] {
+                            "Embedded Systems", "Control Systems", "Operating Systems",
+                            "Computer Networks", "Software Engineering"
+                        },
+                        Semester = 6
+                    },
+                    // Semestre 7
+                    new {
+                        ModuleNames = new[] {
+                            "Digital Signal Processing", "VLSI Design", "Real-Time Systems",
+                            "Computer Networks II", "Engineering Economics"
+                        },
+                        Semester = 7
+                    },
+                    // Semestre 8
+                    new {
+                        ModuleNames = new[] {
+                            "Industrial Automation", "Robotics", "Digital Control Systems",
+                            "Instrumentation", "Engineering Project I"
+                        },
+                        Semester = 8
+                    },
+                    // Semestre 9
+                    new {
+                        ModuleNames = new[] {
+                            "Artificial Intelligence", "Computer Vision", "Internet of Things",
+                            "Embedded Software", "Engineering Project II"
+                        },
+                        Semester = 9
+                    },
+                    // Semestre 10
+                    new {
+                        ModuleNames = new[] {
+                            "Professional Practice", "Final Engineering Project", "Engineering Management",
+                            "Technical Entrepreneurship"
+                        },
+                        Semester = 10
+                    }
+                };
+
+                foreach (var semesterData in computerEngineeringSemesters)
+                {
+                    for (int i = 0; i < semesterData.ModuleNames.Length; i++)
                     {
-                        int moduleId = 40 + (semester - 1) * 5 + i + 1;
-                        if (moduleId <= 70 && allModules.Contains(moduleId))
+                        var module = modules.First(m => m.Name == semesterData.ModuleNames[i] && m.CreationDate.Year == 2019);
+                        courseModules.Add(new CourseModule
                         {
-                            courseModules.Add(new CourseModule
-                            {
-                                CourseID = 2,
-                                ModuleID = moduleId,
-                                Semester = semester,
-                                DayOfWeek = dayOfWeeks[i % 5]
-                            });
-                        }
+                            CourseID = computerEngineeringCourse.ID,
+                            ModuleID = module.ID,
+                            Semester = semesterData.Semester,
+                            DayOfWeek = dayOfWeeks[i % dayOfWeeks.Length]
+                        });
                     }
                 }
+                #endregion
 
-                // Fisica, 6 semestre, 5 materias por semestre
-                for (int semester = 1; semester <= 6; semester++)
+                #region Agronomy
+                var agronomyCourse = courses.First(c => c.Name == "Agronomy");
+                var agronomySemesters = new[]
                 {
-                    for (int i = 0; i < 5; i++)
+                    // Semestre 1
+                    new {
+                        ModuleNames = new[] {
+                            "Introduction to Agronomy", "General Botany", "General Chemistry",
+                            "Mathematics for Agronomy", "Technical Drawing"
+                        },
+                        Semester = 1
+                    },
+                    // Semestre 2
+                    new {
+                        ModuleNames = new[] {
+                            "Plant Physiology", "Organic Chemistry", "Soil Science",
+                            "Biochemistry", "Statistics"
+                        },
+                        Semester = 2
+                    },
+                    // Semestre 3
+                    new {
+                        ModuleNames = new[] {
+                            "Plant Morphology", "Soil Fertility", "Agricultural Microbiology",
+                            "Agricultural Climatology", "Agricultural Entomology"
+                        },
+                        Semester = 3
+                    },
+                    // Semestre 4
+                    new {
+                        ModuleNames = new[] {
+                            "Plant Nutrition", "Phytopathology", "Forage Crops",
+                            "Cereal Crops", "Weed Science"
+                        },
+                        Semester = 4
+                    },
+                    // Semestre 5
+                    new {
+                        ModuleNames = new[] {
+                            "Agricultural Machinery", "Irrigation and Drainage", "Soil Conservation",
+                            "Agricultural Genetics", "Plant Breeding"
+                        },
+                        Semester = 5
+                    },
+                    // Semestre 6
+                    new {
+                        ModuleNames = new[] {
+                            "Fruit Culture", "Vegetable Crops", "Agricultural Pesticides",
+                            "Organic Agriculture", "Agricultural Zootechnics"
+                        },
+                        Semester = 6
+                    },
+                    // Semestre 7
+                    new {
+                        ModuleNames = new[] {
+                            "Agricultural Management", "Rural Economics", "Agricultural Marketing",
+                            "Rural Extension", "Agricultural Project I"
+                        },
+                        Semester = 7
+                    },
+                    // Semestre 8
+                    new {
+                        ModuleNames = new[] {
+                            "Agricultural Legislation", "Environmental Management", "Precision Agriculture",
+                            "Agricultural Project II", "Professional Internship"
+                        },
+                        Semester = 8
+                    }
+                };
+
+                foreach (var semesterData in agronomySemesters)
+                {
+                    for (int i = 0; i < semesterData.ModuleNames.Length; i++)
                     {
-                        int moduleId = 70 + (semester - 1) * 5 + i + 1;
-                        if (moduleId <= 100 && allModules.Contains(moduleId))
+                        var module = modules.First(m => m.Name == semesterData.ModuleNames[i] && m.CreationDate.Year == 2018);
+                        courseModules.Add(new CourseModule
                         {
-                            courseModules.Add(new CourseModule
-                            {
-                                CourseID = 3,
-                                ModuleID = moduleId,
-                                Semester = semester,
-                                DayOfWeek = dayOfWeeks[i % 5]
-                            });
-                        }
+                            CourseID = agronomyCourse.ID,
+                            ModuleID = module.ID,
+                            Semester = semesterData.Semester,
+                            DayOfWeek = dayOfWeeks[i % dayOfWeeks.Length]
+                        });
                     }
                 }
+                #endregion
 
-                // Quimica, 6 semestre, 5 materias por semestre
-                for (int semester = 1; semester <= 6; semester++)
+                #region Mathematics
+                var mathematicsCourse = courses.First(c => c.Name == "Mathematics (Teaching Degree)");
+                var mathematicsSemesters = new[]
                 {
-                    for (int i = 0; i < 5; i++)
+                    // Semestre 1
+                    new {
+                        ModuleNames = new[] {
+                            "Differential and Integral Calculus I", "Vector Geometry and Linear Algebra", "Mathematical Logic",
+                            "Introduction to Higher Mathematics", "Portuguese Language"
+                        },
+                        Semester = 1
+                    },
+                    // Semestre 2
+                    new {
+                        ModuleNames = new[] {
+                            "Differential and Integral Calculus II", "Analytic Geometry", "Theory of Sets",
+                            "Computer Science for Mathematics", "Philosophy of Education"
+                        },
+                        Semester = 2
+                    },
+                    // Semestre 3
+                    new {
+                        ModuleNames = new[] {
+                            "Differential and Integral Calculus III", "Abstract Algebra I", "Numerical Calculus",
+                            "Probability and Statistics I", "Educational Psychology"
+                        },
+                        Semester = 3
+                    },
+                    // Semestre 4
+                    new {
+                        ModuleNames = new[] {
+                            "Differential Equations", "Abstract Algebra II", "Real Analysis I",
+                            "Probability and Statistics II", "History of Mathematics"
+                        },
+                        Semester = 4
+                    },
+                    // Semestre 5
+                    new {
+                        ModuleNames = new[] {
+                            "Complex Analysis", "Linear Algebra", "Real Analysis II",
+                            "Mathematical Modeling", "Teaching Methodology I"
+                        },
+                        Semester = 5
+                    },
+                    // Semestre 6
+                    new {
+                        ModuleNames = new[] {
+                            "Topology", "Number Theory", "Geometry",
+                            "Teaching Methodology II", "Educational Technology"
+                        },
+                        Semester = 6
+                    },
+                    // Semestre 7
+                    new {
+                        ModuleNames = new[] {
+                            "Functional Analysis", "Discrete Mathematics", "Mathematics Teaching Internship I",
+                            "Scientific Research Methodology", "Educational Assessment"
+                        },
+                        Semester = 7
+                    },
+                    // Semestre 8
+                    new {
+                        ModuleNames = new[] {
+                            "Mathematics Teaching Internship II", "Final Course Project", "Special Topics in Mathematics",
+                            "School Management", "Educational Legislation"
+                        },
+                        Semester = 8
+                    }
+                };
+
+                foreach (var semesterData in mathematicsSemesters)
+                {
+                    for (int i = 0; i < semesterData.ModuleNames.Length; i++)
                     {
-                        int moduleId = 100 + (semester - 1) * 5 + i + 1;
-                        if (moduleId <= 130 && allModules.Contains(moduleId))
+                        var module = modules.First(m => m.Name == semesterData.ModuleNames[i] && m.CreationDate.Year == 2017);
+                        courseModules.Add(new CourseModule
                         {
-                            courseModules.Add(new CourseModule
-                            {
-                                CourseID = 4,
-                                ModuleID = moduleId,
-                                Semester = semester,
-                                DayOfWeek = dayOfWeeks[i % 5]
-                            });
-                        }
+                            CourseID = mathematicsCourse.ID,
+                            ModuleID = module.ID,
+                            Semester = semesterData.Semester,
+                            DayOfWeek = dayOfWeeks[i % dayOfWeeks.Length]
+                        });
                     }
                 }
+                #endregion
 
-                // Biologia, 6 semestre, 5 materias por semestre
-                for (int semester = 1; semester <= 6; semester++)
+                #region Medicine
+                var medicineCourse = courses.First(c => c.Name == "Medicine");
+                var medicineSemesters = new[]
                 {
-                    for (int i = 0; i < 5; i++)
+                    // Semestre 1
+                    new {
+                        ModuleNames = new[] {
+                            "Human Anatomy I", "Medical Histology", "Medical Embryology",
+                            "Biochemistry I", "Introduction to Medicine"
+                        },
+                        Semester = 1
+                    },
+                    // Semestre 2
+                    new {
+                        ModuleNames = new[] {
+                            "Human Anatomy II", "Medical Physiology I", "Medical Genetics",
+                            "Biochemistry II", "Medical Psychology"
+                        },
+                        Semester = 2
+                    },
+                    // Semestre 3
+                    new {
+                        ModuleNames = new[] {
+                            "Medical Physiology II", "Medical Biophysics", "Medical Immunology",
+                            "Medical Parasitology", "Medical Ethics I"
+                        },
+                        Semester = 3
+                    },
+                    // Semestre 4
+                    new {
+                        ModuleNames = new[] {
+                            "General Pathology", "Medical Microbiology", "Pharmacology I",
+                            "Medical Semiology I", "Epidemiology"
+                        },
+                        Semester = 4
+                    },
+                    // Semestre 5
+                    new {
+                        ModuleNames = new[] {
+                            "Internal Medicine I", "Surgical Technique", "Pharmacology II",
+                            "Medical Semiology II", "Medical Propaedeutics"
+                        },
+                        Semester = 5
+                    },
+                    // Semestre 6
+                    new {
+                        ModuleNames = new[] {
+                            "Internal Medicine II", "General Surgery", "Pediatrics I",
+                            "Obstetrics I", "Medical Ethics II"
+                        },
+                        Semester = 6
+                    },
+                    // Semestre 7
+                    new {
+                        ModuleNames = new[] {
+                            "Cardiology", "Pulmonology", "Gastroenterology",
+                            "Nephrology", "Endocrinology"
+                        },
+                        Semester = 7
+                    },
+                    // Semestre 8
+                    new {
+                        ModuleNames = new[] {
+                            "Neurology", "Psychiatry", "Dermatology",
+                            "Ophthalmology", "Otorhinolaryngology"
+                        },
+                        Semester = 8
+                    },
+                    // Semestre 9
+                    new {
+                        ModuleNames = new[] {
+                            "Orthopedics", "Urology", "Anesthesiology",
+                            "Pediatrics II", "Obstetrics II"
+                        },
+                        Semester = 9
+                    },
+                    // Semestre 10
+                    new {
+                        ModuleNames = new[] {
+                            "Preventive Medicine", "Family and Community Medicine", "Public Health",
+                            "Medical Law", "Medical Internship I"
+                        },
+                        Semester = 10
+                    },
+                    // Semestre 11
+                    new {
+                        ModuleNames = new[] {
+                            "Medical Internship II", "Medical Internship III", "Emergency Medicine",
+                            "Intensive Care"
+                        },
+                        Semester = 11
+                    },
+                    // Semestre 12
+                    new {
+                        ModuleNames = new[] {
+                            "Medical Internship IV", "Medical Internship V", "Final Medical Course",
+                            "Medical Residency Preparation"
+                        },
+                        Semester = 12
+                    }
+                };
+
+                foreach (var semesterData in medicineSemesters)
+                {
+                    for (int i = 0; i < semesterData.ModuleNames.Length; i++)
                     {
-                        int moduleId = 130 + (semester - 1) * 5 + i + 1;
-                        if (moduleId <= 160 && allModules.Contains(moduleId))
+                        var module = modules.First(m => m.Name == semesterData.ModuleNames[i] && m.CreationDate.Year == 2016);
+                        courseModules.Add(new CourseModule
                         {
-                            courseModules.Add(new CourseModule
-                            {
-                                CourseID = 5,
-                                ModuleID = moduleId,
-                                Semester = semester,
-                                DayOfWeek = dayOfWeeks[i % 5]
-                            });
-                        }
+                            CourseID = medicineCourse.ID,
+                            ModuleID = module.ID,
+                            Semester = semesterData.Semester,
+                            DayOfWeek = dayOfWeeks[i % dayOfWeeks.Length]
+                        });
                     }
                 }
-
-                // Literatura, 4 semestre, 5 materias por semestre
-                for (int semester = 1; semester <= 4; semester++)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        int moduleId = 160 + (semester - 1) * 5 + i + 1;
-                        if (moduleId <= 180 && allModules.Contains(moduleId))
-                        {
-                            courseModules.Add(new CourseModule
-                            {
-                                CourseID = 6,
-                                ModuleID = moduleId,
-                                Semester = semester,
-                                DayOfWeek = dayOfWeeks[i % 5]
-                            });
-                        }
-                    }
-                }
-
-                // Historia, 4 semestre, 5 materias por semestre
-                for (int semester = 1; semester <= 4; semester++)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        int moduleId = 180 + (semester - 1) * 5 + i + 1;
-                        if (moduleId <= 200 && allModules.Contains(moduleId))
-                        {
-                            courseModules.Add(new CourseModule
-                            {
-                                CourseID = 7,
-                                ModuleID = moduleId,
-                                Semester = semester,
-                                DayOfWeek = dayOfWeeks[i % 5]
-                            });
-                        }
-                    }
-                }
-
-                // Filosofia, 4 semestre, 5 materias por semestre
-                for (int semester = 1; semester <= 4; semester++)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        int moduleId = 200 + (semester - 1) * 5 + i + 1;
-                        if (moduleId <= 220 && allModules.Contains(moduleId))
-                        {
-                            courseModules.Add(new CourseModule
-                            {
-                                CourseID = 8,
-                                ModuleID = moduleId,
-                                Semester = semester,
-                                DayOfWeek = dayOfWeeks[i % 5]
-                            });
-                        }
-                    }
-                }
-
-                // Engenharia, 10 semestre, 5 materias por semestre
-                for (int semester = 1; semester <= 10; semester++)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        int moduleId = 220 + (semester - 1) * 5 + i + 1;
-                        if (moduleId <= 270 && allModules.Contains(moduleId))
-                        {
-                            courseModules.Add(new CourseModule
-                            {
-                                CourseID = 9,
-                                ModuleID = moduleId,
-                                Semester = semester,
-                                DayOfWeek = dayOfWeeks[i % 5]
-                            });
-                        }
-                    }
-                }
-
-                // Medicina, 12 semestre, 5 materias por semestre
-                for (int semester = 1; semester <= 12; semester++)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        int moduleId = 270 + (semester - 1) * 5 + i + 1;
-                        if (moduleId <= 330 && allModules.Contains(moduleId))
-                        {
-                            courseModules.Add(new CourseModule
-                            {
-                                CourseID = 10,
-                                ModuleID = moduleId,
-                                Semester = semester,
-                                DayOfWeek = dayOfWeeks[i % 5]
-                            });
-                        }
-                    }
-                }
-
-                // Administracao, 8 semestre, 5 materias por semestre
-                for (int semester = 1; semester <= 8; semester++)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        int moduleId = 330 + (semester - 1) * 5 + i + 1;
-                        if (moduleId <= 370 && allModules.Contains(moduleId))
-                        {
-                            courseModules.Add(new CourseModule
-                            {
-                                CourseID = 11,
-                                ModuleID = moduleId,
-                                Semester = semester,
-                                DayOfWeek = dayOfWeeks[i % 5]
-                            });
-                        }
-                    }
-                }
-
-                // Psicologia, 8 semestre, 5 materias por semestre
-                for (int semester = 1; semester <= 8; semester++)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        int moduleId = 370 + (semester - 1) * 5 + i + 1;
-                        if (moduleId <= 410 && allModules.Contains(moduleId))
-                        {
-                            courseModules.Add(new CourseModule
-                            {
-                                CourseID = 12,
-                                ModuleID = moduleId,
-                                Semester = semester,
-                                DayOfWeek = dayOfWeeks[i % 5]
-                            });
-                        }
-                    }
-                }
+                #endregion
 
                 context.CourseModules.AddRange(courseModules);
                 context.SaveChanges();
@@ -479,77 +919,108 @@ namespace EFTest.Data
             if (!context.ModulePrerequisites.Any())
             {
                 var prerequisites = new List<ModulePrerequisite>();
-                var allModules = context.Modules.Select(m => m.ID).ToList();
 
-                // Ciencia da Computacao
-                for (int i = 2; i <= 40; i++)
+                var modules = context.Modules.ToList();
+
+                #region Computer Science
+                var computerSciencePrerequisites = new[]
                 {
-                    if (i % 5 != 1 && allModules.Contains(i) && allModules.Contains(i - 1))
+                    ("Object-Oriented Programming", "Algorithm and Programming Logic"),
+                    ("Data Structures", "Algorithm and Programming Logic"),
+                    ("Calculus II", "Calculus I"),
+                    ("Algorithms and Complexity", "Data Structures"),
+                    ("Database Systems I", "Object-Oriented Programming"),
+                    ("Database Systems II", "Database Systems I"),
+                    ("Artificial Intelligence", "Algorithms and Complexity"),
+                    ("Machine Learning", "Artificial Intelligence"),
+                    ("Final Project I", "Software Engineering II"),
+                    ("Final Project II", "Final Project I")
+                };
+                #endregion
+
+                #region Computer Engineering
+                var computerEngineeringPrerequisites = new[]
+                {
+                    ("Engineering Calculus II", "Engineering Calculus I"),
+                    ("General Physics II", "General Physics I"),
+                    ("Electrical Circuits I", "Engineering Calculus II"),
+                    ("Electrical Circuits II", "Electrical Circuits I"),
+                    ("Electronics I", "Digital Systems"),
+                    ("Electronics II", "Electronics I"),
+                    ("Embedded Systems", "Electronics II"),
+                    ("Engineering Project I", "Software Engineering"),
+                    ("Engineering Project II", "Engineering Project I"),
+                    ("Final Engineering Project", "Engineering Project II")
+                };
+                #endregion
+
+                #region Agronomy
+                var agronomyPrerequisites = new[]
+                {
+                    ("Plant Physiology", "General Botany"),
+                    ("Soil Fertility", "Soil Science"),
+                    ("Plant Nutrition", "Plant Physiology"),
+                    ("Agricultural Machinery", "Soil Science"),
+                    ("Agricultural Project I", "Agricultural Management"),
+                    ("Agricultural Project II", "Agricultural Project I")
+                };
+                #endregion
+
+                #region Mathematics
+                var mathematicsPrerequisites = new[]
+                {
+                    ("Differential and Integral Calculus II", "Differential and Integral Calculus I"),
+                    ("Differential and Integral Calculus III", "Differential and Integral Calculus II"),
+                    ("Differential Equations", "Differential and Integral Calculus III"),
+                    ("Abstract Algebra II", "Abstract Algebra I"),
+                    ("Real Analysis II", "Real Analysis I"),
+                    ("Mathematics Teaching Internship I", "Teaching Methodology II"),
+                    ("Mathematics Teaching Internship II", "Mathematics Teaching Internship I"),
+                    ("Final Course Project", "Scientific Research Methodology")
+                };
+                #endregion
+
+                #region Medicine
+                var medicinePrerequisites = new[]
+                {
+                    ("Human Anatomy II", "Human Anatomy I"),
+                    ("Medical Physiology II", "Medical Physiology I"),
+                    ("General Pathology", "Medical Physiology II"),
+                    ("Internal Medicine I", "General Pathology"),
+                    ("Internal Medicine II", "Internal Medicine I"),
+                    ("Medical Internship I", "Internal Medicine II"),
+                    ("Medical Internship II", "Medical Internship I"),
+                    ("Medical Internship III", "Medical Internship II"),
+                    ("Medical Internship IV", "Medical Internship III"),
+                    ("Medical Internship V", "Medical Internship IV")
+                };
+                #endregion
+
+                // Funcao auxiliar para adicionar pre-requisitos
+                void AddPrerequisites((string ModuleName, string PrerequisiteName)[] prereqList)
+                {
+                    foreach (var (moduleName, prerequisiteName) in prereqList)
                     {
-                        prerequisites.Add(new ModulePrerequisite { ModuleID = i, PrerequisiteID = i - 1 });
+                        var module = modules.FirstOrDefault(m => m.Name == moduleName);
+                        var prerequisite = modules.FirstOrDefault(m => m.Name == prerequisiteName);
+
+                        if (module != null && prerequisite != null)
+                        {
+                            prerequisites.Add(new ModulePrerequisite
+                            {
+                                ModuleID = module.ID,
+                                PrerequisiteID = prerequisite.ID
+                            });
+                        }
                     }
                 }
 
-                // Matematica
-                for (int i = 42; i <= 70; i++)
-                {
-                    if (i % 5 != 1 && allModules.Contains(i) && allModules.Contains(i - 1))
-                    {
-                        prerequisites.Add(new ModulePrerequisite { ModuleID = i, PrerequisiteID = i - 1 });
-                    }
-                }
-
-                // Fisica
-                for (int i = 72; i <= 100; i++)
-                {
-                    if (i % 5 != 1 && allModules.Contains(i) && allModules.Contains(i - 1))
-                    {
-                        prerequisites.Add(new ModulePrerequisite { ModuleID = i, PrerequisiteID = i - 1 });
-                    }
-                }
-
-                // Quimica
-                for (int i = 102; i <= 130; i++)
-                {
-                    if (i % 5 != 1 && allModules.Contains(i) && allModules.Contains(i - 1))
-                    {
-                        prerequisites.Add(new ModulePrerequisite { ModuleID = i, PrerequisiteID = i - 1 });
-                    }
-                }
-
-                // Biologia
-                for (int i = 132; i <= 160; i++)
-                {
-                    if (i % 5 != 1 && allModules.Contains(i) && allModules.Contains(i - 1))
-                    {
-                        prerequisites.Add(new ModulePrerequisite { ModuleID = i, PrerequisiteID = i - 1 });
-                    }
-                }
-
-                // Prerequisitos de outras
-                if (allModules.Contains(41) && allModules.Contains(20))
-                    prerequisites.Add(new ModulePrerequisite { ModuleID = 41, PrerequisiteID = 20 });
-
-                if (allModules.Contains(71) && allModules.Contains(15))
-                    prerequisites.Add(new ModulePrerequisite { ModuleID = 71, PrerequisiteID = 15 });
-
-                if (allModules.Contains(101) && allModules.Contains(35))
-                    prerequisites.Add(new ModulePrerequisite { ModuleID = 101, PrerequisiteID = 35 });
-
-                if (allModules.Contains(131) && allModules.Contains(55))
-                    prerequisites.Add(new ModulePrerequisite { ModuleID = 131, PrerequisiteID = 55 });
-
-                if (allModules.Contains(221) && allModules.Contains(5))
-                    prerequisites.Add(new ModulePrerequisite { ModuleID = 221, PrerequisiteID = 5 });
-
-                if (allModules.Contains(271) && allModules.Contains(135))
-                    prerequisites.Add(new ModulePrerequisite { ModuleID = 271, PrerequisiteID = 135 });
-
-                if (allModules.Contains(331) && allModules.Contains(165))
-                    prerequisites.Add(new ModulePrerequisite { ModuleID = 331, PrerequisiteID = 165 });
-
-                if (allModules.Contains(371) && allModules.Contains(205))
-                    prerequisites.Add(new ModulePrerequisite { ModuleID = 371, PrerequisiteID = 205 });
+                // Adicionando
+                AddPrerequisites(computerSciencePrerequisites);
+                AddPrerequisites(computerEngineeringPrerequisites);
+                AddPrerequisites(agronomyPrerequisites);
+                AddPrerequisites(mathematicsPrerequisites);
+                AddPrerequisites(medicinePrerequisites);
 
                 context.ModulePrerequisites.AddRange(prerequisites);
                 context.SaveChanges();
@@ -561,26 +1032,41 @@ namespace EFTest.Data
             {
                 var studentCourses = new StudentCourse[]
                 {
-                    new() { StudentID = 1, CourseID = 1, SignDate = DateTime.Parse("2024-08-01") },
-                    new() { StudentID = 1, CourseID = 2, SignDate = DateTime.Parse("2024-08-03") },
-                    new() { StudentID = 2, CourseID = 1, SignDate = DateTime.Parse("2024-08-04") },
-                    new() { StudentID = 3, CourseID = 3, SignDate = DateTime.Parse("2024-08-06") },
-                    new() { StudentID = 4, CourseID = 4, SignDate = DateTime.Parse("2024-08-08") },
-                    new() { StudentID = 5, CourseID = 5, SignDate = DateTime.Parse("2024-08-10") },
-                    new() { StudentID = 6, CourseID = 6, SignDate = DateTime.Parse("2024-08-12") },
-                    new() { StudentID = 7, CourseID = 7, SignDate = DateTime.Parse("2024-08-14") },
-                    new() { StudentID = 8, CourseID = 8, SignDate = DateTime.Parse("2024-08-16") },
-                    new() { StudentID = 9, CourseID = 9, SignDate = DateTime.Parse("2024-08-18") },
-                    new() { StudentID = 10, CourseID = 10, SignDate = DateTime.Parse("2024-08-20") },
-                    new() { StudentID = 11, CourseID = 11, SignDate = DateTime.Parse("2024-08-22") },
-                    new() { StudentID = 12, CourseID = 12, SignDate = DateTime.Parse("2024-08-24") },
-                    new() { StudentID = 2, CourseID = 3, SignDate = DateTime.Parse("2024-08-26") },
-                    new() { StudentID = 3, CourseID = 4, SignDate = DateTime.Parse("2024-08-28") },
-                    new() { StudentID = 4, CourseID = 5, SignDate = DateTime.Parse("2024-08-30") },
-                    new() { StudentID = 5, CourseID = 6, SignDate = DateTime.Parse("2024-09-01") },
-                    new() { StudentID = 6, CourseID = 7, SignDate = DateTime.Parse("2024-09-03") },
-                    new() { StudentID = 7, CourseID = 8, SignDate = DateTime.Parse("2024-09-05") },
-                    new() { StudentID = 8, CourseID = 9, SignDate = DateTime.Parse("2024-09-07") }
+                    // Computer Science
+                    new() { StudentID = 1, CourseID = 1, SignDate = DateTime.Parse("2023-08-15") },
+                    new() { StudentID = 2, CourseID = 1, SignDate = DateTime.Parse("2023-08-22") },
+                    new() { StudentID = 3, CourseID = 1, SignDate = DateTime.Parse("2023-03-10") },
+
+                    // Computer Engineering
+                    new() { StudentID = 4, CourseID = 2, SignDate = DateTime.Parse("2023-08-18") },
+                    new() { StudentID = 5, CourseID = 2, SignDate = DateTime.Parse("2023-08-25") },
+                    new() { StudentID = 6, CourseID = 2, SignDate = DateTime.Parse("2022-08-30") },
+
+                    // Agronomy
+                    new() { StudentID = 7, CourseID = 3, SignDate = DateTime.Parse("2023-08-12") },
+                    new() { StudentID = 8, CourseID = 3, SignDate = DateTime.Parse("2023-08-28") },
+                    new() { StudentID = 9, CourseID = 3, SignDate = DateTime.Parse("2022-08-15") },
+
+                    // Mathematics
+                    new() { StudentID = 10, CourseID = 4, SignDate = DateTime.Parse("2023-08-20") },
+                    new() { StudentID = 11, CourseID = 4, SignDate = DateTime.Parse("2023-08-08") },
+                    new() { StudentID = 12, CourseID = 4, SignDate = DateTime.Parse("2022-09-05") },
+
+                    // Medicine
+                    new() { StudentID = 1, CourseID = 5, SignDate = DateTime.Parse("2024-01-15") },
+                    new() { StudentID = 2, CourseID = 5, SignDate = DateTime.Parse("2024-02-01") },
+                    new() { StudentID = 3, CourseID = 5, SignDate = DateTime.Parse("2023-08-10") },
+                    new() { StudentID = 4, CourseID = 5, SignDate = DateTime.Parse("2023-08-05") },
+                    new() { StudentID = 5, CourseID = 5, SignDate = DateTime.Parse("2022-08-20") },
+                    new() { StudentID = 6, CourseID = 5, SignDate = DateTime.Parse("2022-08-25") },
+
+                    // Estudantes em mais de um curso
+                    new() { StudentID = 7, CourseID = 1, SignDate = DateTime.Parse("2024-01-20") },
+                    new() { StudentID = 8, CourseID = 4, SignDate = DateTime.Parse("2024-02-10") },
+                    new() { StudentID = 9, CourseID = 2, SignDate = DateTime.Parse("2023-07-15") },
+                    new() { StudentID = 10, CourseID = 3, SignDate = DateTime.Parse("2024-03-01") },
+                    new() { StudentID = 11, CourseID = 1, SignDate = DateTime.Parse("2023-11-15") },
+                    new() { StudentID = 12, CourseID = 2, SignDate = DateTime.Parse("2023-12-05") }
                 };
 
                 context.StudentCourses.AddRange(studentCourses);
@@ -592,42 +1078,224 @@ namespace EFTest.Data
             if (!context.StudentModules.Any())
             {
                 var studentModules = new List<StudentModule>();
-                var allModules = context.Modules.Select(m => m.ID).ToList();
-                var allStudents = context.Students.ToArray();
 
-                // Cria StudentModules apenas para materias que existem
-                var studentModuleData = new[]
+                var allStudents = context.Students.ToList();
+                var courses = context.Courses.ToList();
+                var modules = context.Modules.ToList();
+                var courseModules = context.CourseModules.ToList();
+
+                var studentModuleData = new object []
                 {
-                    new { StudentID = 1, ModuleID = 1, CourseID = 1, Grade = 8.5, Frequency = 90, Status = ModuleStatusEnum.Approved },
-                    new { StudentID = 1, ModuleID = 2, CourseID = 1, Grade = 7.0, Frequency = 85, Status = ModuleStatusEnum.Enrolled },
-                    new { StudentID = 2, ModuleID = 1, CourseID = 1, Grade = 5.0, Frequency = 60, Status = ModuleStatusEnum.Failed },
-                    new { StudentID = 3, ModuleID = 71, CourseID = 3, Grade = 9.0, Frequency = 95, Status = ModuleStatusEnum.Approved },
-                    new { StudentID = 4, ModuleID = 101, CourseID = 4, Grade = 8.0, Frequency = 88, Status = ModuleStatusEnum.Approved },
-                    new { StudentID = 5, ModuleID = 131, CourseID = 5, Grade = 7.5, Frequency = 82, Status = ModuleStatusEnum.Approved },
-                    new { StudentID = 6, ModuleID = 161, CourseID = 6, Grade = 6.5, Frequency = 75, Status = ModuleStatusEnum.Approved },
-                    new { StudentID = 7, ModuleID = 181, CourseID = 7, Grade = 8.0, Frequency = 90, Status = ModuleStatusEnum.Approved },
-                    new { StudentID = 8, ModuleID = 201, CourseID = 8, Grade = 7.8, Frequency = 85, Status = ModuleStatusEnum.Approved },
-                    new { StudentID = 9, ModuleID = 221, CourseID = 9, Grade = 6.0, Frequency = 70, Status = ModuleStatusEnum.Enrolled },
-                    new { StudentID = 10, ModuleID = 271, CourseID = 10, Grade = 9.2, Frequency = 96, Status = ModuleStatusEnum.Approved },
-                    new { StudentID = 11, ModuleID = 331, CourseID = 11, Grade = 8.7, Frequency = 92, Status = ModuleStatusEnum.Approved },
-                    new { StudentID = 12, ModuleID = 371, CourseID = 12, Grade = 7.3, Frequency = 80, Status = ModuleStatusEnum.Enrolled }
+                    #region Computer Science
+                    // Student 1 
+                    new { StudentName = "Matheus", StudentLastName = "Fribel", ModuleName = "Introduction to Computing", CourseName = "Computer Science", Grade = 9.2, Frequency = 94, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Matheus", StudentLastName = "Fribel", ModuleName = "Algorithm and Programming Logic", CourseName = "Computer Science", Grade = 9.5, Frequency = 96, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Matheus", StudentLastName = "Fribel", ModuleName = "Calculus I", CourseName = "Computer Science", Grade = 8.8, Frequency = 90, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Matheus", StudentLastName = "Fribel", ModuleName = "Discrete Mathematics", CourseName = "Computer Science", Grade = 9.0, Frequency = 92, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Matheus", StudentLastName = "Fribel", ModuleName = "Object-Oriented Programming", CourseName = "Computer Science", Grade = 8.7, Frequency = 89, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Matheus", StudentLastName = "Fribel", ModuleName = "Data Structures", CourseName = "Computer Science", Grade = 8.9, Frequency = 91, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Matheus", StudentLastName = "Fribel", ModuleName = "Calculus II", CourseName = "Computer Science", Grade = 7.8, Frequency = 84, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Matheus", StudentLastName = "Fribel", ModuleName = "Computer Architecture", CourseName = "Computer Science", Grade = 8.5, Frequency = 88, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Matheus", StudentLastName = "Fribel", ModuleName = "Database Systems II", CourseName = "Computer Science", Grade = 8.5, Frequency = 88, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Matheus", StudentLastName = "Fribel", ModuleName = "Computer Networks", CourseName = "Computer Science", Grade = 8.2, Frequency = 86, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Matheus", StudentLastName = "Fribel", ModuleName = "Web Development", CourseName = "Computer Science", Grade = 9.1, Frequency = 93, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Matheus", StudentLastName = "Fribel", ModuleName = "Software Engineering II", CourseName = "Computer Science", Grade = 8.8, Frequency = 90, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Matheus", StudentLastName = "Fribel", ModuleName = "Artificial Intelligence", CourseName = "Computer Science", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Matheus", StudentLastName = "Fribel", ModuleName = "Machine Learning", CourseName = "Computer Science", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+
+                    // Student 2 
+                    new { StudentName = "Meredith", StudentLastName = "Alonso", ModuleName = "Introduction to Computing", CourseName = "Computer Science", Grade = 7.5, Frequency = 82, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Meredith", StudentLastName = "Alonso", ModuleName = "Algorithm and Programming Logic", CourseName = "Computer Science", Grade = 7.8, Frequency = 84, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Meredith", StudentLastName = "Alonso", ModuleName = "Calculus I", CourseName = "Computer Science", Grade = 6.9, Frequency = 78, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Meredith", StudentLastName = "Alonso", ModuleName = "Object-Oriented Programming", CourseName = "Computer Science", Grade = 6.8, Frequency = 76, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Meredith", StudentLastName = "Alonso", ModuleName = "Data Structures", CourseName = "Computer Science", Grade = 7.2, Frequency = 79, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Meredith", StudentLastName = "Alonso", ModuleName = "Operating Systems", CourseName = "Computer Science", Grade = 7.0, Frequency = 77, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Meredith", StudentLastName = "Alonso", ModuleName = "Database Systems II", CourseName = "Computer Science", Grade = 7.0, Frequency = 78, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Meredith", StudentLastName = "Alonso", ModuleName = "Computer Networks", CourseName = "Computer Science", Grade = 6.9, Frequency = 77, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Meredith", StudentLastName = "Alonso", ModuleName = "Information Security", CourseName = "Computer Science", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    #endregion
+
+                    #region Computer Engineering
+                    // Student 3
+                    new { StudentName = "Arturo", StudentLastName = "Anand", ModuleName = "Engineering Calculus I", CourseName = "Computer Engineering", Grade = 8.5, Frequency = 88, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-07-01") },
+                    new { StudentName = "Arturo", StudentLastName = "Anand", ModuleName = "General Physics I", CourseName = "Computer Engineering", Grade = 8.2, Frequency = 86, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-07-01") },
+                    new { StudentName = "Arturo", StudentLastName = "Anand", ModuleName = "Technical Drawing", CourseName = "Computer Engineering", Grade = 8.8, Frequency = 91, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-07-01") },
+                    new { StudentName = "Arturo", StudentLastName = "Anand", ModuleName = "Engineering Calculus II", CourseName = "Computer Engineering", Grade = 7.8, Frequency = 83, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Arturo", StudentLastName = "Anand", ModuleName = "General Physics II", CourseName = "Computer Engineering", Grade = 8.0, Frequency = 85, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Arturo", StudentLastName = "Anand", ModuleName = "Algorithm and Programming Logic", CourseName = "Computer Engineering", Grade = 9.0, Frequency = 92, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Arturo", StudentLastName = "Anand", ModuleName = "Electrical Circuits II", CourseName = "Computer Engineering", Grade = 8.2, Frequency = 86, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Arturo", StudentLastName = "Anand", ModuleName = "Electronics I", CourseName = "Computer Engineering", Grade = 8.5, Frequency = 88, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Arturo", StudentLastName = "Anand", ModuleName = "Microprocessors", CourseName = "Computer Engineering", Grade = 8.7, Frequency = 89, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Arturo", StudentLastName = "Anand", ModuleName = "Embedded Systems", CourseName = "Computer Engineering", Grade = 8.7, Frequency = 89, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Arturo", StudentLastName = "Anand", ModuleName = "Control Systems", CourseName = "Computer Engineering", Grade = 8.3, Frequency = 87, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Arturo", StudentLastName = "Anand", ModuleName = "Operating Systems", CourseName = "Computer Engineering", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Arturo", StudentLastName = "Anand", ModuleName = "Computer Networks", CourseName = "Computer Engineering", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+
+                    // Student 4
+                    new { StudentName = "Gytis", StudentLastName = "Barzdukas", ModuleName = "Engineering Calculus I", CourseName = "Computer Engineering", Grade = 7.2, Frequency = 79, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Gytis", StudentLastName = "Barzdukas", ModuleName = "General Physics I", CourseName = "Computer Engineering", Grade = 6.9, Frequency = 77, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Gytis", StudentLastName = "Barzdukas", ModuleName = "Engineering Calculus II", CourseName = "Computer Engineering", Grade = 7.0, Frequency = 78, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Gytis", StudentLastName = "Barzdukas", ModuleName = "General Physics II", CourseName = "Computer Engineering", Grade = 6.8, Frequency = 76, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Gytis", StudentLastName = "Barzdukas", ModuleName = "Digital Systems", CourseName = "Computer Engineering", Grade = 7.5, Frequency = 81, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Gytis", StudentLastName = "Barzdukas", ModuleName = "Electrical Circuits II", CourseName = "Computer Engineering", Grade = 7.2, Frequency = 79, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Gytis", StudentLastName = "Barzdukas", ModuleName = "Electronics I", CourseName = "Computer Engineering", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Gytis", StudentLastName = "Barzdukas", ModuleName = "Data Structures", CourseName = "Computer Engineering", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    #endregion
+
+                    #region Agronomy
+                    // Student 5
+                    new { StudentName = "Yan", StudentLastName = "Li", ModuleName = "Introduction to Agronomy", CourseName = "Agronomy", Grade = 8.0, Frequency = 85, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-07-01") },
+                    new { StudentName = "Yan", StudentLastName = "Li", ModuleName = "General Botany", CourseName = "Agronomy", Grade = 8.3, Frequency = 87, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-07-01") },
+                    new { StudentName = "Yan", StudentLastName = "Li", ModuleName = "General Chemistry", CourseName = "Agronomy", Grade = 7.9, Frequency = 84, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-07-01") },
+                    new { StudentName = "Yan", StudentLastName = "Li", ModuleName = "Plant Physiology", CourseName = "Agronomy", Grade = 7.9, Frequency = 82, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Yan", StudentLastName = "Li", ModuleName = "Organic Chemistry", CourseName = "Agronomy", Grade = 8.1, Frequency = 84, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Yan", StudentLastName = "Li", ModuleName = "Soil Science", CourseName = "Agronomy", Grade = 8.4, Frequency = 87, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Yan", StudentLastName = "Li", ModuleName = "Plant Nutrition", CourseName = "Agronomy", Grade = 8.3, Frequency = 86, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Yan", StudentLastName = "Li", ModuleName = "Phytopathology", CourseName = "Agronomy", Grade = 8.0, Frequency = 83, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Yan", StudentLastName = "Li", ModuleName = "Agricultural Microbiology", CourseName = "Agronomy", Grade = 8.2, Frequency = 85, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Yan", StudentLastName = "Li", ModuleName = "Fruit Culture", CourseName = "Agronomy", Grade = 8.5, Frequency = 87, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Yan", StudentLastName = "Li", ModuleName = "Vegetable Crops", CourseName = "Agronomy", Grade = 8.2, Frequency = 85, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Yan", StudentLastName = "Li", ModuleName = "Agricultural Pesticides", CourseName = "Agronomy", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Yan", StudentLastName = "Li", ModuleName = "Organic Agriculture", CourseName = "Agronomy", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+
+                    // Student 6
+                    new { StudentName = "Peggy", StudentLastName = "Justice", ModuleName = "Introduction to Agronomy", CourseName = "Agronomy", Grade = 6.8, Frequency = 76, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Peggy", StudentLastName = "Justice", ModuleName = "General Botany", CourseName = "Agronomy", Grade = 7.0, Frequency = 78, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Peggy", StudentLastName = "Justice", ModuleName = "Plant Physiology", CourseName = "Agronomy", Grade = 6.5, Frequency = 75, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Peggy", StudentLastName = "Justice", ModuleName = "Organic Chemistry", CourseName = "Agronomy", Grade = 7.0, Frequency = 78, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Peggy", StudentLastName = "Justice", ModuleName = "Soil Science", CourseName = "Agronomy", Grade = 6.9, Frequency = 77, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Peggy", StudentLastName = "Justice", ModuleName = "Plant Nutrition", CourseName = "Agronomy", Grade = 7.2, Frequency = 79, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Peggy", StudentLastName = "Justice", ModuleName = "Phytopathology", CourseName = "Agronomy", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Peggy", StudentLastName = "Justice", ModuleName = "Forage Crops", CourseName = "Agronomy", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    #endregion
+
+                    #region Mathematics
+                    // Student 7
+                    new { StudentName = "Laura", StudentLastName = "Norman", ModuleName = "Differential and Integral Calculus I", CourseName = "Mathematics (Teaching Degree)", Grade = 9.3, Frequency = 95, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-01-01") },
+                    new { StudentName = "Laura", StudentLastName = "Norman", ModuleName = "Vector Geometry and Linear Algebra", CourseName = "Mathematics (Teaching Degree)", Grade = 9.5, Frequency = 96, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-01-01") },
+                    new { StudentName = "Laura", StudentLastName = "Norman", ModuleName = "Differential and Integral Calculus II", CourseName = "Mathematics (Teaching Degree)", Grade = 9.0, Frequency = 92, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-07-01") },
+                    new { StudentName = "Laura", StudentLastName = "Norman", ModuleName = "Analytic Geometry", CourseName = "Mathematics (Teaching Degree)", Grade = 9.2, Frequency = 94, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-07-01") },
+                    new { StudentName = "Laura", StudentLastName = "Norman", ModuleName = "Differential and Integral Calculus III", CourseName = "Mathematics (Teaching Degree)", Grade = 8.9, Frequency = 91, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Laura", StudentLastName = "Norman", ModuleName = "Abstract Algebra I", CourseName = "Mathematics (Teaching Degree)", Grade = 9.1, Frequency = 93, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Laura", StudentLastName = "Norman", ModuleName = "Differential Equations", CourseName = "Mathematics (Teaching Degree)", Grade = 8.8, Frequency = 91, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Laura", StudentLastName = "Norman", ModuleName = "Abstract Algebra II", CourseName = "Mathematics (Teaching Degree)", Grade = 9.1, Frequency = 93, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Laura", StudentLastName = "Norman", ModuleName = "Topology", CourseName = "Mathematics (Teaching Degree)", Grade = 8.9, Frequency = 92, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Laura", StudentLastName = "Norman", ModuleName = "Number Theory", CourseName = "Mathematics (Teaching Degree)", Grade = 9.0, Frequency = 93, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Laura", StudentLastName = "Norman", ModuleName = "Mathematics Teaching Internship II", CourseName = "Mathematics (Teaching Degree)", Grade = 9.3, Frequency = 95, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Laura", StudentLastName = "Norman", ModuleName = "Final Course Project", CourseName = "Mathematics (Teaching Degree)", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Laura", StudentLastName = "Norman", ModuleName = "Object-Oriented Programming", CourseName = "Computer Science", Grade = 8.5, Frequency = 87, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Laura", StudentLastName = "Norman", ModuleName = "Data Structures", CourseName = "Computer Science", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+
+                    // Student 8
+                    new { StudentName = "Nino", StudentLastName = "Olivetto", ModuleName = "Differential and Integral Calculus I", CourseName = "Mathematics (Teaching Degree)", Grade = 7.8, Frequency = 84, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-07-01") },
+                    new { StudentName = "Nino", StudentLastName = "Olivetto", ModuleName = "Vector Geometry and Linear Algebra", CourseName = "Mathematics (Teaching Degree)", Grade = 7.6, Frequency = 82, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-07-01") },
+                    new { StudentName = "Nino", StudentLastName = "Olivetto", ModuleName = "Differential and Integral Calculus II", CourseName = "Mathematics (Teaching Degree)", Grade = 7.5, Frequency = 81, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Nino", StudentLastName = "Olivetto", ModuleName = "Analytic Geometry", CourseName = "Mathematics (Teaching Degree)", Grade = 7.2, Frequency = 79, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Nino", StudentLastName = "Olivetto", ModuleName = "Differential Equations", CourseName = "Mathematics (Teaching Degree)", Grade = 7.0, Frequency = 78, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Nino", StudentLastName = "Olivetto", ModuleName = "Abstract Algebra II", CourseName = "Mathematics (Teaching Degree)", Grade = 7.3, Frequency = 80, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "Nino", StudentLastName = "Olivetto", ModuleName = "Topology", CourseName = "Mathematics (Teaching Degree)", Grade = 7.1, Frequency = 79, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Nino", StudentLastName = "Olivetto", ModuleName = "Geometry", CourseName = "Mathematics (Teaching Degree)", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Nino", StudentLastName = "Olivetto", ModuleName = "Plant Physiology", CourseName = "Agronomy", Grade = 7.8, Frequency = 82, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Nino", StudentLastName = "Olivetto", ModuleName = "Soil Science", CourseName = "Agronomy", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    #endregion
+
+                    #region Medicine 
+                    // Student 3
+                    new { StudentName = "Arturo", StudentLastName = "Anand", ModuleName = "Human Anatomy I", CourseName = "Medicine", Grade = 8.5, Frequency = 88, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Arturo", StudentLastName = "Anand", ModuleName = "Medical Histology", CourseName = "Medicine", Grade = 8.2, Frequency = 86, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Arturo", StudentLastName = "Anand", ModuleName = "Human Anatomy II", CourseName = "Medicine", Grade = 8.0, Frequency = 85, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+
+                    // Student 4
+                    new { StudentName = "Gytis", StudentLastName = "Barzdukas", ModuleName = "Human Anatomy I", CourseName = "Medicine", Grade = 7.8, Frequency = 83, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Gytis", StudentLastName = "Barzdukas", ModuleName = "Medical Histology", CourseName = "Medicine", Grade = 7.5, Frequency = 81, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Gytis", StudentLastName = "Barzdukas", ModuleName = "Human Anatomy II", CourseName = "Medicine", Grade = 7.2, Frequency = 79, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+
+                    // Student 5
+                    new { StudentName = "Yan", StudentLastName = "Li", ModuleName = "Human Anatomy I", CourseName = "Medicine", Grade = 8.8, Frequency = 90, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-08-01") },
+                    new { StudentName = "Yan", StudentLastName = "Li", ModuleName = "Medical Histology", CourseName = "Medicine", Grade = 8.5, Frequency = 88, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-08-01") },
+                    new { StudentName = "Yan", StudentLastName = "Li", ModuleName = "Medical Physiology I", CourseName = "Medicine", Grade = 8.3, Frequency = 87, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+
+                    // Student 6
+                    new { StudentName = "Peggy", StudentLastName = "Justice", ModuleName = "Human Anatomy I", CourseName = "Medicine", Grade = 7.0, Frequency = 78, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-08-01") },
+                    new { StudentName = "Peggy", StudentLastName = "Justice", ModuleName = "Medical Histology", CourseName = "Medicine", Grade = 6.8, Frequency = 76, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-08-01") },
+                    new { StudentName = "Peggy", StudentLastName = "Justice", ModuleName = "Medical Physiology I", CourseName = "Medicine", Grade = 6.9, Frequency = 77, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+
+                    // Student 9
+                    new { StudentName = "John", StudentLastName = "Smith", ModuleName = "Human Anatomy I", CourseName = "Medicine", Grade = 9.6, Frequency = 97, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2021-01-01") },
+                    new { StudentName = "John", StudentLastName = "Smith", ModuleName = "Medical Histology", CourseName = "Medicine", Grade = 9.4, Frequency = 96, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2021-01-01") },
+                    new { StudentName = "John", StudentLastName = "Smith", ModuleName = "Human Anatomy II", CourseName = "Medicine", Grade = 9.4, Frequency = 95, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2021-07-01") },
+                    new { StudentName = "John", StudentLastName = "Smith", ModuleName = "Medical Physiology I", CourseName = "Medicine", Grade = 9.2, Frequency = 94, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2021-07-01") },
+                    new { StudentName = "John", StudentLastName = "Smith", ModuleName = "Medical Physiology II", CourseName = "Medicine", Grade = 9.3, Frequency = 95, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-01-01") },
+                    new { StudentName = "John", StudentLastName = "Smith", ModuleName = "Medical Immunology", CourseName = "Medicine", Grade = 9.5, Frequency = 96, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-01-01") },
+                    new { StudentName = "John", StudentLastName = "Smith", ModuleName = "General Pathology", CourseName = "Medicine", Grade = 9.1, Frequency = 93, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-01-01") },
+                    new { StudentName = "John", StudentLastName = "Smith", ModuleName = "Medical Microbiology", CourseName = "Medicine", Grade = 9.3, Frequency = 95, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-01-01") },
+                    new { StudentName = "John", StudentLastName = "Smith", ModuleName = "Internal Medicine I", CourseName = "Medicine", Grade = 9.2, Frequency = 94, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-07-01") },
+                    new { StudentName = "John", StudentLastName = "Smith", ModuleName = "Internal Medicine II", CourseName = "Medicine", Grade = 9.0, Frequency = 94, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-07-01") },
+                    new { StudentName = "John", StudentLastName = "Smith", ModuleName = "General Surgery", CourseName = "Medicine", Grade = 9.2, Frequency = 95, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-07-01") },
+                    new { StudentName = "John", StudentLastName = "Smith", ModuleName = "Neurology", CourseName = "Medicine", Grade = 9.1, Frequency = 94, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "John", StudentLastName = "Smith", ModuleName = "Psychiatry", CourseName = "Medicine", Grade = 9.3, Frequency = 95, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "John", StudentLastName = "Smith", ModuleName = "Preventive Medicine", CourseName = "Medicine", Grade = 9.2, Frequency = 94, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "John", StudentLastName = "Smith", ModuleName = "Family and Community Medicine", CourseName = "Medicine", Grade = 9.4, Frequency = 96, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-07-01") },
+                    new { StudentName = "John", StudentLastName = "Smith", ModuleName = "Medical Internship IV", CourseName = "Medicine", Grade = 9.5, Frequency = 97, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "John", StudentLastName = "Smith", ModuleName = "Medical Internship V", CourseName = "Medicine", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+
+                    // Student 10
+                    new { StudentName = "Maria", StudentLastName = "Garcia", ModuleName = "Human Anatomy I", CourseName = "Medicine", Grade = 8.2, Frequency = 86, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-01-01") },
+                    new { StudentName = "Maria", StudentLastName = "Garcia", ModuleName = "Medical Histology", CourseName = "Medicine", Grade = 8.0, Frequency = 85, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-01-01") },
+                    new { StudentName = "Maria", StudentLastName = "Garcia", ModuleName = "Human Anatomy II", CourseName = "Medicine", Grade = 8.0, Frequency = 85, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-07-01") },
+                    new { StudentName = "Maria", StudentLastName = "Garcia", ModuleName = "Medical Physiology I", CourseName = "Medicine", Grade = 7.8, Frequency = 83, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2022-07-01") },
+                    new { StudentName = "Maria", StudentLastName = "Garcia", ModuleName = "Medical Physiology II", CourseName = "Medicine", Grade = 8.1, Frequency = 85, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Maria", StudentLastName = "Garcia", ModuleName = "General Pathology", CourseName = "Medicine", Grade = 8.2, Frequency = 86, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Maria", StudentLastName = "Garcia", ModuleName = "Medical Microbiology", CourseName = "Medicine", Grade = 7.9, Frequency = 84, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Maria", StudentLastName = "Garcia", ModuleName = "Internal Medicine II", CourseName = "Medicine", Grade = 8.1, Frequency = 85, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Maria", StudentLastName = "Garcia", ModuleName = "General Surgery", CourseName = "Medicine", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Maria", StudentLastName = "Garcia", ModuleName = "Pediatrics I", CourseName = "Medicine", Grade = (double?)null, Frequency = (double?)null, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    #endregion
+
+                    #region Multiple Courses
+                    // Student 11
+                    new { StudentName = "David", StudentLastName = "Johnson", ModuleName = "Differential and Integral Calculus I", CourseName = "Mathematics (Teaching Degree)", Grade = 8.5, Frequency = 88, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "David", StudentLastName = "Johnson", ModuleName = "Introduction to Computing", CourseName = "Computer Science", Grade = 8.7, Frequency = 89, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "David", StudentLastName = "Johnson", ModuleName = "Object-Oriented Programming", CourseName = "Computer Science", Grade = 8.3, Frequency = 86, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "David", StudentLastName = "Johnson", ModuleName = "Analytic Geometry", CourseName = "Mathematics (Teaching Degree)", Grade = 8.1, Frequency = 85, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+
+                    // Student 12
+                    new { StudentName = "Sarah", StudentLastName = "Williams", ModuleName = "Human Anatomy I", CourseName = "Medicine", Grade = 9.0, Frequency = 92, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Sarah", StudentLastName = "Williams", ModuleName = "Introduction to Computing", CourseName = "Computer Science", Grade = 8.8, Frequency = 90, Status = ModuleStatusEnum.Approved, SignDate = DateTime.Parse("2023-01-01") },
+                    new { StudentName = "Sarah", StudentLastName = "Williams", ModuleName = "Medical Histology", CourseName = "Medicine", Grade = 8.9, Frequency = 91, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") },
+                    new { StudentName = "Sarah", StudentLastName = "Williams", ModuleName = "Algorithm and Programming Logic", CourseName = "Computer Science", Grade = 8.6, Frequency = 88, Status = ModuleStatusEnum.Enrolled, SignDate = DateTime.Parse("2024-01-01") }
+                    #endregion
                 };
+
+                // Verifica duplicadas
+                var addedKeys = new HashSet<(int, int, int)>();
 
                 foreach (var data in studentModuleData)
                 {
-                    // Verifica se a materia existe
-                    if (allModules.Contains(data.ModuleID))
+                    // Usar dynamic para acessar as propriedades
+                    dynamic dynamicData = data;
+
+                    var student = allStudents.First(s => s.FirstMidName == dynamicData.StudentName && s.LastName == dynamicData.StudentLastName);
+                    var course = courses.First(c => c.Name == dynamicData.CourseName);
+                    var module = modules.First(m => m.Name == dynamicData.ModuleName);
+
+                    var key = (student.ID, module.ID, course.ID);
+
+                    // Verifica combinacao
+                    if (!addedKeys.Contains(key))
                     {
                         studentModules.Add(new StudentModule
                         {
-                            StudentID = data.StudentID,
-                            ModuleID = data.ModuleID,
-                            CourseID = data.CourseID,
-                            Grade = data.Grade,
-                            Frequency = data.Frequency,
-                            Status = data.Status,
-                            SignDate = DateTime.Now.AddMonths(-2)
+                            StudentID = student.ID,
+                            ModuleID = module.ID,
+                            CourseID = course.ID,
+                            Grade = dynamicData.Grade,
+                            Frequency = dynamicData.Frequency,
+                            Status = dynamicData.Status,
+                            SignDate = dynamicData.SignDate
                         });
+
+                        addedKeys.Add(key);
                     }
                 }
 

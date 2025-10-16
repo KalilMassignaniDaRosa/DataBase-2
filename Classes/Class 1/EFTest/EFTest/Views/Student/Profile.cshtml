@@ -128,7 +128,7 @@
 
                                     <!-- Cancelar -->
                                     <td class="text-center">
-                                        @if (rawStatus == "Enrolled" || rawStatus == "Approved" || rawStatus == "Failed")
+                                        @if (rawStatus == "Enrolled" || rawStatus == "Failed")
                                         {
                                             <form asp-controller="Student" asp-action="CancelModule" method="post"
                                                   onsubmit="return confirm('Are you sure you want to cancel this module?');">
@@ -136,7 +136,7 @@
                                                 <input type="hidden" name="moduleId" value="@moduleId" />
                                                 <input type="hidden" name="returnUrl" value="@Url.Action("Profile",
                                                 "Student", new { id = Model.ID, SelectedCourseId = selectedCourseId })" />
-                                                
+
                                                 <button type="submit" class="btn btn-danger btn-sm px-2 py-1">
                                                     <i class="fa-solid fa-ban"></i>
                                                 </button>

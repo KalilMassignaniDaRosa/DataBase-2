@@ -35,11 +35,15 @@ namespace EFTest.Controllers
         {
             var modules = await _moduleRepository.GetAll();
 
-            // Carregar cursos de cada modulo
             foreach (var module in modules)
             {
+                // Carrega os CourseModules
                 var courseModules = await _cmRepository.GetByModuleId(module.ID);
-                module.CourseModules = courseModules;
+                module.CourseModules = courseModules?.ToList();
+
+                // Carrega os StudentModules
+                var studentModules = await _moduleRepository.GetStudentModulesByModuleId(module.ID);
+                module.StudentModules = studentModules?.ToList();
             }
 
             return View(modules);
@@ -47,7 +51,7 @@ namespace EFTest.Controllers
         #endregion
 
         #region Create
-        [HttpGet]
+                [HttpGet]
         public async Task<IActionResult> Create()
         {
             var courses = await _courseRepository.GetAll();

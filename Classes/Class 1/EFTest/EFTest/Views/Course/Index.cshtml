@@ -116,9 +116,12 @@
                                                     <ul class="list-group list-group-flush">
                                                         @foreach (var sc in c.StudentCourses.OrderBy(sc => sc.Student!.ID))
                                                         {
-                                                            <li class="list-group-item d-flex align-items-center">
-                                                                <i class="fa-solid fa-user me-2"></i>
-                                                                @sc.Student.FirstMidName @sc.Student.LastName
+                                                            <li class="list-group-item d-flex align-items-center justify-content-between">
+                                                                <div>
+                                                                    <i class="fa-solid fa-user me-2"></i>
+                                                                    @sc.Student.FirstMidName @sc.Student.LastName
+                                                                </div>
+                                                                <small class="text-muted">ID: @sc.Student.ID</small>
                                                             </li>
                                                         }
                                                     </ul>

@@ -43,9 +43,11 @@
                             <td class="text-center">
                                 @if (m.CourseModules != null && m.CourseModules.Any())
                                 {
+                                    var courseCount = m.CourseModules.Count();
+
                                     <button class="btn btn-primary btn-sm px-2 py-1"
                                             data-bs-toggle="modal" data-bs-target="#coursesModal-@m.ID">
-                                        <i class="fa-solid fa-book"></i> Courses
+                                        <i class="fa-solid fa-book"></i> @courseCount Courses
                                     </button>
 
                                     <div class="modal fade" id="coursesModal-@m.ID" tabindex="-1" aria-labelledby="coursesModalLabel-@m.ID" aria-hidden="true">
@@ -59,9 +61,12 @@
                                                     <ul class="list-group list-group-flush">
                                                         @foreach (var cm in m.CourseModules.OrderBy(cm => cm.Course!.ID))
                                                         {
-                                                            <li class="list-group-item">
-                                                                <i class="fa-solid fa-book me-2"></i> @cm.Course!.Name
-                                                                <small class="text-muted"> (Semester: @cm.Semester)</small>
+                                                            <li class="list-group-item d-flex align-items-center justify-content-between">
+                                                                <div>
+                                                                    <i class="fa-solid fa-book me-2"></i> @cm.Course!.Name
+                                                                    <small class="text-muted"> (Semester: @cm.Semester)</small>
+                                                                </div>
+                                                                <small class="text-muted">ID: @cm.Course.ID</small>
                                                             </li>
                                                         }
                                                     </ul>
@@ -81,29 +86,32 @@
 
                             <!-- Estudantes -->
                             <td class="text-center">
-                                @if (m.StudentModules != null && m.StudentModules.Any())
+                                @if (m.StudentModules != null && m.StudentModules.Any(sm => sm.Status == ModuleStatusEnum.Enrolled))
                                 {
+                                    var enrolledCount = m.StudentModules.Count(sm => sm.Status == ModuleStatusEnum.Enrolled);
+
                                     <button class="btn btn-info btn-sm text-white px-2 py-1"
                                             data-bs-toggle="modal" data-bs-target="#studentsModal-@m.ID">
-                                        <i class="fa-solid fa-users"></i> @m.StudentModules.Count() Students
+                                        <i class="fa-solid fa-users"></i> @enrolledCount Students
                                     </button>
 
                                     <div class="modal fade" id="studentsModal-@m.ID" tabindex="-1" aria-labelledby="studentsModalLabel-@m.ID" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-scrollable">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="studentsModalLabel-@m.ID">
-                                                        Students in @m.Name
-                                                    </h5>
+                                                    <h5 class="modal-title" id="studentsModalLabel-@m.ID">Students in @m.Name</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <ul class="list-group list-group-flush">
-                                                        @foreach (var sm in m.StudentModules.OrderBy(sm => sm.Student!.ID))
+                                                        @foreach (var sm in m.StudentModules.Where(sm => sm.Status == ModuleStatusEnum.Enrolled).OrderBy(sm => sm.Student!.ID))
                                                         {
-                                                            <li class="list-group-item d-flex align-items-center">
-                                                                <i class="fa-solid fa-user me-2"></i>
-                                                                @sm.Student.FirstMidName @sm.Student.LastName
+                                                            <li class="list-group-item d-flex align-items-center justify-content-between">
+                                                                <div>
+                                                                    <i class="fa-solid fa-user me-2"></i>
+                                                                    @sm.Student.FirstMidName @sm.Student.LastName
+                                                                </div>
+                                                                <small class="text-muted">ID: @sm.Student.ID</small>
                                                             </li>
                                                         }
                                                     </ul>
