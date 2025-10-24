@@ -164,10 +164,5 @@ C:\Users\Kalil\Documents\Banco de Dados\DataBase-2\Classes\Class 1\EFTest\EFTest
 C:\Users\Kalil\Documents\Banco de Dados\DataBase-2\Classes\Class 1\EFTest\EFTest\bin\Debug\net8.0\EFTest.pdb
 C:\Users\Kalil\Documents\Banco de Dados\DataBase-2\Classes\Class 1\EFTest\EFTest\obj\Debug\net8.0\EFTest.genruntimeconfig.cache
 C:\Users\Kalil\Documents\Banco de Dados\DataBase-2\Classes\Class 1\EFTest\EFTest\obj\Debug\net8.0\ref\EFTest.dll
-C:\Users\Kalil\Documents\Banco de Dados\DataBase-2\Classes\Class 1\EFTest\EFTest\obj\Debug\net8.0\staticwebassets\msbuild.EFTest.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\Kalil\Documents\Banco de Dados\DataBase-2\Classes\Class 1\EFTest\EFTest\obj\Debug\net8.0\staticwebassets\msbuild.EFTest.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-C:\Users\Kalil\Documents\Banco de Dados\DataBase-2\Classes\Class 1\EFTest\EFTest\obj\Debug\net8.0\staticwebassets\msbuild.build.EFTest.props
-C:\Users\Kalil\Documents\Banco de Dados\DataBase-2\Classes\Class 1\EFTest\EFTest\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.EFTest.props
-C:\Users\Kalil\Documents\Banco de Dados\DataBase-2\Classes\Class 1\EFTest\EFTest\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.EFTest.props
-C:\Users\Kalil\Documents\Banco de Dados\DataBase-2\Classes\Class 1\EFTest\EFTest\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\Kalil\Documents\Banco de Dados\DataBase-2\Classes\Class 1\EFTest\EFTest\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\Kalil\Documents\Banco de Dados\DataBase-2\Classes\Class 1\EFTest\EFTest\obj\Debug\net8.0\staticwebassets.build.json.cache
