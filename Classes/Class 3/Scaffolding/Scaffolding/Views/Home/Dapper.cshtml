@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Scaffolding.Models.Student>
+
+@{
+    ViewData["Title"] = "Dapper";
+}
+
+<h2>Dapper</h2>
+
+<hr />
+@foreach (var student in Model)
+{
+    <p>
+        <strong>ID:</strong> @student.Id <br />
+        <strong>Name:</strong> @student.FirstMidName <br />
+        <strong>Last Name:</strong> @student.LastName <br />
+        <strong>Enrollment:</strong> @student.EnrollmentDate.ToShortDateString()
+    </p>
+    <hr />
+}
