@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Odbc;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
 
 namespace Db
 {
@@ -16,28 +13,39 @@ namespace Db
             _conn = conn;
         }
 
-        public void InsertCourse(string name)
+        public void InsertCourse(string name, int numberOfSemesters = 0)
         {
-            string sql = "INSERT INTO Course (Name, CreationDate) VALUES (?, ?)";
+            string sql = "INSERT INTO Course (Name, CreationDate, NumberOfSemesters) VALUES (?, ?, ?)";
 
             try
             {
                 using (var cmd = new OdbcCommand(sql, _conn))
                 {
-                    var pName = new OdbcParameter("@name", OdbcType.NVarChar, 200);
-                    pName.Value = name ?? (object)DBNull.Value;
-                    cmd.Parameters.Add(pName);
+                    var pName = new OdbcParameter("@name", OdbcType.NVarChar, 200)
+                    {
+                        Value = (object)name ?? DBNull.Value
+                    };
+                    cmd.Parameters.Add(pName); 
 
                     DateTime now = DateTime.Now;
                     DateTime truncated = new DateTime(
                         now.Year, now.Month, now.Day,
                         now.Hour, now.Minute, now.Second,
-                        now.Kind // UTC
-                    );
+                        DateTimeKind.Unspecified);
 
-                    var pDate = new OdbcParameter("@creationDate", OdbcType.Timestamp);
-                    pDate.Value = truncated;
+                    string dateString = truncated.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+
+                    var pDate = new OdbcParameter("@creationDate", OdbcType.NVarChar, 50)
+                    {
+                        Value = dateString
+                    };
                     cmd.Parameters.Add(pDate);
+
+                    var pSem = new OdbcParameter("@sem", OdbcType.Int)
+                    {
+                        Value = numberOfSemesters
+                    };
+                    cmd.Parameters.Add(pSem);
 
                     int rows = cmd.ExecuteNonQuery();
                     Console.WriteLine($"{rows} record(s) inserted successfully");
