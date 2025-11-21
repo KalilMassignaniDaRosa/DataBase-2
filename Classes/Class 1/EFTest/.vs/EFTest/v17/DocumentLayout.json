@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CE1995D6-C465-4486-93B5-6DB3B6AA3E5A}|Db\\Db.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 1\\eftest\\db\\dbconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CE1995D6-C465-4486-93B5-6DB3B6AA3E5A}|Db\\Db.csproj|solutionrelative:db\\dbconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CE1995D6-C465-4486-93B5-6DB3B6AA3E5A}|Db\\Db.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 1\\eftest\\db\\dbconnection.cs||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{CE1995D6-C465-4486-93B5-6DB3B6AA3E5A}|Db\\Db.csproj|solutionrelative:db\\dbconnection.cs||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{CE1995D6-C465-4486-93B5-6DB3B6AA3E5A}|Db\\Db.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 1\\eftest\\db\\courserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE1995D6-C465-4486-93B5-6DB3B6AA3E5A}|Db\\Db.csproj|solutionrelative:db\\courserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CE1995D6-C465-4486-93B5-6DB3B6AA3E5A}|Db\\Db.csproj|c:\\users\\kalil\\documents\\banco de dados\\database-2\\classes\\class 1\\eftest\\db\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -22,46 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\Db\\Program.cs",
-              "RelativeDocumentMoniker": "Db\\Program.cs",
-              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\Db\\Program.cs",
-              "RelativeToolTip": "Db\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-21T22:46:02.739Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DbConnection.cs",
-              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\Db\\DbConnection.cs",
-              "RelativeDocumentMoniker": "Db\\DbConnection.cs",
-              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\Db\\DbConnection.cs",
-              "RelativeToolTip": "Db\\DbConnection.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAEAAAAAAAAAA==",
+              "Title": "CourseRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\Db\\CourseRepository.cs",
+              "RelativeDocumentMoniker": "Db\\CourseRepository.cs",
+              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\Db\\CourseRepository.cs",
+              "RelativeToolTip": "Db\\CourseRepository.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAYwEYAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-21T22:48:27.107Z",
+              "WhenOpened": "2025-11-21T23:43:30.332Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "DbConnection.cs",
-              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\Db\\DbConnection.cs",
-              "RelativeDocumentMoniker": "Db\\DbConnection.cs",
-              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\Db\\DbConnection.cs",
-              "RelativeToolTip": "Db\\DbConnection.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAABIAAAAJAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\Db\\Program.cs",
+              "RelativeDocumentMoniker": "Db\\Program.cs",
+              "ToolTip": "C:\\Users\\Kalil\\Documents\\Banco de Dados\\DataBase-2\\Classes\\Class 1\\EFTest\\Db\\Program.cs",
+              "RelativeToolTip": "Db\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-21T22:34:12.04Z",
+              "WhenOpened": "2025-11-21T23:36:56.672Z",
               "EditorCaption": ""
             }
           ]

@@ -8,14 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DbConnection.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="DbConnection.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="System.Data.Odbc" Version="9.0.9" />
   </ItemGroup>
 
